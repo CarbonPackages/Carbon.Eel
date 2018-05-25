@@ -1,0 +1,8 @@
+node_modules
+
+._*
+*.example
+.thumbs
+.idea
+.DS_Store
+.sass-cache

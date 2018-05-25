@@ -1,0 +1,4 @@
+Neos:
+  Fusion:
+    defaultContext:
+      Carbon.String: 'Carbon\Eel\Eel\Helper\StringHelper'

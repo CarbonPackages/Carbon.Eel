@@ -1,0 +1,27 @@
+{
+    "name": "carbon/eel",
+    "type": "neos-carbon",
+    "description": "Some nice Eel helper for Neos.io",
+    "autoload": {
+        "psr-4": {
+            "Carbon\\Eel\\": "Classes"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jon Uhlmann",
+            "email": "me@jonnitto.ch",
+            "homepage": "https://jonnitto.ch",
+            "role": "Developer"
+        }
+    ],
+    "archive": {
+        "exclude": [".editorconfig", ".eslintignore", ".eslintrc", ".gitattributes", ".github", ".gitignore", ".jshintrc", ".nvmrc", ".prettierignore", ".stylelintrc", ".yarnclean", "package.json", "yarn.lock"]
+    },
+    "extra": {
+        "installer-name": "Carbon.Eel",
+        "neos": {
+            "package-key": "Carbon.Eel"
+        }
+    }
+}
