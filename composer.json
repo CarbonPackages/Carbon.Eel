@@ -18,18 +18,10 @@
     "archive": {
         "exclude": [
             ".editorconfig",
-            ".eslintignore",
-            ".eslintrc",
             ".gitattributes",
             ".github",
             ".gitignore",
-            ".jshintrc",
-            ".nvmrc",
-            ".prettierignore",
-            ".stylelintrc",
-            ".yarnclean",
-            "package.json",
-            "yarn.lock"
+            "CODE_OF_CONDUCT.md"
         ]
     },
     "autoload": {
