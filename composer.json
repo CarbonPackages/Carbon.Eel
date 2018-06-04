@@ -2,6 +2,9 @@
     "name": "carbon/eel",
     "type": "neos-carbon",
     "description": "Some nice Eel helper for Neos.io",
+    "require": {
+        "neos/flow": "~4.0 || ~5.0"
+    },
     "autoload": {
         "psr-4": {
             "Carbon\\Eel\\": "Classes"
@@ -16,7 +19,21 @@
         }
     ],
     "archive": {
-        "exclude": [".editorconfig", ".eslintignore", ".eslintrc", ".gitattributes", ".github", ".gitignore", ".jshintrc", ".nvmrc", ".prettierignore", ".stylelintrc", ".yarnclean", "package.json", "yarn.lock"]
+        "exclude": [
+            ".editorconfig",
+            ".eslintignore",
+            ".eslintrc",
+            ".gitattributes",
+            ".github",
+            ".gitignore",
+            ".jshintrc",
+            ".nvmrc",
+            ".prettierignore",
+            ".stylelintrc",
+            ".yarnclean",
+            "package.json",
+            "yarn.lock"
+        ]
     },
     "extra": {
         "installer-name": "Carbon.Eel",
