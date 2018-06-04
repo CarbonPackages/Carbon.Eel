@@ -1,3 +1,10 @@
+[![Latest Stable Version](https://poser.pugx.org/carbon/eel/v/stable)](https://packagist.org/packages/carbon/eel)
+[![Total Downloads](https://poser.pugx.org/carbon/eel/downloads)](https://packagist.org/packages/carbon/eel)
+[![License](https://poser.pugx.org/carbon/eel/license)](LICENSE)
+[![GitHub forks](https://img.shields.io/github/forks/CarbonPackages/Carbon.Eel.svg?style=social&label=Fork)](https://github.com/CarbonPackages/Carbon.Eel/fork)
+[![GitHub stars](https://img.shields.io/github/stars/CarbonPackages/Carbon.Eel.svg?style=social&label=Stars)](https://github.com/CarbonPackages/Carbon.Eel/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/CarbonPackages/Carbon.Eel.svg?style=social&label=Watch)](https://github.com/CarbonPackages/Carbon.Eel/subscription)
+
 # Carbon.Eel Package for Neos CMS
 
 ## Available Helper
