@@ -1,4 +1,6 @@
-Neos:
-  Fusion:
+TYPO3:
+  TypoScript:
     defaultContext:
-      Carbon.String: 'Carbon\Eel\Eel\Helper\StringHelper'
+      Carbon.String: 'Carbon\Eel\StringHelper'
+      Carbon.FileContent: 'Carbon\Eel\FileContentHelper'
+      Carbon.Array: 'Carbon\Eel\ArrayHelper'

@@ -1,18 +1,27 @@
 <?php
 
-namespace Carbon\Eel\Eel\Helper;
+namespace Carbon\Eel;
 
-use Neos\Eel\EvaluationException;
-use Neos\Eel\ProtectedContextAwareInterface;
-use Neos\Flow\Annotations as Flow;
+use Behat\Transliterator\Transliterator;
+use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Eel\ProtectedContextAwareInterface;
 
 /**
- * Helpers for Eel contexts
- *
  * @Flow\Proxy(false)
  */
 class StringHelper implements ProtectedContextAwareInterface
 {
+    /**
+     * Generates a slug of the given string
+     *
+     * @param $string
+     * @return string
+     */
+    public function urlize(string $string)
+    {
+        return Transliterator::urlize($string);
+    }
+
     /**
      * Helper to convert `CamelCaseStrings` to `hyphen-case-strings`
      *
@@ -24,15 +33,15 @@ class StringHelper implements ProtectedContextAwareInterface
      *     Carbon.String.convertCamelCase('HelloWorld', '') == 'helloworld'
      *
      * @param string $string A string
-     * @param string $seperator The seperator
+     * @param string $separator The separator
      * @return string The converted string
      */
-    public function convertCamelCase($string, $seperator = '-')
+    public function convertCamelCase($string, $separator = '-')
     {
         $string = (string)$string;
-        $seperator = (string)$seperator;
+        $separator = (string)$separator;
 
-        return strtolower(preg_replace('/([a-zA-Z])(?=[A-Z])/', '$1' . $seperator, $string));
+        return strtolower(preg_replace('/([a-zA-Z])(?=[A-Z])/', '$1' . $separator, $string));
     }
 
     /**
@@ -46,13 +55,13 @@ class StringHelper implements ProtectedContextAwareInterface
      *     Carbon.String.convertToString(['hello', 'world'], '-') == 'hello-world'
      *
      * @param string|array $input A string or an array
-     * @param string $seperator The $seperator
+     * @param string $separator The $separator
      * @return string The converted string
      */
-    public function convertToString($input, $seperator = ' ')
+    public function convertToString($input, $separator = ' ')
     {
-        $seperator = (string)$seperator;
-        $string = is_array($input) ? implode($seperator, $input) : (string)$input;
+        $separator = (string)$separator;
+        $string = is_array($input) ? implode($separator, $input) : (string)$input;
 
         // Remove double space and trim the string
         return trim(preg_replace('/(\s)+/', ' ', $string));
@@ -68,16 +77,16 @@ class StringHelper implements ProtectedContextAwareInterface
      *     Carbon.String.nl2br('hello\nworld', ' | ') == 'hello | world'
      *
      * @param string $string A string
-     * @param string $seperator The $seperator
+     * @param string $separator The $separator
      * @return string The converted string
      */
-    public function nl2br($string, $seperator = '<br>')
+    public function nl2br($string, $separator = '<br>')
     {
         $string = (string)$string;
-        $seperator = (string)$seperator;
+        $separator = (string)$separator;
 
         // Remove double space and trim the string
-        return preg_replace('/\n/', $seperator, trim($string));
+        return preg_replace('/\n/', $separator, trim($string));
     }
 
     /**
