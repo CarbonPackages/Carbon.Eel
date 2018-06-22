@@ -11,36 +11,75 @@
 
 ### `Carbon.Array.setKeyValue(array, key, value)`
 
-Adds a key / value pair to an array
+Can be used to add a value with a dynamic key
 
--   `array` (array) The array who should be extended
--   `key` (string) The name of the key
+Example:
+
+```elm
+array = Neos.Fusion:RawArray
+array.@process.addKeyValue = ${Carbon.Array.setKeyValue(value, 'key', 'value')}
+```
+
+-   `array` (array) The array which should be extended
+-   `key` (string) The key for the entry
 -   `value` (mixed) The value
+
+**Return** The extended array
 
 ### `Carbon.Array.ksort(array)`
 
 Sort an array by key
 
--   `array` (array) The array who should be sorted
+Example:
 
-### `Carbon.Array.arrayFilter(array)`
+```elm
+array.@process.ksort = ${Carbon.Array.ksort(value)}
+```
 
-Filters elements of an array. All entries of array equal to `false` will be removed.
+-   `array` (array) The array which should be sorted
 
--   `array` (array) The array who should be filtered
+**Return** The sorted array
 
-### `Carbon.Array.arrayValues(array)`
+### `Carbon.Array.filter(array)`
+
+Iterates over each value in the array and all entries of the array equal to `false` will be removed.
+
+Example:
+
+```elm
+array.@process.filter = ${Carbon.Array.filter(value)}
+```
+
+-   `array` (array) The array to iterate over
+
+**Return** The filtered array
+
+### `Carbon.Array.values(array)`
 
 Return all the values of an array
 
--   `array` (array) The array who should be processed
+Example:
+
+```elm
+array.@process.values = ${Carbon.Array.values(value)}
+```
+
+-   `array` (array) The array to convert
+
+**Return** An indexed array of values.
 
 ### `Carbon.Array.joinRecursive(array, separator)`
 
 Join the given array recursively using the given separator.
 
+```elm
+${Carbon.Array.join(array, ',')}
+```
+
 -   `array` (array) The array who should be processed
 -   `separator` (string, optional) The separator between the values, defaults to `,`
+
+**Return** The converted array as a string
 
 ### `Carbon.Array.extractSubElements(array, preserveKeys)`
 
@@ -72,6 +111,8 @@ will be converted to:
 -   `array` (array) The array who should be processed
 -   `preserveKeys` (boolean, optional) Option if the key should be preserved, defaults to `false`
 
+**Return** The converted array
+
 ## FileContent Helper
 
 ### `Carbon.FileContent.path(string)`
@@ -81,11 +122,13 @@ Returns the file content of a path. Fails silent.
 Examples:
 
 ```elm
-Carbon.FileContent.path('resource://Vendor.Package/Private/Templates/InlineScript.js')
-Carbon.FileContent.path('Vendor.Package/Private/Templates/InlineScript.js')
+Carbon.FileContent.path('resource://Foo.Bar/Private/Assets/Logo.svg')
+Carbon.FileContent.path('Foo.Bar/Private/Assets/Logo.svg')
 ```
 
--   `string` (string) The path to read
+-   `string` (string) The path to the file
+
+**Return** The content of the file
 
 ### `Carbon.FileContent.pathHash(string, length)`
 
@@ -94,12 +137,14 @@ Returns the hash value from the file content of a path. Fails silent.
 Examples:
 
 ```elm
-Carbon.FileContent.pathHash('resource://Vendor.Package/Private/Templates/InlineScript.js') == 1d62f5a5
-Carbon.FileContent.pathHash('Vendor.Package/Private/Templates/InlineScript.js', 20) == 1d62f5a55ad5e304d60d
+Carbon.FileContent.pathHash('resource://Foo.Bar/Private/Assets/Logo.svg') == 1d62f5a5
+Carbon.FileContent.pathHash('Foo.Bar/Private/Assets/Logo.svg', 20) == 1d62f5a55ad5e304d60d
 ```
 
--   `string` (string) The path to read
+-   `string` (string) The path to the file
 -   `length` (integer, optional) The length of the hash value, defaults to `8`. The maximal value is `40`
+
+**Return** The hash value from the content of the file
 
 ### `Carbon.FileContent.resource(resource)`
 
@@ -108,10 +153,12 @@ Returns the file content of a persisted resource. Fails silent.
 Example:
 
 ```elm
-Carbon.FileContent.resource(q(node).property('image'))
+Carbon.FileContent.resource(q(node).property('file'))
 ```
 
 -   `resource` (resource) The persisted resource to read
+
+**Return** The content of the file
 
 ### `Carbon.FileContent.resourceHash(resource, length)`
 
@@ -120,18 +167,31 @@ Returns the hash value from the file content of a persisted resource. Fails sile
 Example:
 
 ```elm
-Carbon.FileContent.resourceHash(q(node).property('image')) == 1d62f5a5
-Carbon.FileContent.resourceHash(q(node).property('image'), 20) == 1d62f5a55ad5e304d60d
+Carbon.FileContent.resourceHash(q(node).property('file')) == 1d62f5a5
+Carbon.FileContent.resourceHash(q(node).property('file'), 20) == 1d62f5a55ad5e304d60d
 ```
 
 -   `resource` (resource) The persisted resource to read
 -   `length` (integer, optional) The length of the hash value, defaults to `8`. The maximal value is `40`
+
+**Return** The hash value from the content of the file
 
 ## String Helper
 
 ### `Carbon.String.urlize(string)`
 
 Generates a slug of the given string
+
+Examples:
+
+```elm
+Carbon.String.urlize('Hello World') == 'hello-world'
+Carbon.String.urlize('Ä_ÖÜ äöü') == 'ae-oeue-aeoeue'
+```
+
+-   `string` (string) The string to convert
+
+**Return** The converted string
 
 ### `Carbon.String.convertCamelCase(string, separator)`
 
