@@ -7,6 +7,11 @@
 
 # Carbon.Eel Package for Neos CMS
 
+| Version | Flow        | Neos        |
+| ------- | ----------- | ----------- |
+| 0.\*    | 3.\*        | 2.\*        |
+| > 1     | 4.\* + 5.\* | 3.\* + 4.\* |
+
 ## Array Helper
 
 ### `Carbon.Array.setKeyValue(array, key, value)`
@@ -264,4 +269,10 @@ Carbon.Eel is available via packagist. Just run
 
 ```bash
 composer require carbon/eel
+```
+
+To install the package under Neos 2.\* / Flow 3.\* you have to enter
+
+```bash
+composer require "carbon/eel:^0.5"
 ```
