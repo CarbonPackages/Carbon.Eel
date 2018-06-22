@@ -48,7 +48,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * @param array $array
      * @return array
      */
-    public function arrayFilter(array $array): array
+    public function filter(array $array): array
     {
         return array_filter($array);
     }
@@ -59,7 +59,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * @param array $array
      * @return array
      */
-    public function arrayValues(array $array): array
+    public function values(array $array): array
     {
         return array_values($array);
     }
