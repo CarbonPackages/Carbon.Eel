@@ -72,13 +72,13 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * @param string $separator
      * @return string
      */
-    public function joinRecursive(array $array, string $separator = ','): string
+    public function join(array $array, string $separator = ','): string
     {
         $result = '';
 
         foreach ($array as $item) {
             if (is_array($item)) {
-                $result .= $this->joinRecursive($item, $separator) . $separator;
+                $result .= $this->join($item, $separator) . $separator;
             } else {
                 $result .= $item . $separator;
             }

@@ -68,7 +68,7 @@ array.@process.values = ${Carbon.Array.values(value)}
 
 **Return** An indexed array of values.
 
-### `Carbon.Array.joinRecursive(array, separator)`
+### `Carbon.Array.join(array, separator)`
 
 Join the given array recursively using the given separator.
 
