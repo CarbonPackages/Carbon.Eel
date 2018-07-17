@@ -40,7 +40,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      */
     public function ksort(array $array): array
     {
-        \ksort($array);
+        \ksort($array, SORT_NATURAL | SORT_FLAG_CASE);
         return $array;
     }
 
