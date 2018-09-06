@@ -135,6 +135,21 @@ class ArrayHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Removes duplicate values from an array
+     *
+     * @param array $array
+     * @param bool $filter
+     * @return array
+     */
+    public function unique(array $array, bool $filter = false): array
+    {
+        if ($filter) {
+            $array = array_filter($array);
+        }
+        return array_unique($array);
+    }
+
+    /**
      * @param string $methodName
      * @return bool
      */

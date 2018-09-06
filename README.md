@@ -118,6 +118,21 @@ will be converted to:
 
 **Return** The converted array
 
+### `Carbon.Array.unique(array, filter)`
+
+Removes duplicate values from an array
+
+Example:
+
+```elm
+array.@process.removeDuplicates = ${Carbon.Array.unique(value)}
+```
+
+-   `array` (array) The input array
+-   `filter` (boolean, optional) Option if the array should be filtered, defaults to `false`
+
+**Return** Returns the filtered array.
+
 ## FileContent Helper
 
 ### `Carbon.FileContent.path(string)`
