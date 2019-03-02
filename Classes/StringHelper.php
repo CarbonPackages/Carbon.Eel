@@ -5,12 +5,27 @@ namespace Carbon\Eel;
 use Behat\Transliterator\Transliterator;
 use Neos\Flow\Annotations as Flow;
 use Neos\Eel\ProtectedContextAwareInterface;
+use Carbon\Eel\ArrayHelper;
 
 /**
  * @Flow\Proxy(false)
  */
 class StringHelper implements ProtectedContextAwareInterface
 {
+
+    /**
+     * Generates a BEM string
+     *
+     * @param string $block
+     * @param string $element
+     * @param string|array $modifiers
+     * @return string
+     */
+    public function BEM($block = null, $element = null, $modifiers = []): string
+    {
+        return implode(" ", ArrayHelper::BEM($block, $element, $modifiers));
+    }
+
     /**
      * Generates a slug of the given string
      *

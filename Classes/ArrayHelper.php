@@ -17,6 +17,43 @@ class ArrayHelper implements ProtectedContextAwareInterface
 {
 
     /**
+     * Generates a BEM array
+     *
+     * @param string $block
+     * @param string $element
+     * @param string|array $modifiers
+     * @return array
+     */
+    public function BEM($block = null, $element = null, $modifiers = []): array
+    {
+        if (!isset($block) || !is_string($block) || !$block) {
+            return [];
+        }
+        $baseClass = $element ? "{$block}__{$element}" : "{$block}";
+        $classes = [$baseClass];
+
+        if (isset($modifiers)) {
+            if (is_string($modifiers)) {
+                $modifiers = [$modifiers];
+            }
+            if (is_array($modifiers)) {
+                foreach ($modifiers as $key => $value) {
+                    if (!$value) {
+                        continue;
+                    }
+                    if (is_string($value)) {
+                        $classes[] = "{$baseClass}--{$value}";
+                    } else if (is_string($key)) {
+                        $classes[] = "{$baseClass}--{$key}";
+                    }
+                }
+            }
+        }
+
+        return $classes;
+    }
+
+    /**
      * Adds a key / value pair to an array
      *
      * @param array $array
