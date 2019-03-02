@@ -17,7 +17,7 @@ class StringHelper implements ProtectedContextAwareInterface
      * @param $string
      * @return string
      */
-    public function urlize(string $string)
+    public function urlize(string $string): string
     {
         return Transliterator::urlize($string);
     }
@@ -36,7 +36,7 @@ class StringHelper implements ProtectedContextAwareInterface
      * @param string $separator The separator
      * @return string The converted string
      */
-    public function convertCamelCase($string, $separator = '-')
+    public function convertCamelCase($string, $separator = '-'): string
     {
         $string = (string)$string;
         $separator = (string)$separator;
@@ -58,7 +58,7 @@ class StringHelper implements ProtectedContextAwareInterface
      * @param string $separator The $separator
      * @return string The converted string
      */
-    public function convertToString($input, $separator = ' ')
+    public function convertToString($input, $separator = ' '): string
     {
         $separator = (string)$separator;
         $string = is_array($input) ? implode($separator, $input) : (string)$input;
@@ -80,7 +80,7 @@ class StringHelper implements ProtectedContextAwareInterface
      * @param string $separator The $separator
      * @return string The converted string
      */
-    public function nl2br($string, $separator = '<br>')
+    public function nl2br($string, $separator = '<br>'): string
     {
         $string = (string)$string;
         $separator = (string)$separator;
@@ -101,7 +101,7 @@ class StringHelper implements ProtectedContextAwareInterface
      * @param string $string A string
      * @return string The converted string
      */
-    public function removeNbsp($string)
+    public function removeNbsp($string): string
     {
         $string = (string)$string;
         $space = ' ';
