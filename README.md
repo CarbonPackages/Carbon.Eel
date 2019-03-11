@@ -12,6 +12,22 @@
 | 0.\*    | 3.\*        | 2.\*        |
 | > 1     | 4.\* + 5.\* | 3.\* + 4.\* |
 
+## BEM Helper
+
+Generates BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and a value is `true` the name of the key gets used for the modifier.
+
+-   `block` (string, required) The name of the block
+-   `element` (string) The name of the element, optional
+-   `modifiers` (string|array) The name of the modifiers, optional
+
+### `BEM.array(block, element, modifiers)`
+
+Shortcut to `Carbon.Array.BEM(block, element, modifiers)`
+
+### `BEM.string(block, element, modifiers)`
+
+Shortcut to `Carbon.String.BEM(block, element, modifiers)`
+
 ## Array Helper
 
 ### `Carbon.Array.BEM(block, element, modifiers)`
@@ -21,6 +37,8 @@ Generates an array with BEM classes. The modifiers property can be a string (for
 -   `block` (string, required) The name of the block
 -   `element` (string) The name of the element, optional
 -   `modifiers` (string|array) The name of the modifiers, optional
+
+**Return** The array
 
 ### `Carbon.Array.setKeyValue(array, key, value)`
 
@@ -214,6 +232,8 @@ Generates an string with BEM classes. The modifiers property can be a string (fo
 -   `element` (string) The name of the element, optional
 -   `modifiers` (string|array) The name of the modifiers, optional
 
+**Return** The string
+
 ### `Carbon.String.urlize(string)`
 
 Generates a slug of the given string
@@ -338,4 +358,8 @@ To install the package under Neos 2.\* / Flow 3.\* you have to enter
 
 ```bash
 composer require "carbon/eel:^0.5"
+```
+
+```
+
 ```

@@ -1,6 +1,7 @@
 Neos:
   Fusion:
     defaultContext:
+      BEM: 'Carbon\Eel\BemHelper'
       Carbon.String: 'Carbon\Eel\StringHelper'
       Carbon.FileContent: 'Carbon\Eel\FileContentHelper'
       Carbon.Array: 'Carbon\Eel\ArrayHelper'
