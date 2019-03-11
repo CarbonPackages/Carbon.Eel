@@ -40,6 +40,33 @@ class StringHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Helper to convert strings to PascalCase
+     *
+     * @param string $string A string
+     * 
+     * @return string The converted string
+     */
+    public function toPascalCase(string $string): string
+    {
+        $string = Transliterator::urlize((string)$string);
+        $string = str_replace('-', '', ucwords($string, '-'));
+
+        return $string;
+    }
+
+    /**
+     * Helper to convert strings to camelCase
+     *
+     * @param string $string A string
+     * 
+     * @return string The converted string
+     */
+    public function toCamelCase(string $string): string
+    {
+        return lcfirst($this->toPascalCase($string));
+    }
+
+    /**
      * Helper to convert `CamelCaseStrings` to `hyphen-case-strings`
      *
      * Examples:

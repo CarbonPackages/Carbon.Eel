@@ -229,6 +229,38 @@ Carbon.String.urlize('Ä_ÖÜ äöü') == 'ae-oeue-aeoeue'
 
 **Return** The converted string
 
+### `Carbon.String.toPascalCase(string)`
+
+Convert strings to `PascalCase`
+
+Examples:
+
+```elm
+Carbon.String.toPascalCase('hello-world') == 'HelloWorld'
+Carbon.String.toPascalCase('hello world') == 'HelloWorld'
+Carbon.String.toPascalCase('Hello World') == 'HelloWorld'
+```
+
+-   `string` (string) The string to convert
+
+**Return** The converted string
+
+### `Carbon.String.toCamelCase(string)`
+
+Convert strings to `camelCase`
+
+Examples:
+
+```elm
+Carbon.String.toCamelCase('hello-world') == 'helloWorld'
+Carbon.String.toCamelCase('hello world') == 'helloWorld'
+Carbon.String.toCamelCase('Hello World') == 'helloWorld'
+```
+
+-   `string` (string) The string to convert
+
+**Return** The converted string
+
 ### `Carbon.String.convertCamelCase(string, separator)`
 
 Convert `CamelCaseStrings` to `hyphen-case-strings`
