@@ -34,24 +34,42 @@ class ArrayHelper implements ProtectedContextAwareInterface
         $classes = [$baseClass];
 
         if (isset($modifiers)) {
-            if (is_string($modifiers)) {
-                $modifiers = [$modifiers];
-            }
-            if (is_array($modifiers)) {
-                foreach ($modifiers as $key => $value) {
-                    if (!$value) {
-                        continue;
-                    }
-                    if (is_string($value)) {
-                        $classes[] = "{$baseClass}--{$value}";
-                    } else if (is_string($key)) {
-                        $classes[] = "{$baseClass}--{$key}";
-                    }
-                }
+            $modifiers = self::modifierArray($modifiers);
+            foreach ($modifiers as $value) {
+                $classes[] = "{$baseClass}--{$value}";
             }
         }
 
         return $classes;
+    }
+
+    /**
+     * Generate the array for the modifiers
+     * 
+     * @param string|array $modifiers
+     * 
+     * @return array
+     */
+    private static function modifierArray($modifiers = []): array {
+        if (is_string($modifiers)) {
+            return [$modifiers];
+        }
+        $array = [];
+        if (is_array($modifiers)) {
+            foreach ($modifiers as $key => $value) {
+                if (!$value) {
+                    continue;
+                }
+                if (is_array($value)) {
+                    $array = array_merge($array, self::modifierArray($value));
+                } else if (is_string($value)) {
+                    $array[] = $value;
+                } else if (is_string($key)) {
+                    $array[] = $key;
+                }
+            }
+        }
+        return array_unique($array);
     }
 
     /**
