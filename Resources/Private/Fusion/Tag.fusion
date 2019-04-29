@@ -1,0 +1,25 @@
+prototype(Carbon.Eel:Tag) < prototype(Neos.Fusion:Component) {
+    tagName = null
+    attributes = Neos.Fusion:Attributes
+    attributes = Neos.Fusion:Attributes
+    omitClosingTag = false
+    selfClosingTag = false
+    content = null
+
+    renderer = Neos.Fusion:Case {
+        hasTagName {
+            condition = ${props.tagName}
+            renderer = Neos.Fusion:Tag {
+                tagName = ${props.tagName}
+                attributes = ${props.attributes}
+                omitClosingTag = ${props.omitClosingTag}
+                selfClosingTag = ${props.selfClosingTag}
+                content = ${props.content}
+            }
+        }
+        justContent {
+            condition = true
+            renderer = ${props.content}
+        }
+    }
+}
