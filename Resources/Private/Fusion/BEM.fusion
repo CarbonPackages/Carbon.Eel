@@ -1,0 +1,16 @@
+prototype(Carbon.Eel:BEM) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        block = ${PropTypes.string.isRequired}
+        element = ${PropTypes.string}
+        modifier = ${PropTypes.anyOf( PropTypes.string, PopTypes.arrayOf( PropTypes.any ) )}
+    }
+
+    block = null
+    element = null
+
+    // Can be a string, an array or DataStructure
+    modifier = null
+
+
+    renderer = ${Carbon.String.BEM(props.block, props.element, props.modifier)}
+}
