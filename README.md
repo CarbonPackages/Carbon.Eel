@@ -30,7 +30,7 @@ Shortcut to `Carbon.String.BEM(block, element, modifiers)`
 
 ### `BEM.modifier(class, modifiers)`
 
-Generates an string with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and a value is `true` the name of the key gets used for the modifier.
+Generates a string with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true` the name of the key gets used for the modifier.
 
 -   `class` (string, required) The name of the class
 -   `modifiers` (string|array) The name of the modifiers, optional
@@ -41,7 +41,7 @@ Generates an string with BEM classes. The modifiers property can be a string (fo
 
 ### `Carbon.Array.BEM(block, element, modifiers)`
 
-Generates an array with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and a value is `true` the name of the key gets used for the modifier.
+Generates an array with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true` the name of the key gets used for the modifier.
 
 -   `block` (string, required) The name of the block
 -   `element` (string) The name of the element, optional
@@ -235,7 +235,7 @@ Carbon.FileContent.resourceHash(q(node).property('file'), 20) == 1d62f5a55ad5e30
 
 ### `Carbon.String.BEM(block, element, modifiers)`
 
-Generates an string with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and a value is `true` the name of the key gets used for the modifier.
+Generates a string with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true` the name of the key gets used for the modifier.
 
 -   `block` (string, required) The name of the block
 -   `element` (string) The name of the element, optional
