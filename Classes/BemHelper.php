@@ -27,6 +27,19 @@ class BemHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Generates a BEM modifier string
+     *
+     * @param string       $class     defaults to null
+     * @param string|array $modifiers defaults to []
+     * 
+     * @return array
+     */
+    public function modifier($class = null, $modifiers = []): string
+    {
+        return StringHelper::BEM($class, null, $modifiers);
+    }
+
+    /**
      * Generates a BEM array
      *
      * @param string       $block     defaults to null
