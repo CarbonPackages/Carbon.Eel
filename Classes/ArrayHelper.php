@@ -50,18 +50,23 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * 
      * @return array
      */
-    private static function modifierArray($modifiers = []): array {
+    private static function modifierArray($modifiers = []): array
+    {
         if (is_string($modifiers)) {
             return [$modifiers];
+        } else if (is_int($modifiers)) {
+            return [strval($modifiers)];
         }
         $array = [];
         if (is_array($modifiers)) {
             foreach ($modifiers as $key => $value) {
-                if (!$value) {
+                if (!$value && !is_int($value)) {
                     continue;
                 }
                 if (is_array($value)) {
                     $array = array_merge($array, self::modifierArray($value));
+                } else if (is_int($value)) {
+                    $array[] = strval($value);
                 } else if (is_string($value)) {
                     $array[] = $value;
                 } else if (is_string($key)) {
