@@ -24,7 +24,7 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function BEM($block = null, $element = null, $modifiers = []): string
     {
-        return implode(" ", ArrayHelper::BEM($block, $element, $modifiers));
+        return implode(" ", (new ArrayHelper())->BEM($block, $element, $modifiers));
     }
 
     /**

@@ -4,6 +4,11 @@
     "description": "Some nice Eel helper for Neos.io",
     "license": "MIT",
     "keywords": ["neos", "fusion", "helper", "eel", "carbon"],
+    "config": {
+        "platform": {
+            "php": "^7.0"
+        }
+    },
     "require": {
         "neos/flow": "~4.0 || ~5.0 || ~6.0",
         "behat/transliterator": "^1.2"

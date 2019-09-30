@@ -23,7 +23,7 @@ class BemHelper implements ProtectedContextAwareInterface
      */
     public function string($block = null, $element = null, $modifiers = []): string
     {
-        return StringHelper::BEM($block, $element, $modifiers);
+        return (new StringHelper())->BEM($block, $element, $modifiers);
     }
 
     /**
@@ -36,7 +36,7 @@ class BemHelper implements ProtectedContextAwareInterface
      */
     public function modifier($class = null, $modifiers = []): string
     {
-        return StringHelper::BEM($class, null, $modifiers);
+        return (new StringHelper())->BEM($class, null, $modifiers);
     }
 
     /**
@@ -50,7 +50,7 @@ class BemHelper implements ProtectedContextAwareInterface
      */
     public function array($block = null, $element = null, $modifiers = []): string
     {
-        return ArrayHelper::BEM($block, $element, $modifiers);
+        return (new ArrayHelper())->BEM($block, $element, $modifiers);
     }
 
     /**
