@@ -12,5 +12,5 @@ prototype(Carbon.Eel:BEM) < prototype(Neos.Fusion:Component) {
     modifier = null
 
 
-    renderer = ${Carbon.String.BEM(props.block, props.element, props.modifier)}
+    renderer = ${BEM.string(props.block, props.element, props.modifier)}
 }
