@@ -1,11 +1,10 @@
 <?php
 
-namespace Carbon\Eel;
+namespace Carbon\Eel\EelHelper;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Eel\ProtectedContextAwareInterface;
-use Carbon\Eel\ArrayHelper;
-use Carbon\Eel\StringHelper;
+use Carbon\Eel\Service\BEMService;
 
 /**
  * @Flow\Proxy(false)
@@ -23,7 +22,7 @@ class BemHelper implements ProtectedContextAwareInterface
      */
     public function string($block = null, $element = null, $modifiers = []): string
     {
-        return StringHelper::BEM($block, $element, $modifiers);
+        return BEMService::getClassNamesString($block, $element, $modifiers);
     }
 
     /**
@@ -36,7 +35,7 @@ class BemHelper implements ProtectedContextAwareInterface
      */
     public function modifier($class = null, $modifiers = []): string
     {
-        return StringHelper::BEM($class, null, $modifiers);
+        return BEMService::getClassNamesString($class, null, $modifiers);
     }
 
     /**
@@ -48,9 +47,9 @@ class BemHelper implements ProtectedContextAwareInterface
      * 
      * @return array
      */
-    public function array($block = null, $element = null, $modifiers = []): string
+    public function array($block = null, $element = null, $modifiers = []): array
     {
-        return ArrayHelper::BEM($block, $element, $modifiers);
+        return BEMService::getClassNamesArray($block, $element, $modifiers);
     }
 
     /**
@@ -65,4 +64,3 @@ class BemHelper implements ProtectedContextAwareInterface
         return true;
     }
 }
-

@@ -1,6 +1,6 @@
 <?php
 
-namespace Carbon\Eel;
+namespace Carbon\Eel\EelHelper;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Eel\ProtectedContextAwareInterface;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Carbon\Eel;
+namespace Carbon\Eel\EelHelper;
 
 use Behat\Transliterator\Transliterator;
 use Neos\Flow\Annotations as Flow;
 use Neos\Eel\ProtectedContextAwareInterface;
-use Carbon\Eel\ArrayHelper;
+use Carbon\Eel\Service\BEMService;
 
 /**
  * @Flow\Proxy(false)
@@ -24,7 +24,7 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function BEM($block = null, $element = null, $modifiers = []): string
     {
-        return implode(" ", ArrayHelper::BEM($block, $element, $modifiers));
+        return BEMService::getClassNamesString($block, $element, $modifiers);
     }
 
     /**
@@ -48,7 +48,7 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function toPascalCase(string $string): string
     {
-        $string = Transliterator::urlize((string)$string);
+        $string = Transliterator::urlize((string) $string);
         $string = str_replace('-', '', ucwords($string, '-'));
 
         return $string;
@@ -82,8 +82,8 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function convertCamelCase($string, $separator = '-'): string
     {
-        $string = (string)$string;
-        $separator = (string)$separator;
+        $string = (string) $string;
+        $separator = (string) $separator;
 
         return strtolower(
             preg_replace(
@@ -110,8 +110,8 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function convertToString($input, $separator = ' '): string
     {
-        $separator = (string)$separator;
-        $string = is_array($input) ? implode($separator, $input) : (string)$input;
+        $separator = (string) $separator;
+        $string = is_array($input) ? implode($separator, $input) : (string) $input;
 
         // Remove double space and trim the string
         return trim(preg_replace('/(\s)+/', ' ', $string));
@@ -132,8 +132,8 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function nl2br($string, $separator = '<br>'): string
     {
-        $string = (string)$string;
-        $separator = (string)$separator;
+        $string = (string) $string;
+        $separator = (string) $separator;
 
         // Remove double space and trim the string
         return preg_replace('/\n/', $separator, trim($string));
@@ -153,7 +153,7 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function removeNbsp($string): string
     {
-        $string = (string)$string;
+        $string = (string) $string;
         $space = ' ';
 
         return trim(
