@@ -67,6 +67,26 @@ class StringHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Replace occurrences of a search string inside the string using regular expression matching (PREG style)
+     *
+     * Examples::
+     *
+     *     String.pregReplace("Some.String with sp:cial characters", "/[[:^alnum:]]/", "-") == "Some-String-with-sp-cial-characters"
+     *     String.pregReplace("2016-08-31", "/([0-9]+)-([0-9]+)-([0-9]+)/", "$3.$2.$1") == "31.08.2016"
+     *
+     * @param string $string The input string
+     * @param string $pattern A PREG pattern
+     * @param string $replace A replacement string, can contain references to capture groups with "\\n" or "$n"
+     * @param integer $limit The maximum possible replacements for each pattern in each subject string. Defaults to -1 (no limit).
+     * @return string The string with all occurrences replaced
+     */
+
+    public function pregReplace(string $string, string $pattern, string $replace, int $limit = -1): string
+    {
+        return preg_replace($pattern, $replace, (string) $string, $limit);
+    }
+
+    /**
      * Helper to convert `CamelCaseStrings` to `hyphen-case-strings`
      *
      * Examples:
