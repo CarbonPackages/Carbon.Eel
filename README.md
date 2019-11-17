@@ -356,6 +356,17 @@ Carbon.String.removeNbsp('hello   world') == 'hello world'
 
 **Return** The converted string
 
+### `Carbon.String.pregReplace(string, pattern, replace, limit)`
+
+Replace occurrences of a search string inside the string using regular expression matching (PREG style).
+
+-   `string` (string) The input string
+-   `pattern` (string) A PREG pattern
+-   `replace` (string) A replacement string, can contain references to capture groups with "\\n" or "\$n"
+-   `limit` (integer) The maximum possible replacements for each pattern in each subject string. Defaults to -1 (no limit).
+
+**Return** The string with all occurrences replaced
+
 ## Installation
 
 Carbon.Eel is available via packagist. Just run
