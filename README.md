@@ -381,6 +381,6 @@ To install the package under Neos 2.\* / Flow 3.\* you have to enter
 composer require "carbon/eel:^0.5"
 ```
 
-```
+## Credits
 
-```
+Some of the Eel helpers where inspired and or copied from [punkt.de](https://github.com/punktde)
