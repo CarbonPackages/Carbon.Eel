@@ -1,11 +1,6 @@
-[![Latest Stable Version](https://poser.pugx.org/carbon/eel/v/stable)](https://packagist.org/packages/carbon/eel)
-[![Total Downloads](https://poser.pugx.org/carbon/eel/downloads)](https://packagist.org/packages/carbon/eel)
-[![License](https://poser.pugx.org/carbon/eel/license)](LICENSE)
-[![GitHub forks](https://img.shields.io/github/forks/CarbonPackages/Carbon.Eel.svg?style=social&label=Fork)](https://github.com/CarbonPackages/Carbon.Eel/fork)
-[![GitHub stars](https://img.shields.io/github/stars/CarbonPackages/Carbon.Eel.svg?style=social&label=Stars)](https://github.com/CarbonPackages/Carbon.Eel/stargazers)
-[![GitHub watchers](https://img.shields.io/github/watchers/CarbonPackages/Carbon.Eel.svg?style=social&label=Watch)](https://github.com/CarbonPackages/Carbon.Eel/subscription)
+[![Latest stable version]][packagist] [![Total downloads]][packagist] [![License]][licensefile] [![GitHub forks]][fork] [![GitHub stars]][stargazers] [![GitHub watchers]][subscription]
 
-# Carbon.Eel Package for Neos CMS
+# Carbon.Eel Package for [Neos CMS]
 
 | Version  | Flow             | Neos             |
 | -------- | ---------------- | ---------------- |
@@ -383,4 +378,18 @@ composer require "carbon/eel:^0.5"
 
 ## Credits
 
-Some of the Eel helpers where inspired and or copied from [punkt.de](https://github.com/punktde)
+Some of the Eel helpers where inspired and or copied from [punkt.de]
+
+[packagist]: https://packagist.org/packages/carbon/eel
+[latest stable version]: https://poser.pugx.org/carbon/eel/v/stable
+[total downloads]: https://poser.pugx.org/carbon/eel/downloads
+[license]: https://poser.pugx.org/carbon/eel/license
+[github forks]: https://img.shields.io/github/forks/CarbonPackages/Carbon.Eel.svg?style=social&label=Fork
+[github stars]: https://img.shields.io/github/stars/CarbonPackages/Carbon.Eel.svg?style=social&label=Stars
+[github watchers]: https://img.shields.io/github/watchers/CarbonPackages/Carbon.Eel.svg?style=social&label=Watch
+[fork]: https://github.com/CarbonPackages/Carbon.Eel/fork
+[stargazers]: https://github.com/CarbonPackages/Carbon.Eel/stargazers
+[subscription]: https://github.com/CarbonPackages/Carbon.Eel/subscription
+[licensefile]: LICENSE
+[neos cms]: https://www.neos.io
+[punkt.de]: https://github.com/punktde
