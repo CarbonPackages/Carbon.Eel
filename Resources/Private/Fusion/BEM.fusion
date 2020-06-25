@@ -2,7 +2,7 @@ prototype(Carbon.Eel:BEM) < prototype(Neos.Fusion:Component) {
     @propTypes {
         block = ${PropTypes.string.isRequired}
         element = ${PropTypes.string}
-        modifier = ${PropTypes.anyOf( PropTypes.string, PopTypes.arrayOf( PropTypes.any ) )}
+        modifier = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.any ) )}
     }
 
     block = null
