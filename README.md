@@ -362,6 +362,25 @@ Replace occurrences of a search string inside the string using regular expressio
 
 **Return** The string with all occurrences replaced
 
+## Number Helper
+
+### `Carbon.Number.format(number, decimals, dec_point, thousands_sep)`
+
+Format a number with grouped thousands
+
+-   `number` (float, required) The number being formatted
+-   `decimals` (integer, optional) Sets the number of decimal points, defaults to `0`
+-   `dec_point` (string, optional) The name of the modifiers, defaults to `.`
+-   `thousands_sep` (string, optional) The name of the modifiers, defaults to `,`
+
+### `Carbon.Number.formatLocale(number, decimals, locale)`
+
+Format a localized number with grouped thousands
+
+-   `number` (float, required) The number being formatted
+-   `decimals` (integer, optional) Sets the number of decimal points, defaults to `0`
+-   `locale` (string, optional) String locale - example (de_DE|en|ru_RU)
+
 ## Installation
 
 Carbon.Eel is available via packagist. Just run
