@@ -2,12 +2,6 @@
 
 # Carbon.Eel Package for [Neos CMS]
 
-| Version  | Flow             | Neos             |
-| -------- | ---------------- | ---------------- |
-| 0.\*     | 3.\*             | 2.\*             |
-| > 1      | 4.\* + 5.\*      | 3.\* + 4.\*.     |
-| >= 1.6.2 | 4.\*, 5.\*, 6.\* | 3.\*, 4.\*, 5.\* |
-
 ## BEM Helper
 
 Generates BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and a value is `true` the name of the key gets used for the modifier.
