@@ -360,19 +360,19 @@ Replace occurrences of a search string inside the string using regular expressio
 
 ### `Carbon.Number.format(number, decimals, dec_point, thousands_sep)`
 
-Format a number with grouped thousands
+Format a number with grouped thousands. If `decimals` is set to `null`, it returns as many as needed decimals.
 
 -   `number` (float, required) The number being formatted
--   `decimals` (integer, optional) Sets the number of decimal points, defaults to `0`
--   `dec_point` (string, optional) The name of the modifiers, defaults to `.`
--   `thousands_sep` (string, optional) The name of the modifiers, defaults to `,`
+-   `decimals` (integer, optional) Sets the number of decimal points, defaults to `null`
+-   `dec_point` (string, optional) The name of the modifier defaults to `.`
+-   `thousands_sep` (string, optional) The name of the modifier defaults to `,`
 
 ### `Carbon.Number.formatLocale(number, decimals, locale)`
 
-Format a localized number with grouped thousands
+Format a localized number with grouped thousands. If `decimals` is set to `null`, it returns as many as needed decimals.
 
 -   `number` (float, required) The number being formatted
--   `decimals` (integer, optional) Sets the number of decimal points, defaults to `0`
+-   `decimals` (integer, optional) Sets the number of decimal points, defaults to `null`
 -   `locale` (string, optional) String locale - example (de_DE|en|ru_RU)
 
 ### `Carbon.Number.decimalDigits(number)`
