@@ -45,9 +45,21 @@ class NumberHelper implements ProtectedContextAwareInterface
         if ($locale === null) {
             $locale = $this->localizationService->getConfiguration()->getCurrentLocale();
         }
-        setlocale(LC_NUMERIC, $locale);
-        $conf = localeconv();
-        return number_format($number, $decimals, $conf['decimal_point'], $conf['thousands_sep']);
+    }
+
+    /**
+     * Get number of decimal digits
+     *
+     * @param float $number
+     * @return integer
+     */
+    public function decimalDigits(float $number): int
+    {
+        if ((int)$number == $number) {
+            return 0;
+        } else {
+            return \strlen($number) - \strrpos($number, '.') - 1;
+        }
     }
 
     /**

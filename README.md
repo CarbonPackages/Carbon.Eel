@@ -375,6 +375,12 @@ Format a localized number with grouped thousands
 -   `decimals` (integer, optional) Sets the number of decimal points, defaults to `0`
 -   `locale` (string, optional) String locale - example (de_DE|en|ru_RU)
 
+### `Carbon.Number.decimalDigits(number)`
+
+Get number of decimal digits.
+
+-   `number` (float, required) The number being formatted
+
 ## Backend Helper
 
 ### `Carbon.Backend.language()`
