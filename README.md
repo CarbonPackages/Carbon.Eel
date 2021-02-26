@@ -4,7 +4,7 @@
 
 ## BEM Helper
 
-Generates BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and a value is `true` the name of the key gets used for the modifier.
+Generates BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`), or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and a value is `true`, the key's name gets used for the modifier.
 
 -   `block` (string, required) The name of the block
 -   `element` (string) The name of the element, optional
@@ -20,7 +20,7 @@ Shortcut to `Carbon.String.BEM(block, element, modifiers)`
 
 ### `BEM.modifier(class, modifiers)`
 
-Generates a string with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true` the name of the key gets used for the modifier.
+Generates a string with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`), or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true`, the key's name gets used for the modifier.
 
 -   `class` (string, required) The name of the class
 -   `modifiers` (string|array) The name of the modifiers, optional
@@ -31,7 +31,7 @@ Generates a string with BEM classes. The modifiers property can be a string (for
 
 ### `Carbon.Array.BEM(block, element, modifiers)`
 
-Generates an array with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true` the name of the key gets used for the modifier.
+Generates an array with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`), or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true`, the key's name gets used for the modifier.
 
 -   `block` (string, required) The name of the block
 -   `element` (string) The name of the element, optional
@@ -41,7 +41,7 @@ Generates an array with BEM classes. The modifiers property can be a string (for
 
 ### `Carbon.Array.setKeyValue(array, key, value)`
 
-Can be used to add a value with a dynamic key
+It can be used to add a value with a dynamic key.
 
 Example:
 
@@ -72,7 +72,7 @@ array.@process.ksort = ${Carbon.Array.ksort(value)}
 
 ### `Carbon.Array.filter(array)`
 
-Iterates over each value in the array and all entries of the array equal to `false` will be removed.
+Iterates over each value in the array, and all entries of the array equal to `false` will be removed.
 
 Example:
 
@@ -106,14 +106,14 @@ Join the given array recursively using the given separator.
 ${Carbon.Array.join(array, ',')}
 ```
 
--   `array` (array) The array who should be processed
--   `separator` (string, optional) The separator between the values, defaults to `,`
+-   `array` (array) The array that should be processed
+-   `separator` (string, optional) The separator between the values defaults to `,`
 
 **Return** The converted array as a string
 
 ### `Carbon.Array.extractSubElements(array, preserveKeys)`
 
-This method extracts sub elements to the parent level.
+This method extracts sub-elements to the parent level.
 
 An input array of type:
 
@@ -138,7 +138,7 @@ will be converted to:
 ]
 ```
 
--   `array` (array) The array who should be processed
+-   `array` (array) The array that should be processed
 -   `preserveKeys` (boolean, optional) Option if the key should be preserved, defaults to `false`
 
 **Return** The converted array
@@ -162,7 +162,7 @@ array.@process.removeDuplicates = ${Carbon.Array.unique(value)}
 
 ### `Carbon.FileContent.path(string)`
 
-Returns the file content of a path. Fails silent.
+Returns the file content of a path. Fails silently.
 
 Examples:
 
@@ -177,7 +177,7 @@ Carbon.FileContent.path('Foo.Bar/Private/Assets/Logo.svg')
 
 ### `Carbon.FileContent.pathHash(string, length)`
 
-Returns the hash value from the file content of a path. Fails silent.
+Returns the hash value from the file content of a path. Fails silently.
 
 Examples:
 
@@ -187,13 +187,13 @@ Carbon.FileContent.pathHash('Foo.Bar/Private/Assets/Logo.svg', 20) == 1d62f5a55a
 ```
 
 -   `string` (string) The path to the file
--   `length` (integer, optional) The length of the hash value, defaults to `8`. The maximal value is `40`
+-   `length` (integer, optional) The length of the hash value defaults to `8`. The maximal value is `40`
 
 **Return** The hash value from the content of the file
 
 ### `Carbon.FileContent.resource(resource)`
 
-Returns the file content of a persisted resource. Fails silent.
+Returns the file content of a persisted resource. Fails silently.
 
 Example:
 
@@ -207,7 +207,7 @@ Carbon.FileContent.resource(q(node).property('file'))
 
 ### `Carbon.FileContent.resourceHash(resource, length)`
 
-Returns the hash value from the file content of a persisted resource. Fails silent.
+Returns the hash value from the file content of a persisted resource. Fails silently.
 
 Example:
 
@@ -217,7 +217,7 @@ Carbon.FileContent.resourceHash(q(node).property('file'), 20) == 1d62f5a55ad5e30
 ```
 
 -   `resource` (resource) The persisted resource to read
--   `length` (integer, optional) The length of the hash value, defaults to `8`. The maximal value is `40`
+-   `length` (integer, optional) The length of the hash value defaults to `8`. The maximal value is `40`
 
 **Return** The hash value from the content of the file
 
@@ -225,7 +225,7 @@ Carbon.FileContent.resourceHash(q(node).property('file'), 20) == 1d62f5a55ad5e30
 
 ### `Carbon.String.BEM(block, element, modifiers)`
 
-Generates a string with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`) or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true` the name of the key gets used for the modifier.
+Generates a string with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`), or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true`, the key's name gets used for the modifier.
 
 -   `block` (string, required) The name of the block
 -   `element` (string) The name of the element, optional
@@ -250,7 +250,7 @@ Carbon.String.urlize('Ä_ÖÜ äöü') == 'ae-oeue-aeoeue'
 
 ### `Carbon.String.toPascalCase(string)`
 
-Convert strings to `PascalCase`
+Convert strings to `PascalCase`.
 
 Examples:
 
@@ -266,7 +266,7 @@ Carbon.String.toPascalCase('Hello World') == 'HelloWorld'
 
 ### `Carbon.String.toCamelCase(string)`
 
-Convert strings to `camelCase`
+Convert strings to `camelCase`.
 
 Examples:
 
@@ -293,13 +293,13 @@ Carbon.String.convertCamelCase('HelloWorld', '') == 'helloworld'
 ```
 
 -   `string` (string) The string to convert
--   `separator` (string, optional) The separator between the words, defaults to `-`
+-   `separator` (string, optional) The separator between the words defaults to `-`
 
 **Return** The converted string
 
 ### `Carbon.String.convertToString(input, separator)`
 
-Helper to make sure to get a string back
+Helper to make sure to get a string back.
 
 Examples:
 
@@ -316,7 +316,7 @@ Carbon.String.convertToString(['hello', 'world'], '-') == 'hello-world'
 
 ### `Carbon.String.nl2br(string, separator)`
 
-Replace all newlines with an `<br>`
+Replace all newlines with an `<br>`.
 
 Examples:
 
@@ -383,7 +383,7 @@ Returns the language from the interface
 
 ### `Carbon.Backend.translate(id, originalLabel, arguments, source, package, quantity, locale)`
 
-Get the translated value (in the language of the interface) for an id or original label. If only id is set and contains a translation shorthand string, translate according to that shorthand.
+Get the translated value (in the language of the interface) for an id or original label. If the only id is set and contains a translation shorthand string, translate according to that shorthand.
 
 In all other cases:  
 Replace all placeholders with corresponding values if they exist in the translated label.
@@ -393,10 +393,10 @@ Replace all placeholders with corresponding values if they exist in the translat
 -   `arguments` (array, optional) Array of numerically indexed or named values to be inserted into placeholders
 -   `source` (string, optional) Name of file with translations
 -   `package` (string, optional) Target package key
--   `quantity` (mixed, optional) A number to find plural form for (float or int), NULL to not use plural forms
--   `locale` (string, optional) An identifier of locale to use (NULL for use the interface language)
+-   `quantity` (mixed, optional) A number to find a plural form for (float or int), `null` to not use plural forms
+-   `locale` (string, optional) An identifier of the locale to use (NULL for use the interface language)
 
-Returns the ranslated label or source label / ID key
+Returns the translated label or source label / ID key
 
 ## Installation
 
@@ -414,7 +414,7 @@ composer require "carbon/eel:^0.5"
 
 ## Credits
 
-Some of the Eel helpers where inspired and or copied from [punkt.de]
+Some of the Eel helpers were inspired and or copied from [punkt.de]
 
 [packagist]: https://packagist.org/packages/carbon/eel
 [latest stable version]: https://poser.pugx.org/carbon/eel/v/stable
