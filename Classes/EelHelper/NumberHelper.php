@@ -67,9 +67,16 @@ class NumberHelper implements ProtectedContextAwareInterface
         if ((int)$number == $number) {
             return 0;
         } else {
-            return \strlen($number) - \strrpos($number, '.') - 1;
+            $dotPos = \strrpos($number, '.');
+            $commaPos = \strrpos($number, ',');
+            $pos = $dotPos ? $dotPos : $commaPos;
+            if ($pos === false) {
+                return 0;
+            }
+            return \strlen($number) - $pos - 1;
         }
     }
+
 
     /**
      * All methods are considered safe
