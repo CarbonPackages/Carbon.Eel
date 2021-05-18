@@ -164,7 +164,7 @@ Returns an array containing all the values of `firstArray` that are present in a
 
 ### `Carbon.Array.length(array)`
 
-The method counts elements of a given array or a countable object. Return `null` if it is not an countable object.
+The method counts elements of a given array or a countable object. Return `0` if it is not an countable object.
 
 ```elm
 count = ${Carbon.Array.length(countable)}

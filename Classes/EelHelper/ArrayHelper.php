@@ -51,9 +51,9 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * The method counts elements of a given array or countable object
      *
      * @param $countableObject
-     * @return int|null
+     * @return int
      */
-    public function length($countableObject): ?int
+    public function length($countableObject): int
     {
         if ($countableObject instanceof \Countable) {
             return $countableObject->count();
@@ -63,7 +63,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
             return count($countableObject);
         }
 
-        return null;
+        return 0;
     }
 
     /**
