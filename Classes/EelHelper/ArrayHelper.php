@@ -158,6 +158,23 @@ class ArrayHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Check if a variable is iterable and has items
+     *
+     * @param mixed $variable The iterable / array
+     * @return mixed
+     */
+    public function check($variable)
+    {
+        if ($variable instanceof \Traversable && iterator_count($variable)) {
+            return $variable;
+        }
+        if (is_array($variable) && count($variable)) {
+            return $variable;
+        }
+        return null;
+    }
+
+    /**
      * Removes duplicate values from an array
      *
      * @param array $array  The array

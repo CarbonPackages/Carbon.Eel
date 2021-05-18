@@ -158,6 +158,12 @@ array.@process.removeDuplicates = ${Carbon.Array.unique(value)}
 
 **Return** Returns the filtered array.
 
+### `Carbon.Array.check(variable)`
+
+Check if a variable is iterable and has items
+
+**Return** The variable or `null` if it is empty or not an iterable
+
 ## FileContent Helper
 
 ### `Carbon.FileContent.path(string)`
