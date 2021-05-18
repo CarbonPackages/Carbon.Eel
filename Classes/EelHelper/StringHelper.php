@@ -160,6 +160,55 @@ class StringHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Merge strings and arrays to a string with unique values, separated by an empty space
+     *
+     * @param iterable|mixed $mixed_ Optional variable list of arrays / values
+     * @return string|null The merged string
+     */
+    public function merge($mixed_ = null): ?string
+    {
+        $arguments = func_get_args();
+        $explode = function ($value) {
+            return explode(' ', $value);
+        };
+
+        // Create an array with trimmed values
+        foreach ($arguments as &$argument) {
+            if ($argument instanceof \Traversable) {
+                $argument = iterator_to_array($argument);
+            }
+            if (is_array($argument)) {
+                // Clean up array to remove later double entries
+                $argument = array_map($explode, $argument);
+                $resultArray = [];
+                foreach ($argument as $element) {
+                    if (is_array($element)) {
+                        foreach ($element as $subElement) {
+                            $resultArray[] = $subElement;
+                        }
+                    } else {
+                        $resultArray[] = $element;
+                    }
+                }
+                $argument = $resultArray;
+            }
+            if (is_string($argument)) {
+                $argument = explode(' ', $argument);
+            } elseif (!is_array($argument)) {
+                $argument = [null];
+            }
+            $argument = array_map('trim', array_filter($argument));
+        }
+        $mergedArray = array_unique(array_merge(...$arguments));
+
+        if (count($mergedArray)) {
+            return implode(' ', $mergedArray);
+        }
+
+        return null;
+    }
+
+    /**
      * Replace non-breaking spaces and double spaces with a normal space
      *
      * Examples:

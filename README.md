@@ -356,6 +356,21 @@ Replace occurrences of a search string inside the string using regular expressio
 
 **Return** The string with all occurrences replaced
 
+### `Carbon.String.merge(mixed1, mixed2, mixedN)`
+
+Merge strings and arrays to a string with unique values, separated by an empty space.
+
+Examples:
+
+| Expression                                                | Result                 |
+| --------------------------------------------------------- | ---------------------- |
+| `Carbon.String.merge('', 'one')`                          | `'one'`                |
+| `Carbon.String.merge(['one two three'], ['one', 'four'])` | `'one two three four'` |
+| `Carbon.String.merge(null, null)`                         | `null`                 |
+| `Carbon.String.merge('one two three', ['one', 'four']`    | `'one two three four'` |
+
+**Return** The merged string
+
 ## Number Helper
 
 ### `Carbon.Number.format(number, decimals, dec_point, thousands_sep)`
