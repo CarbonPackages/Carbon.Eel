@@ -158,6 +158,50 @@ array.@process.removeDuplicates = ${Carbon.Array.unique(value)}
 
 **Return** Returns the filtered array.
 
+### `Carbon.Array.intersect(firstArray, secondArray)`
+
+Returns an array containing all the values of `firstArray` that are present in all the arguments.
+
+### `Carbon.Array.length(array)`
+
+The method counts elements of a given array or a countable object. Return `null` if it is not an countable object.
+
+```elm
+count = ${Carbon.Array.length(countable)}
+```
+
+### `Carbon.Array.hasKey(array, key)`
+
+Returns a boolean if the array has a specific key
+
+```elm
+bool = ${Carbon.Array.hasKey(array, key)}
+```
+
+### `Carbon.Array.hasValue(array, value)`
+
+Returns a boolean if the array has a specific value
+
+```elm
+bool = ${Carbon.Array.hasValue(array, value)}
+```
+
+### `Carbon.Array.getValueByPath(array, path)`
+
+Returns the value of a nested array by following the specified path.
+
+```elm
+value = ${Carbon.Array.getValueByPath(array, path)}
+```
+
+### `Carbon.Array.setValueByPath(array, path)`
+
+Sets the given value in a nested array or object by following the specified path.
+
+```elm
+array = ${Carbon.Array.setValueByPath(subject, path, value)}
+```
+
 ### `Carbon.Array.check(variable)`
 
 Check if a variable is iterable and has items

@@ -9,6 +9,7 @@ namespace Carbon\Eel\EelHelper;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Eel\ProtectedContextAwareInterface;
+use Neos\Utility\Arrays;
 use Carbon\Eel\Service\BEMService;
 
 /**
@@ -44,6 +45,88 @@ class ArrayHelper implements ProtectedContextAwareInterface
     {
         $array[$key] = $value;
         return $array;
+    }
+
+    /**
+     * The method counts elements of a given array or countable object
+     *
+     * @param $countableObject
+     * @return int|null
+     */
+    public function length($countableObject): ?int
+    {
+        if ($countableObject instanceof \Countable) {
+            return $countableObject->count();
+        }
+
+        if (is_array($countableObject)) {
+            return count($countableObject);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns a boolean if the array has a specific key
+     * 
+     * @param array $array
+     * @param string $key
+     * @return bool
+     */
+    public function hasKey(array $array, string $key): bool
+    {
+        return isset($array[$key]);
+    }
+
+    /**
+     * Returns a boolean if the array has a specific value
+     * 
+     * @param array $array
+     * @param string $key
+     * @return bool
+     */
+    public function hasValue(array $array, string $key): bool
+    {
+        return in_array($key, $array);
+    }
+
+    /**
+     * Returns an array containing all the values of the first array that are present in all the arguments.
+     * 
+     * @param array $a Array of elements to test
+     * @param array $b Array of elements to test
+     * @return array the elements that are present in both arrays
+     */
+    public function intersect(array $a, array $b): array
+    {
+        return \call_user_func_array('array_intersect', \func_get_args());
+    }
+
+    /**
+     * Returns the value of a nested array by following the specifed path.
+     *
+     * @param array &$array The array to traverse as a reference
+     * @param array|string $path The path to follow. Either a simple array of keys or a string in the format 'foo.bar.baz'
+     * @return mixed The value found, NULL if the path didn't exist (note there is no way to distinguish between a found NULL value and "path not found")
+     * @throws \InvalidArgumentException
+     */
+    public function getValueByPath(array $array, $path)
+    {
+        return Arrays::getValueByPath($array, $path);
+    }
+
+    /**
+     * Sets the given value in a nested array or object by following the specified path.
+     *
+     * @param array|\ArrayAccess $subject The array or ArrayAccess instance to work on
+     * @param array|string $path The path to follow. Either a simple array of keys or a string in the format 'foo.bar.baz'
+     * @param mixed $value The value to set
+     * @return array|\ArrayAccess The modified array or object
+     * @throws \InvalidArgumentException
+     */
+    public function setValueByPath($subject, $path, $value)
+    {
+        return Arrays::setValueByPath($subject, $path, $value);
     }
 
     /**
