@@ -168,8 +168,10 @@ Check if a variable is iterable and has items
 
 ### `Carbon.Date.secondsUntil(string)`
 
-Returns the seconds until a given [`DateInterval` format]. Very useful for `maximumLifetime` on the `@cache` entry.
-The helper always starts from today.
+Return seconds until the given offset. . Very useful for `maximumLifetime` on the `@cache` entry.
+
+-   `string` (string) The offset in [`DateInterval` format] starting from midnight
+-   `dateinerval` (boolean, optional) true if interval should be used or the $offset should be parsed, defaults to `true`
 
 In this example, we clear the cache at midnight by adding an offset of 0 hours.
 
@@ -179,6 +181,12 @@ In this example, we clear the cache at midnight by adding an offset of 0 hours.
     maximumLifetime = ${Carbon.Date.secondsUntil('PT0H')}
     ...
 }
+```
+
+To get the seconds until next year, you can do it like this:
+
+```elm
+secondUntilNextYear = ${Carbon.Date.secondsUntil('first day of January next year', false)}
 ```
 
 **Return** The timespan in seconds (integer)

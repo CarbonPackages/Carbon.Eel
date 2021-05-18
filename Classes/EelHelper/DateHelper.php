@@ -16,26 +16,31 @@ class DateHelper implements ProtectedContextAwareInterface
      *
      * @param string offset in dateinerval format starting from midnight
      * @see: https://www.php.net/manual/en/dateinterval.format.php
+     * @param boolean $dateinerval true if interval should be used or the $offset should be parsed
      * @throws Exception
      * @return int
+     * 
      */
-    public function secondsUntil(string $offset): int
+    public function secondsUntil(string $offset, $dateinerval = true): int
     {
         $now = new \DateTime();
-        $then = new \DateTime();
+        if ($dateinerval) {
+            $then = new \DateTime();
+            try {
+                $interval = new \DateInterval($offset);
+                $then
+                    ->setTime(0, 0, 0)
+                    ->add($interval);
+            } catch (\Exception $exception) {
+                throw new \Exception('Error while converting offset to DateInterval object.', 1621338829);
+            }
 
-        try {
-            $interval = new \DateInterval($offset);
-            $then
-                ->setTime(0, 0, 0)
-                ->add($interval);
-        } catch (\Exception $exception) {
-            throw new \Exception('Error while converting offset to DateInterval object.', 1621338829);
-        }
-
-        // if the end time is sooner than the start time we assume it's the next day
-        if ($then->getTimestamp() < $now->getTimestamp()) {
-            $then->add(new \DateInterval('P1D'));
+            // if the end time is sooner than the start time we assume it's the next day
+            if ($then->getTimestamp() < $now->getTimestamp()) {
+                $then->add(new \DateInterval('P1D'));
+            }
+        } else {
+            $then = new \DateTime($offset);
         }
 
         return $then->getTimestamp() - $now->getTimestamp();
