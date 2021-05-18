@@ -2,11 +2,12 @@ Neos:
   Fusion:
     defaultContext:
       BEM: 'Carbon\Eel\EelHelper\BemHelper'
-      Carbon.String: 'Carbon\Eel\EelHelper\StringHelper'
-      Carbon.FileContent: 'Carbon\Eel\EelHelper\FileContentHelper'
       Carbon.Array: 'Carbon\Eel\EelHelper\ArrayHelper'
-      Carbon.Number: 'Carbon\Eel\EelHelper\NumberHelper'
       Carbon.Backend: 'Carbon\Eel\EelHelper\BackendHelper'
+      Carbon.Date: 'Carbon\Eel\EelHelper\DateHelper'
+      Carbon.FileContent: 'Carbon\Eel\EelHelper\FileContentHelper'
+      Carbon.Number: 'Carbon\Eel\EelHelper\NumberHelper'
+      Carbon.String: 'Carbon\Eel\EelHelper\StringHelper'
   Neos:
     fusion:
       autoInclude:

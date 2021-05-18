@@ -164,6 +164,31 @@ Check if a variable is iterable and has items
 
 **Return** The variable or `null` if it is empty or not an iterable
 
+## Date Helper
+
+### `Carbon.Date.secondsUntil(string)`
+
+Returns the seconds until a given [`DateInterval` format]. Very useful for `maximumLifetime` on the `@cache` entry.
+The helper always starts from today.
+
+In this example, we clear the cache at midnight by adding an offset of 0 hours.
+
+```elm
+@cache {
+    mode = 'cached'
+    maximumLifetime = ${Carbon.Date.secondsUntil('PT0H')}
+    ...
+}
+```
+
+**Return** The timespan in seconds (integer)
+
+### `Carbon.Date.timeToDateInterval(string)`
+
+Convert time duration (1:00) into a [`DateInterval`]
+
+**Return** The duration as DateInterval
+
 ## FileContent Helper
 
 ### `Carbon.FileContent.path(string)`
@@ -456,3 +481,5 @@ Some of the Eel helpers were inspired and or copied from [punkt.de]
 [licensefile]: LICENSE
 [neos cms]: https://www.neos.io
 [punkt.de]: https://github.com/punktde
+[`dateinterval` format]: https://www.php.net/manual/en/dateinterval.format.php
+[`dateinterval`]: https://www.php.net/manual/de/class.dateinterval.php
