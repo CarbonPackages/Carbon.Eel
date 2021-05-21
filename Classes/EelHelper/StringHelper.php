@@ -222,8 +222,8 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function removeNbsp($string): string
     {
-        $string = (string) $string;
         $space = ' ';
+        $string = (string) str_replace('&nbsp;', $space, $string);
 
         return trim(
             preg_replace(
