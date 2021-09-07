@@ -20,7 +20,7 @@ class FileContentHelper implements ProtectedContextAwareInterface
     private function _generalizeResource(string $path): string
     {
         $resource = 'resource://';
-        if (strncmp($path, $resource, 11) !== 0) {
+        if (\strncmp($path, $resource, 11) !== 0) {
             $path = $resource . $path;
         }
         return $path;
@@ -37,7 +37,7 @@ class FileContentHelper implements ProtectedContextAwareInterface
     private function _returnHash(string $hash, int $length)
     {
         try {
-            return substr($hash, 0, $length);
+            return \substr($hash, 0, $length);
         } catch (\Exception $e) {
         }
 
@@ -54,7 +54,7 @@ class FileContentHelper implements ProtectedContextAwareInterface
     private function _returnContent(string $file)
     {
         try {
-            return file_get_contents($file);
+            return \file_get_contents($file);
         } catch (\Exception $e) {
         }
 
@@ -84,7 +84,7 @@ class FileContentHelper implements ProtectedContextAwareInterface
     public function pathHash(string $path, int $length = 8)
     {
         return $this->_returnHash(
-            sha1_file($this->_generalizeResource($path)),
+            \sha1_file($this->_generalizeResource($path)),
             $length
         );
     }

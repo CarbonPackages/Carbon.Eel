@@ -49,7 +49,7 @@ class StringHelper implements ProtectedContextAwareInterface
     public function toPascalCase(string $string): string
     {
         $string = Transliterator::urlize((string) $string);
-        $string = str_replace('-', '', ucwords($string, '-'));
+        $string = \str_replace('-', '', \ucwords($string, '-'));
 
         return $string;
     }
@@ -63,7 +63,7 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function toCamelCase(string $string): string
     {
-        return lcfirst($this->toPascalCase($string));
+        return \lcfirst($this->toPascalCase($string));
     }
 
     /**
@@ -81,9 +81,13 @@ class StringHelper implements ProtectedContextAwareInterface
      * @return string The string with all occurrences replaced
      */
 
-    public function pregReplace(string $string, string $pattern, string $replace, int $limit = -1): string
-    {
-        return preg_replace($pattern, $replace, (string) $string, $limit);
+    public function pregReplace(
+        string $string,
+        string $pattern,
+        string $replace,
+        int $limit = -1
+    ): string {
+        return \preg_replace($pattern, $replace, (string) $string, $limit);
     }
 
     /**
@@ -106,7 +110,7 @@ class StringHelper implements ProtectedContextAwareInterface
         $separator = (string) $separator;
 
         return strtolower(
-            preg_replace(
+            \preg_replace(
                 '/([a-zA-Z])(?=[A-Z])/',
                 '$1' . $separator,
                 $string
@@ -131,10 +135,10 @@ class StringHelper implements ProtectedContextAwareInterface
     public function convertToString($input, $separator = ' '): string
     {
         $separator = (string) $separator;
-        $string = is_array($input) ? implode($separator, $input) : (string) $input;
+        $string = \is_array($input) ? \implode($separator, $input) : (string) $input;
 
         // Remove double space and trim the string
-        return trim(preg_replace('/(\s)+/', ' ', $string));
+        return \trim(\preg_replace('/(\s)+/', ' ', $string));
     }
 
     /**
@@ -156,7 +160,7 @@ class StringHelper implements ProtectedContextAwareInterface
         $separator = (string) $separator;
 
         // Remove double space and trim the string
-        return preg_replace('/\n/', $separator, trim($string));
+        return \preg_replace('/\n/', $separator, \trim($string));
     }
 
     /**
@@ -167,22 +171,22 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function merge($mixed_ = null): ?string
     {
-        $arguments = func_get_args();
+        $arguments = \func_get_args();
         $explode = function ($value) {
-            return explode(' ', $value);
+            return \explode(' ', $value);
         };
 
         // Create an array with trimmed values
         foreach ($arguments as &$argument) {
             if ($argument instanceof \Traversable) {
-                $argument = iterator_to_array($argument);
+                $argument = \iterator_to_array($argument);
             }
-            if (is_array($argument)) {
+            if (\is_array($argument)) {
                 // Clean up array to remove later double entries
-                $argument = array_map($explode, $argument);
+                $argument = \array_map($explode, $argument);
                 $resultArray = [];
                 foreach ($argument as $element) {
-                    if (is_array($element)) {
+                    if (\is_array($element)) {
                         foreach ($element as $subElement) {
                             $resultArray[] = $subElement;
                         }
@@ -192,17 +196,17 @@ class StringHelper implements ProtectedContextAwareInterface
                 }
                 $argument = $resultArray;
             }
-            if (is_string($argument)) {
-                $argument = explode(' ', $argument);
-            } elseif (!is_array($argument)) {
+            if (\is_string($argument)) {
+                $argument = \explode(' ', $argument);
+            } elseif (!\is_array($argument)) {
                 $argument = [null];
             }
-            $argument = array_map('trim', array_filter($argument));
+            $argument = \array_map('trim', \array_filter($argument));
         }
-        $mergedArray = array_unique(array_merge(...$arguments));
+        $mergedArray = \array_unique(\array_merge(...$arguments));
 
-        if (count($mergedArray)) {
-            return implode(' ', $mergedArray);
+        if (\count($mergedArray)) {
+            return \implode(' ', $mergedArray);
         }
 
         return null;
@@ -223,13 +227,13 @@ class StringHelper implements ProtectedContextAwareInterface
     public function removeNbsp($string): string
     {
         $space = ' ';
-        $string = (string) str_replace('&nbsp;', $space, $string);
+        $string = (string) \str_replace('&nbsp;', $space, $string);
 
-        return trim(
-            preg_replace(
+        return \trim(
+            \preg_replace(
                 '/\s\s+/',
                 $space,
-                str_replace(
+                \str_replace(
                     ' ',
                     $space,
                     $string

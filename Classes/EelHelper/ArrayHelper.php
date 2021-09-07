@@ -76,8 +76,8 @@ class ArrayHelper implements ProtectedContextAwareInterface
             return $countableObject->count();
         }
 
-        if (is_array($countableObject)) {
-            return count($countableObject);
+        if (\is_array($countableObject)) {
+            return \count($countableObject);
         }
 
         return 0;
@@ -104,7 +104,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      */
     public function hasValue(array $array, string $key): bool
     {
-        return in_array($key, $array);
+        return \in_array($key, $array);
     }
 
     /**
@@ -168,7 +168,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      */
     public function filter(array $array): array
     {
-        return array_filter($array);
+        return \array_filter($array);
     }
 
     /**
@@ -180,7 +180,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      */
     public function values(array $array): array
     {
-        return array_values($array);
+        return \array_values($array);
     }
 
     /**
@@ -197,14 +197,14 @@ class ArrayHelper implements ProtectedContextAwareInterface
         $result = '';
 
         foreach ($array as $item) {
-            if (is_array($item)) {
+            if (\is_array($item)) {
                 $result .= $this->join($item, $separator) . $separator;
             } else {
                 $result .= $item . $separator;
             }
         }
 
-        $result = substr($result, 0, 0 - strlen($separator));
+        $result = \substr($result, 0, 0 - \strlen($separator));
 
         return $result;
     }
@@ -241,7 +241,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
         $resultArray = [];
 
         foreach ($array as $element) {
-            if (is_array($element)) {
+            if (\is_array($element)) {
                 foreach ($element as $subKey => $subElement) {
                     if ($preserveKeys) {
                         $resultArray[$subKey] = $subElement;
@@ -265,10 +265,10 @@ class ArrayHelper implements ProtectedContextAwareInterface
      */
     public function check($variable)
     {
-        if ($variable instanceof \Traversable && iterator_count($variable)) {
+        if ($variable instanceof \Traversable && \iterator_count($variable)) {
             return $variable;
         }
-        if (is_array($variable) && count($variable)) {
+        if (\is_array($variable) && \count($variable)) {
             return $variable;
         }
         return null;
@@ -285,9 +285,9 @@ class ArrayHelper implements ProtectedContextAwareInterface
     public function unique(array $array, bool $filter = false): array
     {
         if ($filter) {
-            $array = array_filter($array);
+            $array = \array_filter($array);
         }
-        return array_unique($array);
+        return \array_unique($array);
     }
 
     /**

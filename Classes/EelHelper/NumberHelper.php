@@ -27,8 +27,12 @@ class NumberHelper implements ProtectedContextAwareInterface
      * @param string|null $thousands_sep
      * @return string
      */
-    public function format(float $number, ?int $decimals = null, ?string $dec_point = ".", ?string $thousands_sep = ","): string
-    {
+    public function format(
+        float $number,
+        ?int $decimals = null,
+        ?string $dec_point = ".",
+        ?string $thousands_sep = ","
+    ): string {
         if ($decimals === null) {
             $decimals = $this->decimalDigits($number);
         }
@@ -43,17 +47,26 @@ class NumberHelper implements ProtectedContextAwareInterface
      * @param string|null $locale
      * @return string
      */
-    public function formatLocale(float $number, ?int $decimals = null, ?string $locale = null): string
-    {
+    public function formatLocale(
+        float $number,
+        ?int $decimals = null,
+        ?string $locale = null
+    ): string {
         if ($decimals === null) {
             $decimals = $this->decimalDigits($number);
         }
         if ($locale === null) {
-            $locale = $this->localizationService->getConfiguration()->getCurrentLocale();
+            $locale =
+                $this->localizationService->getConfiguration()->getCurrentLocale();
         }
         \setlocale(LC_NUMERIC, $locale);
         $conf = \localeconv();
-        return \number_format($number, $decimals, $conf['decimal_point'], $conf['thousands_sep']);
+        return \number_format(
+            $number,
+            $decimals,
+            $conf['decimal_point'],
+            $conf['thousands_sep']
+        );
     }
 
     /**

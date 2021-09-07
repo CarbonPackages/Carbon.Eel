@@ -48,8 +48,15 @@ class BackendHelper implements ProtectedContextAwareInterface
      * @return string
      * @throws Exception
      */
-    public function translate($id, $originalLabel = null, array $arguments = [], $source = 'Main', $package = null, $quantity = null, $locale = null): string
-    {
+    public function translate(
+        $id,
+        $originalLabel = null,
+        array $arguments = [],
+        $source = 'Main',
+        $package = null,
+        $quantity = null,
+        $locale = null
+    ): string {
         if ($locale === null) {
             $locale = $this->userService->getInterfaceLanguage();
         }
@@ -61,10 +68,19 @@ class BackendHelper implements ProtectedContextAwareInterface
             $package === null &&
             $quantity === null
         ) {
-            return preg_match(self::I18N_LABEL_ID_PATTERN, $id) === 1 ? $this->translateByShortHandString($id, $locale) : $id;
+            return \preg_match(self::I18N_LABEL_ID_PATTERN, $id) === 1 ?
+                $this->translateByShortHandString($id, $locale) : $id;
         }
 
-        return $this->translationHelper->translate($id, $originalLabel, $arguments, $source, $package, $quantity, $locale);
+        return $this->translationHelper->translate(
+            $id,
+            $originalLabel,
+            $arguments,
+            $source,
+            $package,
+            $quantity,
+            $locale
+        );
     }
 
     /**
@@ -74,13 +90,27 @@ class BackendHelper implements ProtectedContextAwareInterface
      */
     protected function translateByShortHandString($shortHandString, $locale)
     {
-        $shortHandStringParts = explode(':', $shortHandString);
-        if (count($shortHandStringParts) === 3) {
+        $shortHandStringParts = \explode(':', $shortHandString);
+        if (\count($shortHandStringParts) === 3) {
             list($package, $source, $id) = $shortHandStringParts;
-            return $this->translationHelper->translate($id, null, [], $source, $package, null, $locale);
+            return $this->translationHelper->translate(
+                $id,
+                null,
+                [],
+                $source,
+                $package,
+                null,
+                $locale
+            );
         }
 
-        throw new \InvalidArgumentException(sprintf('The translation shorthand string "%s" has the wrong format', $shortHandString), 1613464966);
+        throw new \InvalidArgumentException(
+            sprintf(
+                'The translation shorthand string "%s" has the wrong format',
+                $shortHandString
+            ),
+            1613464966
+        );
     }
 
     /**

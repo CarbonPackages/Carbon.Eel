@@ -32,7 +32,10 @@ class DateHelper implements ProtectedContextAwareInterface
                     ->setTime(0, 0, 0)
                     ->add($interval);
             } catch (\Exception $exception) {
-                throw new \Exception('Error while converting offset to DateInterval object.', 1621338829);
+                throw new \Exception(
+                    'Error while converting offset to DateInterval object.',
+                    1621338829
+                );
             }
 
             // if the end time is sooner than the start time we assume it's the next day
