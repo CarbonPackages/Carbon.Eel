@@ -48,6 +48,24 @@ class ArrayHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Split an array into chunks
+     *
+     * Chunks an array into arrays with length elements.
+     * The last chunk may contain less than length elements.
+     *
+     * @param array   $array         The array to work on
+     * @param integer $length        The size of each chunk
+     * @param bool    $preserve_keys When set to true, keys will be preserved. Default is false, which will reindex the chunk numerically
+     *
+     * @return array
+     */
+    public function chunk(array $array, int $length, bool $preserve_keys = false): array
+    {
+        return \array_chunk($array, $length, $preserve_keys);
+    }
+
+
+    /**
      * The method counts elements of a given array or countable object
      *
      * @param $countableObject

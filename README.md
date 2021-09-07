@@ -39,6 +39,14 @@ Generates an array with BEM classes. The modifiers property can be a string (for
 
 **Return** The array
 
+### `Carbon.Array.chunck(array, length, preserveKeys)`
+
+Chunks an array into arrays with `length` elements. The last chunk may contain less than `length` elements.
+
+-   `array` (array, required) The array to work on
+-   `length` (integer, required) The size of each chunk
+-   `preserveKeys` (bool) When set to `true`, keys will be preserved. Default is `false`, which will reindex the chunk numerically
+
 ### `Carbon.Array.setKeyValue(array, key, value)`
 
 It can be used to add a value with a dynamic key.
