@@ -80,9 +80,9 @@ class NumberHelper implements ProtectedContextAwareInterface
 
     /**
      * All methods are considered safe
-     * 
+     *
      * @param string $methodName The name of the method
-     * 
+     *
      * @return bool
      */
     public function allowsCallOfMethod($methodName)

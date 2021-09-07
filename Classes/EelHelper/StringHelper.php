@@ -19,7 +19,7 @@ class StringHelper implements ProtectedContextAwareInterface
      * @param string       $block     defaults to null
      * @param string       $element   defaults to null
      * @param string|array $modifiers defaults to []
-     * 
+     *
      * @return string
      */
     public function BEM($block = null, $element = null, $modifiers = []): string
@@ -31,7 +31,7 @@ class StringHelper implements ProtectedContextAwareInterface
      * Generates a slug of the given string
      *
      * @param string $string The string
-     * 
+     *
      * @return string
      */
     public function urlize(string $string): string
@@ -43,7 +43,7 @@ class StringHelper implements ProtectedContextAwareInterface
      * Helper to convert strings to PascalCase
      *
      * @param string $string A string
-     * 
+     *
      * @return string The converted string
      */
     public function toPascalCase(string $string): string
@@ -58,7 +58,7 @@ class StringHelper implements ProtectedContextAwareInterface
      * Helper to convert strings to camelCase
      *
      * @param string $string A string
-     * 
+     *
      * @return string The converted string
      */
     public function toCamelCase(string $string): string
@@ -97,7 +97,7 @@ class StringHelper implements ProtectedContextAwareInterface
      *
      * @param string $string    A string
      * @param string $separator The separator
-     * 
+     *
      * @return string The converted string
      */
     public function convertCamelCase($string, $separator = '-'): string
@@ -125,7 +125,7 @@ class StringHelper implements ProtectedContextAwareInterface
      *
      * @param string|array $input     A string or an array
      * @param string       $separator The $separator
-     * 
+     *
      * @return string The converted string
      */
     public function convertToString($input, $separator = ' '): string
@@ -147,7 +147,7 @@ class StringHelper implements ProtectedContextAwareInterface
      *
      * @param string $string    A string
      * @param string $separator The separator
-     * 
+     *
      * @return string The converted string
      */
     public function nl2br($string, $separator = '<br>'): string
@@ -217,7 +217,7 @@ class StringHelper implements ProtectedContextAwareInterface
      *     Carbon.String.removeNbsp('hello   world') == 'hello world'
      *
      * @param string $string A string
-     * 
+     *
      * @return string The converted string
      */
     public function removeNbsp($string): string
@@ -240,9 +240,9 @@ class StringHelper implements ProtectedContextAwareInterface
 
     /**
      * All methods are considered safe
-     * 
+     *
      * @param string $methodName The name of the method
-     * 
+     *
      * @return bool
      */
     public function allowsCallOfMethod($methodName)

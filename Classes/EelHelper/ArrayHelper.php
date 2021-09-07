@@ -24,7 +24,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * @param string       $block     defaults to null
      * @param string       $element   defaults to null
      * @param string|array $modifiers defaults to []
-     * 
+     *
      * @return array
      */
     public function BEM($block = null, $element = null, $modifiers = []): array
@@ -38,7 +38,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * @param array  $array The array
      * @param string $key   The target key
      * @param mixed  $value The value
-     * 
+     *
      * @return array
      */
     public function setKeyValue(array $array, string $key, $value): array
@@ -64,7 +64,6 @@ class ArrayHelper implements ProtectedContextAwareInterface
         return \array_chunk($array, $length, $preserve_keys);
     }
 
-
     /**
      * The method counts elements of a given array or countable object
      *
@@ -86,7 +85,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
 
     /**
      * Returns a boolean if the array has a specific key
-     * 
+     *
      * @param array $array
      * @param string $key
      * @return bool
@@ -98,7 +97,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
 
     /**
      * Returns a boolean if the array has a specific value
-     * 
+     *
      * @param array $array
      * @param string $key
      * @return bool
@@ -110,7 +109,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
 
     /**
      * Returns an array containing all the values of the first array that are present in all the arguments.
-     * 
+     *
      * @param array $a Array of elements to test
      * @param array $b Array of elements to test
      * @return array the elements that are present in both arrays
@@ -151,7 +150,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * Sort an array by key
      *
      * @param array $array The array to sort
-     * 
+     *
      * @return array
      */
     public function ksort(array $array): array
@@ -164,7 +163,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * PHPs array_filter
      *
      * @param array $array The array to filter
-     * 
+     *
      * @return array
      */
     public function filter(array $array): array
@@ -176,7 +175,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * Return all the values of an array
      *
      * @param array $array The array
-     * 
+     *
      * @return array Returns an indexed array of values
      */
     public function values(array $array): array
@@ -190,8 +189,8 @@ class ArrayHelper implements ProtectedContextAwareInterface
      *
      * @param array  $array     The array
      * @param string $separator The speparator, defaults to ','
-     * 
-     * @return string The joined string 
+     *
+     * @return string The joined string
      */
     public function join(array $array, string $separator = ','): string
     {
@@ -232,7 +231,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      *
      * @param array $array        The array
      * @param bool  $preserveKeys Should the key be preserved, defaults to `false`
-     * 
+     *
      * @return array
      */
     public function extractSubElements(
@@ -280,7 +279,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      *
      * @param array $array  The array
      * @param bool  $filter Filter the array defaults to `false`
-     * 
+     *
      * @return array
      */
     public function unique(array $array, bool $filter = false): array
@@ -293,9 +292,9 @@ class ArrayHelper implements ProtectedContextAwareInterface
 
     /**
      * All methods are considered safe
-     * 
+     *
      * @param string $methodName The name of the method
-     * 
+     *
      * @return bool
      */
     public function allowsCallOfMethod($methodName)

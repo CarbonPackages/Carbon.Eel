@@ -6,9 +6,9 @@ class BEMService
 {
     /**
      * Generate the array for the modifiers
-     * 
+     *
      * @param string|array $modifiers
-     * 
+     *
      * @return array
      */
     private static function modifierArray($modifiers = []): array
@@ -44,7 +44,7 @@ class BEMService
      * @param string       $block     defaults to null
      * @param string       $element   defaults to null
      * @param string|array $modifiers defaults to []
-     * 
+     *
      * @return array
      */
     public static function getClassNamesArray($block = null, $element = null, $modifiers = []): array
@@ -71,7 +71,7 @@ class BEMService
      * @param string       $block     defaults to null
      * @param string       $element   defaults to null
      * @param string|array $modifiers defaults to []
-     * 
+     *
      * @return string
      */
     public static function getClassNamesString($block = null, $element = null, $modifiers = []): string

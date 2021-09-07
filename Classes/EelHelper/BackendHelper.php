@@ -37,7 +37,7 @@ class BackendHelper implements ProtectedContextAwareInterface
 
     /**
      * Get the translated value for an id or original label in the interface language
-     * 
+     *
      * @param string $id
      * @param string|null $originalLabel
      * @param array $arguments

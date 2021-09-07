@@ -19,7 +19,7 @@ class DateHelper implements ProtectedContextAwareInterface
      * @param boolean $dateinerval true if interval should be used or the $offset should be parsed
      * @throws Exception
      * @return int
-     * 
+     *
      */
     public function secondsUntil(string $offset, $dateinerval = true): int
     {

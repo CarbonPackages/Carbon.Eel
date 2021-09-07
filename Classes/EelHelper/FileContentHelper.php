@@ -12,9 +12,9 @@ class FileContentHelper implements ProtectedContextAwareInterface
 {
     /**
      * Add 'resource://' to a string, if needed
-     * 
+     *
      * @param string $path The path
-     * 
+     *
      * @return string
      */
     private function _generalizeResource(string $path): string
@@ -28,40 +28,42 @@ class FileContentHelper implements ProtectedContextAwareInterface
 
     /**
      * Hashes a string
-     * 
+     *
      * @param string $hash   The string to hash
      * @param int    $length The length of the hash
-     * 
+     *
      * @return string
      */
     private function _returnHash(string $hash, int $length)
     {
         try {
             return substr($hash, 0, $length);
-        } catch (\Exception $e) { }
+        } catch (\Exception $e) {
+        }
 
         return false;
     }
 
     /**
      * Get the content of the file
-     * 
+     *
      * @param string $file The file
-     * 
+     *
      * @return string
      */
     private function _returnContent(string $file)
     {
         try {
             return file_get_contents($file);
-        } catch (\Exception $e) { }
+        } catch (\Exception $e) {
+        }
 
         return false;
     }
 
     /**
      * Returns the file content of a path. Fails silent
-     * 
+     *
      * @param string $path The path to the file
      *
      * @return string | boolean
@@ -73,7 +75,7 @@ class FileContentHelper implements ProtectedContextAwareInterface
 
     /**
      * Returns a shorten sha1 value of a file path. Fails silent
-     * 
+     *
      * @param string $path   The path to the file
      * @param int    $length The length of the hash, defaults to 8
      *
@@ -91,7 +93,7 @@ class FileContentHelper implements ProtectedContextAwareInterface
      * Returns the file content of a resource. Fails silent
      *
      * @param $resource The resource
-     * 
+     *
      * @return string | boolean
      */
     public function resource($resource): string
@@ -103,7 +105,7 @@ class FileContentHelper implements ProtectedContextAwareInterface
 
     /**
      * Returns a shorten sha1 value of a file property. Fails silent
-     * 
+     *
      * @param $resource The resource
      * @param int      $length   The length of the hash, defaults to 8
      *
@@ -116,9 +118,9 @@ class FileContentHelper implements ProtectedContextAwareInterface
 
     /**
      * All methods are considered safe
-     * 
+     *
      * @param string $methodName The name of the method
-     * 
+     *
      * @return bool
      */
     public function allowsCallOfMethod($methodName)
