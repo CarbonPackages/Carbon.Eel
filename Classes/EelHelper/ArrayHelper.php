@@ -57,7 +57,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * @param string $key The target key
      * @param mixed $value The value
      * @return array
-     * @deprecated Will be removed in version 2. Use Array.key() instead.
+     * @deprecated Will be removed in version 2. Use Array.set() instead.
      */
     public function setKeyValue(iterable $array, string $key, $value): array
     {
