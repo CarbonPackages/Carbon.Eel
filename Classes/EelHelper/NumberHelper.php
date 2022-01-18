@@ -2,10 +2,14 @@
 
 namespace Carbon\Eel\EelHelper;
 
-use Neos\Flow\Annotations as Flow;
-use Neos\Flow\I18n\Locale;
-use Neos\Flow\I18n\Service as I18nService;
 use Neos\Eel\ProtectedContextAwareInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\I18n\Service as I18nService;
+use function localeconv;
+use function number_format;
+use function setlocale;
+use function strlen;
+use function strrpos;
 
 /**
  * Number helpers for Eel contexts
@@ -36,7 +40,7 @@ class NumberHelper implements ProtectedContextAwareInterface
         if ($decimals === null) {
             $decimals = $this->decimalDigits($number);
         }
-        return \number_format($number, $decimals, $dec_point, $thousands_sep);
+        return number_format($number, $decimals, $dec_point, $thousands_sep);
     }
 
     /**
@@ -59,9 +63,9 @@ class NumberHelper implements ProtectedContextAwareInterface
             $locale =
                 $this->localizationService->getConfiguration()->getCurrentLocale();
         }
-        \setlocale(LC_NUMERIC, $locale);
-        $conf = \localeconv();
-        return \number_format(
+        setlocale(LC_NUMERIC, $locale);
+        $conf = localeconv();
+        return number_format(
             $number,
             $decimals,
             $conf['decimal_point'],
@@ -80,13 +84,13 @@ class NumberHelper implements ProtectedContextAwareInterface
         if ((int)$number == $number) {
             return 0;
         } else {
-            $dotPos = \strrpos($number, '.');
-            $commaPos = \strrpos($number, ',');
+            $dotPos = strrpos($number, '.');
+            $commaPos = strrpos($number, ',');
             $pos = $dotPos ? $dotPos : $commaPos;
             if ($pos === false) {
                 return 0;
             }
-            return \strlen($number) - $pos - 1;
+            return strlen($number) - $pos - 1;
         }
     }
 
@@ -95,7 +99,6 @@ class NumberHelper implements ProtectedContextAwareInterface
      * All methods are considered safe
      *
      * @param string $methodName The name of the method
-     *
      * @return bool
      */
     public function allowsCallOfMethod($methodName)
