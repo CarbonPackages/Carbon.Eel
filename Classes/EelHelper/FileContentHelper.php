@@ -51,13 +51,12 @@ class FileContentHelper implements ProtectedContextAwareInterface
      * Get the content of the file
      *
      * @param string $file The file
-     * @return string
+     * @return string|boolean
      */
     private function _returnContent(string $file)
     {
-        try {
+        if (file_exists($file)) {
             return file_get_contents($file);
-        } catch (Exception $e) {
         }
 
         return false;
@@ -83,10 +82,11 @@ class FileContentHelper implements ProtectedContextAwareInterface
      */
     public function pathHash(string $path, int $length = 8)
     {
-        return $this->_returnHash(
-            sha1_file($this->_generalizeResource($path)),
-            $length
-        );
+        $file = $this->_generalizeResource($path);
+        if (!file_exists($file)) {
+            return false;
+        }
+        return $this->_returnHash(sha1_file($file), $length);
     }
 
     /**
@@ -95,7 +95,7 @@ class FileContentHelper implements ProtectedContextAwareInterface
      * @param $resource The resource
      * @return string|boolean
      */
-    public function resource($resource): string
+    public function resource($resource)
     {
         return $this->_returnContent(
             'resource://' . $resource->getResource()->getSha1()
@@ -111,7 +111,11 @@ class FileContentHelper implements ProtectedContextAwareInterface
      */
     public function resourceHash($resource, int $length = 8): string
     {
-        return $this->_returnHash($resource->getResource()->getSha1(), $length);
+        $file = $resource->getResource()->getSha1();
+        if (!file_exists($file)) {
+            return false;
+        }
+        return $this->_returnHash($file, $length);
     }
 
     /**
