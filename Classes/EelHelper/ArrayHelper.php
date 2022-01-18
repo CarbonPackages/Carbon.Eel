@@ -4,13 +4,31 @@ namespace Carbon\Eel\EelHelper;
 
 /*
  *  (c) 2017 punkt.de GmbH - Karlsruhe, Germany - http://punkt.de
+ *  (c) 2021 Jon Uhlmann
  *  All rights reserved.
  */
 
-use Neos\Flow\Annotations as Flow;
-use Neos\Eel\ProtectedContextAwareInterface;
-use Neos\Utility\Arrays;
 use Carbon\Eel\Service\BEMService;
+use Neos\Eel\ProtectedContextAwareInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Utility\Arrays;
+use Countable;
+use InvalidArgumentException;
+use Traversable;
+use function array_chunk;
+use function array_filter;
+use function array_unique;
+use function array_values;
+use function call_user_func_array;
+use function count;
+use function func_get_args;
+use function in_array;
+use function is_array;
+use function iterator_count;
+use function iterator_to_array;
+use function ksort;
+use function strlen;
+use function substr;
 
 /**
  * @Flow\Proxy(false)
@@ -21,8 +39,8 @@ class ArrayHelper implements ProtectedContextAwareInterface
     /**
      * Generates a BEM array
      *
-     * @param string       $block     defaults to null
-     * @param string       $element   defaults to null
+     * @param string $block defaults to null
+     * @param string $element defaults to null
      * @param string|array $modifiers defaults to []
      *
      * @return array
@@ -35,14 +53,17 @@ class ArrayHelper implements ProtectedContextAwareInterface
     /**
      * Adds a key / value pair to an array
      *
-     * @param array  $array The array
-     * @param string $key   The target key
-     * @param mixed  $value The value
-     *
+     * @param iterable $array The array
+     * @param string $key The target key
+     * @param mixed $value The value
      * @return array
+     * @deprecated Will be removed in 2. Use Array.key() instead.
      */
-    public function setKeyValue(array $array, string $key, $value): array
+    public function setKeyValue(iterable $array, string $key, $value): array
     {
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
         $array[$key] = $value;
         return $array;
     }
@@ -53,15 +74,17 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * Chunks an array into arrays with length elements.
      * The last chunk may contain less than length elements.
      *
-     * @param array   $array         The array to work on
-     * @param integer $length        The size of each chunk
-     * @param bool    $preserve_keys When set to true, keys will be preserved. Default is false, which will reindex the chunk numerically
-     *
+     * @param iterable $array The array to work on
+     * @param integer $length The size of each chunk
+     * @param bool $preserve_keys When set to true, keys will be preserved. Default is false, which will reindex the chunk numerically
      * @return array
      */
-    public function chunk(array $array, int $length, bool $preserve_keys = false): array
+    public function chunk(iterable $array, int $length, bool $preserve_keys = false): array
     {
-        return \array_chunk($array, $length, $preserve_keys);
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
+        return array_chunk($array, $length, $preserve_keys);
     }
 
     /**
@@ -72,12 +95,12 @@ class ArrayHelper implements ProtectedContextAwareInterface
      */
     public function length($countableObject): int
     {
-        if ($countableObject instanceof \Countable) {
+        if ($countableObject instanceof Countable) {
             return $countableObject->count();
         }
 
-        if (\is_array($countableObject)) {
-            return \count($countableObject);
+        if (is_array($countableObject)) {
+            return count($countableObject);
         }
 
         return 0;
@@ -86,49 +109,67 @@ class ArrayHelper implements ProtectedContextAwareInterface
     /**
      * Returns a boolean if the array has a specific key
      *
-     * @param array $array
+     * @param iterable $array
      * @param string $key
      * @return bool
      */
-    public function hasKey(array $array, string $key): bool
+    public function hasKey(iterable $array, string $key): bool
     {
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
         return isset($array[$key]);
     }
 
     /**
      * Returns a boolean if the array has a specific value
      *
-     * @param array $array
+     * @param iterable $array
      * @param string $key
      * @return bool
      */
-    public function hasValue(array $array, string $key): bool
+    public function hasValue(iterable $array, string $key): bool
     {
-        return \in_array($key, $array);
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
+        return in_array($key, $array);
     }
 
     /**
      * Returns an array containing all the values of the first array that are present in all the arguments.
      *
-     * @param array $a Array of elements to test
-     * @param array $b Array of elements to test
+     * @param iterable $a Array of elements to test
+     * @param iterable $b Array of elements to test
      * @return array the elements that are present in both arrays
      */
-    public function intersect(array $a, array $b): array
+    public function intersect(iterable $a, iterable $b): array
     {
-        return \call_user_func_array('array_intersect', \func_get_args());
+        if ($a instanceof Traversable) {
+            $a = iterator_to_array($a);
+        }
+        if ($b instanceof Traversable) {
+            $b = iterator_to_array($b);
+        }
+        return call_user_func_array('array_intersect', func_get_args());
     }
 
     /**
      * Returns the value of a nested array by following the specifed path.
      *
-     * @param array &$array The array to traverse as a reference
-     * @param array|string $path The path to follow. Either a simple array of keys or a string in the format 'foo.bar.baz'
+     * @param iterable $array The array to traverse as a reference
+     * @param iterable|string $path The path to follow. Either a simple array of keys or a string in the format 'foo.bar.baz'
      * @return mixed The value found, NULL if the path didn't exist (note there is no way to distinguish between a found NULL value and "path not found")
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function getValueByPath(array $array, $path)
+    public function getValueByPath(iterable $array, $path)
     {
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
+        if ($path instanceof Traversable) {
+            $path = iterator_to_array($path);
+        }
         return Arrays::getValueByPath($array, $path);
     }
 
@@ -139,7 +180,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * @param array|string $path The path to follow. Either a simple array of keys or a string in the format 'foo.bar.baz'
      * @param mixed $value The value to set
      * @return array|\ArrayAccess The modified array or object
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setValueByPath($subject, $path, $value)
     {
@@ -149,62 +190,74 @@ class ArrayHelper implements ProtectedContextAwareInterface
     /**
      * Sort an array by key
      *
-     * @param array $array The array to sort
-     *
+     * @param iterable $array The array to sort
      * @return array
+     * @deprecated Will be removed in 2. Use Array.ksort() instead.
      */
-    public function ksort(array $array): array
+    public function ksort(iterable $array): array
     {
-        \ksort($array, SORT_NATURAL | SORT_FLAG_CASE);
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
+        ksort($array, SORT_NATURAL | SORT_FLAG_CASE);
         return $array;
     }
 
     /**
      * PHPs array_filter
      *
-     * @param array $array The array to filter
-     *
+     * @param iterable $array The array to filter
      * @return array
+     * @deprecated Will be removed in 2. Use Array.filter() instead.
      */
-    public function filter(array $array): array
+    public function filter(iterable $array): array
     {
-        return \array_filter($array);
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
+        return array_filter($array);
     }
 
     /**
      * Return all the values of an array
      *
-     * @param array $array The array
-     *
+     * @param iterable $array The array
      * @return array Returns an indexed array of values
+     * @deprecated Will be removed in 2. Use Array.values() instead.
      */
-    public function values(array $array): array
+    public function values(iterable $array): array
     {
-        return \array_values($array);
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
+        return array_values($array);
     }
 
     /**
      * Join the given array recursively
      * using the given separator string.
      *
-     * @param array  $array     The array
+     * @param iterable  $array Array with values to join
      * @param string $separator The speparator, defaults to ','
-     *
      * @return string The joined string
      */
-    public function join(array $array, string $separator = ','): string
+    public function join(iterable $array, string $separator = ','): string
     {
         $result = '';
 
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
+
         foreach ($array as $item) {
-            if (\is_array($item)) {
+            if (is_array($item)) {
                 $result .= $this->join($item, $separator) . $separator;
             } else {
                 $result .= $item . $separator;
             }
         }
 
-        $result = \substr($result, 0, 0 - \strlen($separator));
+        $result = substr($result, 0, 0 - strlen($separator));
 
         return $result;
     }
@@ -229,19 +282,21 @@ class ArrayHelper implements ProtectedContextAwareInterface
      *    2 => 'value3'
      * ]
      *
-     * @param array $array        The array
+     * @param iterable $array The array
      * @param bool  $preserveKeys Should the key be preserved, defaults to `false`
-     *
      * @return array
      */
     public function extractSubElements(
-        array $array,
+        iterable $array,
         bool $preserveKeys = false
     ): array {
         $resultArray = [];
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
 
         foreach ($array as $element) {
-            if (\is_array($element)) {
+            if (is_array($element)) {
                 foreach ($element as $subKey => $subElement) {
                     if ($preserveKeys) {
                         $resultArray[$subKey] = $subElement;
@@ -265,10 +320,10 @@ class ArrayHelper implements ProtectedContextAwareInterface
      */
     public function check($variable)
     {
-        if ($variable instanceof \Traversable && \iterator_count($variable)) {
+        if ($variable instanceof Traversable && iterator_count($variable)) {
             return $variable;
         }
-        if (\is_array($variable) && \count($variable)) {
+        if (is_array($variable) && count($variable)) {
             return $variable;
         }
         return null;
@@ -277,24 +332,26 @@ class ArrayHelper implements ProtectedContextAwareInterface
     /**
      * Removes duplicate values from an array
      *
-     * @param array $array  The array
-     * @param bool  $filter Filter the array defaults to `false`
-     *
+     * @param iterable $array The input array
+     * @param bool $filter Filter the array defaults to `false`
      * @return array
      */
-    public function unique(array $array, bool $filter = false): array
+    public function unique(iterable $array, bool $filter = false): array
     {
-        if ($filter) {
-            $array = \array_filter($array);
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
         }
-        return \array_unique($array);
+
+        if ($filter) {
+            $array = array_filter($array);
+        }
+        return array_unique($array);
     }
 
     /**
      * All methods are considered safe
      *
      * @param string $methodName The name of the method
-     *
      * @return bool
      */
     public function allowsCallOfMethod($methodName)
