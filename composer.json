@@ -5,7 +5,7 @@
     "license": "MIT",
     "keywords": ["neos", "fusion", "helper", "eel", "carbon"],
     "require": {
-        "neos/flow": "^6.3 || ^7.0 || ^8.0",
+        "neos/flow": "^7.0 || ^8.0",
         "behat/transliterator": "^1.2"
     },
     "authors": [
