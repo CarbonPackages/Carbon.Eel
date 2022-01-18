@@ -47,73 +47,6 @@ Chunks an array into arrays with `length` elements. The last chunk may contain l
 -   `length` (integer, required) The size of each chunk
 -   `preserveKeys` (bool) When set to `true`, keys will be preserved. Default is `false`, which will reindex the chunk numerically
 
-### `Carbon.Array.setKeyValue(array, key, value)`
-
-> **Deprecated** Will be removed in version 2. Use `Array.key()` instead.
-
-It can be used to add a value with a dynamic key.
-
-Example:
-
-```elm
-array = Neos.Fusion:RawArray
-array.@process.addKeyValue = ${Carbon.Array.setKeyValue(value, 'key', 'value')}
-```
-
--   `array` (array) The array which should be extended
--   `key` (string) The key for the entry
--   `value` (mixed) The value
-
-**Return** The extended array
-
-### `Carbon.Array.ksort(array)`
-
-> **Deprecated** Will be removed in version 2. Use `Array.ksort()` instead.
-
-Sort an array by key
-
-Example:
-
-```elm
-array.@process.ksort = ${Carbon.Array.ksort(value)}
-```
-
--   `array` (array) The array which should be sorted
-
-**Return** The sorted array
-
-### `Carbon.Array.filter(array)`
-
-> **Deprecated** Will be removed in version 2. Use `Array.filter()` instead.
-
-Iterates over each value in the array, and all entries of the array equal to `false` will be removed.
-
-Example:
-
-```elm
-array.@process.filter = ${Carbon.Array.filter(value)}
-```
-
--   `array` (array) The array to iterate over
-
-**Return** The filtered array
-
-### `Carbon.Array.values(array)`
-
-> **Deprecated** Will be removed in version 2. Use `Array.values()` instead.
-
-Return all the values of an array
-
-Example:
-
-```elm
-array.@process.values = ${Carbon.Array.values(value)}
-```
-
--   `array` (array) The array to convert
-
-**Return** An indexed array of values.
-
 ### `Carbon.Array.join(array, separator)`
 
 Join the given array recursively using the given separator.
@@ -443,19 +376,6 @@ Carbon.String.removeNbsp('hello   world') == 'hello world'
 -   `string` (string) A string to convert
 
 **Return** The converted string
-
-### `Carbon.String.pregReplace(string, pattern, replace, limit)`
-
-> **Deprecated** Will be removed in version 2. Use `String.pregReplace()` instead.
-
-Replace occurrences of a search string inside the string using regular expression matching (PREG style).
-
--   `string` (string) The input string
--   `pattern` (string) A PREG pattern
--   `replace` (string) A replacement string, can contain references to capture groups with "\\n" or "\$n"
--   `limit` (integer) The maximum possible replacements for each pattern in each subject string. Defaults to -1 (no limit).
-
-**Return** The string with all occurrences replaced
 
 ### `Carbon.String.merge(mixed1, mixed2, mixedN)`
 

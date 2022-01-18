@@ -51,24 +51,6 @@ class ArrayHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Adds a key / value pair to an array
-     *
-     * @param iterable $array The array
-     * @param string $key The target key
-     * @param mixed $value The value
-     * @return array
-     * @deprecated Will be removed in version 2. Use Array.key() instead.
-     */
-    public function setKeyValue(iterable $array, string $key, $value): array
-    {
-        if ($array instanceof Traversable) {
-            $array = iterator_to_array($array);
-        }
-        $array[$key] = $value;
-        return $array;
-    }
-
-    /**
      * Split an array into chunks
      *
      * Chunks an array into arrays with length elements.
@@ -185,52 +167,6 @@ class ArrayHelper implements ProtectedContextAwareInterface
     public function setValueByPath($subject, $path, $value)
     {
         return Arrays::setValueByPath($subject, $path, $value);
-    }
-
-    /**
-     * Sort an array by key
-     *
-     * @param iterable $array The array to sort
-     * @return array
-     * @deprecated Will be removed in version 2. Use Array.ksort() instead.
-     */
-    public function ksort(iterable $array): array
-    {
-        if ($array instanceof Traversable) {
-            $array = iterator_to_array($array);
-        }
-        ksort($array, SORT_NATURAL | SORT_FLAG_CASE);
-        return $array;
-    }
-
-    /**
-     * PHPs array_filter
-     *
-     * @param iterable $array The array to filter
-     * @return array
-     * @deprecated Will be removed in version 2. Use Array.filter() instead.
-     */
-    public function filter(iterable $array): array
-    {
-        if ($array instanceof Traversable) {
-            $array = iterator_to_array($array);
-        }
-        return array_filter($array);
-    }
-
-    /**
-     * Return all the values of an array
-     *
-     * @param iterable $array The array
-     * @return array Returns an indexed array of values
-     * @deprecated Will be removed in version 2. Use Array.values() instead.
-     */
-    public function values(iterable $array): array
-    {
-        if ($array instanceof Traversable) {
-            $array = iterator_to_array($array);
-        }
-        return array_values($array);
     }
 
     /**
