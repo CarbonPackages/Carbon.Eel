@@ -2,9 +2,9 @@
 
 namespace Carbon\Eel\EelHelper;
 
-use Neos\Flow\Annotations as Flow;
-use Neos\Eel\ProtectedContextAwareInterface;
 use Carbon\Eel\Service\BEMService;
+use Neos\Eel\ProtectedContextAwareInterface;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * @Flow\Proxy(false)

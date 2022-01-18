@@ -3,9 +3,28 @@
 namespace Carbon\Eel\EelHelper;
 
 use Behat\Transliterator\Transliterator;
-use Neos\Flow\Annotations as Flow;
-use Neos\Eel\ProtectedContextAwareInterface;
 use Carbon\Eel\Service\BEMService;
+use Neos\Eel\ProtectedContextAwareInterface;
+use Neos\Flow\Annotations as Flow;
+use Traversable;
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function array_unique;
+use function count;
+use function explode;
+use function func_get_args;
+use function implode;
+use function is_array;
+use function is_string;
+use function iterator_to_array;
+use function lcfirst;
+use function preg_replace;
+use function str_replace;
+use function strtolower;
+use function trim;
+use function ucwords;
+
 
 /**
  * @Flow\Proxy(false)
@@ -19,7 +38,6 @@ class StringHelper implements ProtectedContextAwareInterface
      * @param string       $block     defaults to null
      * @param string       $element   defaults to null
      * @param string|array $modifiers defaults to []
-     *
      * @return string
      */
     public function BEM($block = null, $element = null, $modifiers = []): string
@@ -31,7 +49,6 @@ class StringHelper implements ProtectedContextAwareInterface
      * Generates a slug of the given string
      *
      * @param string $string The string
-     *
      * @return string
      */
     public function urlize(string $string): string
@@ -43,13 +60,12 @@ class StringHelper implements ProtectedContextAwareInterface
      * Helper to convert strings to PascalCase
      *
      * @param string $string A string
-     *
      * @return string The converted string
      */
     public function toPascalCase(string $string): string
     {
         $string = Transliterator::urlize((string) $string);
-        $string = \str_replace('-', '', \ucwords($string, '-'));
+        $string = str_replace('-', '', ucwords($string, '-'));
 
         return $string;
     }
@@ -58,12 +74,11 @@ class StringHelper implements ProtectedContextAwareInterface
      * Helper to convert strings to camelCase
      *
      * @param string $string A string
-     *
      * @return string The converted string
      */
     public function toCamelCase(string $string): string
     {
-        return \lcfirst($this->toPascalCase($string));
+        return lcfirst($this->toPascalCase($string));
     }
 
     /**
@@ -71,14 +86,15 @@ class StringHelper implements ProtectedContextAwareInterface
      *
      * Examples::
      *
-     *     String.pregReplace("Some.String with sp:cial characters", "/[[:^alnum:]]/", "-") == "Some-String-with-sp-cial-characters"
-     *     String.pregReplace("2016-08-31", "/([0-9]+)-([0-9]+)-([0-9]+)/", "$3.$2.$1") == "31.08.2016"
+     *     Carbon.String.pregReplace("Some.String with sp:cial characters", "/[[:^alnum:]]/", "-") == "Some-String-with-sp-cial-characters"
+     *     Carbon.String.pregReplace("2016-08-31", "/([0-9]+)-([0-9]+)-([0-9]+)/", "$3.$2.$1") == "31.08.2016"
      *
      * @param string $string The input string
      * @param string $pattern A PREG pattern
      * @param string $replace A replacement string, can contain references to capture groups with "\\n" or "$n"
      * @param integer $limit The maximum possible replacements for each pattern in each subject string. Defaults to -1 (no limit).
      * @return string The string with all occurrences replaced
+     * @deprecated Will be removed in version 2. Use String.pregReplace() instead.
      */
 
     public function pregReplace(
@@ -87,7 +103,7 @@ class StringHelper implements ProtectedContextAwareInterface
         string $replace,
         int $limit = -1
     ): string {
-        return \preg_replace($pattern, $replace, (string) $string, $limit);
+        return preg_replace($pattern, $replace, (string) $string, $limit);
     }
 
     /**
@@ -101,7 +117,6 @@ class StringHelper implements ProtectedContextAwareInterface
      *
      * @param string $string    A string
      * @param string $separator The separator
-     *
      * @return string The converted string
      */
     public function convertCamelCase($string, $separator = '-'): string
@@ -110,7 +125,7 @@ class StringHelper implements ProtectedContextAwareInterface
         $separator = (string) $separator;
 
         return strtolower(
-            \preg_replace(
+            preg_replace(
                 '/([a-zA-Z])(?=[A-Z])/',
                 '$1' . $separator,
                 $string
@@ -129,16 +144,15 @@ class StringHelper implements ProtectedContextAwareInterface
      *
      * @param string|array $input     A string or an array
      * @param string       $separator The $separator
-     *
      * @return string The converted string
      */
     public function convertToString($input, $separator = ' '): string
     {
         $separator = (string) $separator;
-        $string = \is_array($input) ? \implode($separator, $input) : (string) $input;
+        $string = is_array($input) ? implode($separator, $input) : (string) $input;
 
         // Remove double space and trim the string
-        return \trim(\preg_replace('/(\s)+/', ' ', $string));
+        return trim(preg_replace('/(\s)+/', ' ', $string));
     }
 
     /**
@@ -151,7 +165,6 @@ class StringHelper implements ProtectedContextAwareInterface
      *
      * @param string $string    A string
      * @param string $separator The separator
-     *
      * @return string The converted string
      */
     public function nl2br($string, $separator = '<br>'): string
@@ -160,7 +173,7 @@ class StringHelper implements ProtectedContextAwareInterface
         $separator = (string) $separator;
 
         // Remove double space and trim the string
-        return \preg_replace('/\n/', $separator, \trim($string));
+        return preg_replace('/\n/', $separator, trim($string));
     }
 
     /**
@@ -171,22 +184,22 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function merge($mixed_ = null): ?string
     {
-        $arguments = \func_get_args();
+        $arguments = func_get_args();
         $explode = function ($value) {
-            return \explode(' ', $value);
+            return explode(' ', $value);
         };
 
         // Create an array with trimmed values
         foreach ($arguments as &$argument) {
-            if ($argument instanceof \Traversable) {
-                $argument = \iterator_to_array($argument);
+            if ($argument instanceof Traversable) {
+                $argument = iterator_to_array($argument);
             }
-            if (\is_array($argument)) {
+            if (is_array($argument)) {
                 // Clean up array to remove later double entries
-                $argument = \array_map($explode, $argument);
+                $argument = array_map($explode, $argument);
                 $resultArray = [];
                 foreach ($argument as $element) {
-                    if (\is_array($element)) {
+                    if (is_array($element)) {
                         foreach ($element as $subElement) {
                             $resultArray[] = $subElement;
                         }
@@ -196,17 +209,17 @@ class StringHelper implements ProtectedContextAwareInterface
                 }
                 $argument = $resultArray;
             }
-            if (\is_string($argument)) {
-                $argument = \explode(' ', $argument);
-            } elseif (!\is_array($argument)) {
+            if (is_string($argument)) {
+                $argument = explode(' ', $argument);
+            } elseif (!is_array($argument)) {
                 $argument = [null];
             }
-            $argument = \array_map('trim', \array_filter($argument));
+            $argument = array_map('trim', array_filter($argument));
         }
-        $mergedArray = \array_unique(\array_merge(...$arguments));
+        $mergedArray = array_unique(array_merge(...$arguments));
 
-        if (\count($mergedArray)) {
-            return \implode(' ', $mergedArray);
+        if (count($mergedArray)) {
+            return implode(' ', $mergedArray);
         }
 
         return null;
@@ -221,19 +234,18 @@ class StringHelper implements ProtectedContextAwareInterface
      *     Carbon.String.removeNbsp('hello   world') == 'hello world'
      *
      * @param string $string A string
-     *
      * @return string The converted string
      */
     public function removeNbsp($string): string
     {
         $space = ' ';
-        $string = (string) \str_replace('&nbsp;', $space, $string);
+        $string = (string) str_replace('&nbsp;', $space, $string);
 
-        return \trim(
-            \preg_replace(
+        return trim(
+            preg_replace(
                 '/\s\s+/',
                 $space,
-                \str_replace(
+                str_replace(
                     ' ',
                     $space,
                     $string
@@ -246,7 +258,6 @@ class StringHelper implements ProtectedContextAwareInterface
      * All methods are considered safe
      *
      * @param string $methodName The name of the method
-     *
      * @return bool
      */
     public function allowsCallOfMethod($methodName)

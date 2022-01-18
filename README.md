@@ -49,6 +49,8 @@ Chunks an array into arrays with `length` elements. The last chunk may contain l
 
 ### `Carbon.Array.setKeyValue(array, key, value)`
 
+> **Deprecated** Will be removed in version 2. Use `Array.key()` instead.
+
 It can be used to add a value with a dynamic key.
 
 Example:
@@ -66,6 +68,8 @@ array.@process.addKeyValue = ${Carbon.Array.setKeyValue(value, 'key', 'value')}
 
 ### `Carbon.Array.ksort(array)`
 
+> **Deprecated** Will be removed in version 2. Use `Array.ksort()` instead.
+
 Sort an array by key
 
 Example:
@@ -80,6 +84,8 @@ array.@process.ksort = ${Carbon.Array.ksort(value)}
 
 ### `Carbon.Array.filter(array)`
 
+> **Deprecated** Will be removed in version 2. Use `Array.filter()` instead.
+
 Iterates over each value in the array, and all entries of the array equal to `false` will be removed.
 
 Example:
@@ -93,6 +99,8 @@ array.@process.filter = ${Carbon.Array.filter(value)}
 **Return** The filtered array
 
 ### `Carbon.Array.values(array)`
+
+> **Deprecated** Will be removed in version 2. Use `Array.values()` instead.
 
 Return all the values of an array
 
@@ -437,6 +445,8 @@ Carbon.String.removeNbsp('hello   world') == 'hello world'
 **Return** The converted string
 
 ### `Carbon.String.pregReplace(string, pattern, replace, limit)`
+
+> **Deprecated** Will be removed in version 2. Use `String.pregReplace()` instead.
 
 Replace occurrences of a search string inside the string using regular expression matching (PREG style).
 

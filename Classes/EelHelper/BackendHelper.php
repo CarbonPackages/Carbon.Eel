@@ -7,6 +7,10 @@ use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Exception;
 use Neos\Flow\I18n\EelHelper\TranslationHelper;
 use Neos\Neos\Service\UserService;
+use function count;
+use function explode;
+use function preg_match;
+use function sprintf;
 
 class BackendHelper implements ProtectedContextAwareInterface
 {
@@ -68,7 +72,7 @@ class BackendHelper implements ProtectedContextAwareInterface
             $package === null &&
             $quantity === null
         ) {
-            return \preg_match(self::I18N_LABEL_ID_PATTERN, $id) === 1 ?
+            return preg_match(self::I18N_LABEL_ID_PATTERN, $id) === 1 ?
                 $this->translateByShortHandString($id, $locale) : $id;
         }
 
@@ -90,8 +94,8 @@ class BackendHelper implements ProtectedContextAwareInterface
      */
     protected function translateByShortHandString($shortHandString, $locale)
     {
-        $shortHandStringParts = \explode(':', $shortHandString);
-        if (\count($shortHandStringParts) === 3) {
+        $shortHandStringParts = explode(':', $shortHandString);
+        if (count($shortHandStringParts) === 3) {
             list($package, $source, $id) = $shortHandStringParts;
             return $this->translationHelper->translate(
                 $id,
