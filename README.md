@@ -448,12 +448,6 @@ Carbon.Eel is available via packagist. Just run
 composer require carbon/eel
 ```
 
-To install the package under Neos 2.\* / Flow 3.\* you have to enter
-
-```bash
-composer require "carbon/eel:^0.5"
-```
-
 ## Credits
 
 Some of the Eel helpers were inspired and or copied from [punkt.de]
