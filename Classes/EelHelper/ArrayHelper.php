@@ -266,25 +266,6 @@ class ArrayHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Removes duplicate values from an array
-     *
-     * @param iterable $array The input array
-     * @param bool $filter Filter the array defaults to `false`
-     * @return array
-     */
-    public function unique(iterable $array, bool $filter = false): array
-    {
-        if ($array instanceof Traversable) {
-            $array = iterator_to_array($array);
-        }
-
-        if ($filter) {
-            $array = array_filter($array);
-        }
-        return array_unique($array);
-    }
-
-    /**
      * All methods are considered safe
      *
      * @param string $methodName The name of the method
