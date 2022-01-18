@@ -1,6 +1,6 @@
 prototype(Carbon.Eel:Tag) < prototype(Neos.Fusion:Component) {
     tagName = null
-    attributes = Neos.Fusion:Attributes
+    attributes = Neos.Fusion:DataStructure
     omitClosingTag = false
     selfClosingTag = false
     content = null
