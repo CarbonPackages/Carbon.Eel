@@ -86,14 +86,15 @@ class StringHelper implements ProtectedContextAwareInterface
      *
      * Examples::
      *
-     *     String.pregReplace("Some.String with sp:cial characters", "/[[:^alnum:]]/", "-") == "Some-String-with-sp-cial-characters"
-     *     String.pregReplace("2016-08-31", "/([0-9]+)-([0-9]+)-([0-9]+)/", "$3.$2.$1") == "31.08.2016"
+     *     Carbon.String.pregReplace("Some.String with sp:cial characters", "/[[:^alnum:]]/", "-") == "Some-String-with-sp-cial-characters"
+     *     Carbon.String.pregReplace("2016-08-31", "/([0-9]+)-([0-9]+)-([0-9]+)/", "$3.$2.$1") == "31.08.2016"
      *
      * @param string $string The input string
      * @param string $pattern A PREG pattern
      * @param string $replace A replacement string, can contain references to capture groups with "\\n" or "$n"
      * @param integer $limit The maximum possible replacements for each pattern in each subject string. Defaults to -1 (no limit).
      * @return string The string with all occurrences replaced
+     * @deprecated Will be removed in version 2. Use String.pregReplace() instead.
      */
 
     public function pregReplace(
