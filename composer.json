@@ -31,7 +31,6 @@
         }
     },
     "extra": {
-        "marketplace-account": "me@jonnitto.ch",
         "installer-name": "Carbon.Eel",
         "neos": {
             "package-key": "Carbon.Eel"
