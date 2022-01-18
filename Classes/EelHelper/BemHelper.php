@@ -17,9 +17,9 @@ class BemHelper implements ProtectedContextAwareInterface
      * @param string $block defaults to null
      * @param string $element defaults to null
      * @param string|array $modifiers defaults to []
-     * @return string
+     * @return string|null
      */
-    public function string($block = null, $element = null, $modifiers = []): string
+    public function string($block = null, $element = null, $modifiers = []): ?string
     {
         return BEMService::getClassNamesString($block, $element, $modifiers);
     }
@@ -29,9 +29,9 @@ class BemHelper implements ProtectedContextAwareInterface
      *
      * @param string $class defaults to null
      * @param string|array $modifiers defaults to []
-     * @return string
+     * @return string|null
      */
-    public function modifier($class = null, $modifiers = []): string
+    public function modifier($class = null, $modifiers = []): ?string
     {
         return BEMService::getClassNamesString($class, null, $modifiers);
     }

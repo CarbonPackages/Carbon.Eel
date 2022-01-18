@@ -2,13 +2,21 @@
 
 namespace Carbon\Eel\Service;
 
+use function array_merge;
+use function array_unique;
+use function count;
+use function implode;
+use function is_array;
+use function is_int;
+use function is_string;
+use function strval;
+
 class BEMService
 {
     /**
      * Generate the array for the modifiers
      *
      * @param string|array $modifiers
-     *
      * @return array
      */
     private static function modifierArray($modifiers = []): array
@@ -41,10 +49,9 @@ class BEMService
     /**
      * Generates a BEM array
      *
-     * @param string       $block     defaults to null
-     * @param string       $element   defaults to null
+     * @param string $block defaults to null
+     * @param string $element defaults to null
      * @param string|array $modifiers defaults to []
-     *
      * @return array
      */
     public static function getClassNamesArray($block = null, $element = null, $modifiers = []): array
@@ -68,14 +75,19 @@ class BEMService
     /**
      * Generates a BEM string
      *
-     * @param string       $block     defaults to null
-     * @param string       $element   defaults to null
+     * @param string $block defaults to null
+     * @param string $element defaults to null
      * @param string|array $modifiers defaults to []
-     *
-     * @return string
+     * @return string|null
      */
-    public static function getClassNamesString($block = null, $element = null, $modifiers = []): string
+    public static function getClassNamesString($block = null, $element = null, $modifiers = []): ?string
     {
-        return implode(" ", self::getClassNamesArray($block, $element, $modifiers));
+        if (isset($block) && is_string($block) && $block) {
+            $classes = self::getClassNamesArray($block, $element, $modifiers);
+            if (count($classes) > 0) {
+                return implode(' ', $classes);
+            }
+        }
+        return null;
     }
 }

@@ -38,9 +38,9 @@ class StringHelper implements ProtectedContextAwareInterface
      * @param string       $block     defaults to null
      * @param string       $element   defaults to null
      * @param string|array $modifiers defaults to []
-     * @return string
+     * @return string|null
      */
-    public function BEM($block = null, $element = null, $modifiers = []): string
+    public function BEM($block = null, $element = null, $modifiers = []): ?string
     {
         return BEMService::getClassNamesString($block, $element, $modifiers);
     }
