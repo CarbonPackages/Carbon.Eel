@@ -335,6 +335,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * @param iterable $array The input array
      * @param bool $filter Filter the array defaults to `false`
      * @return array
+     * @deprecated Will be removed in version 2. Use Array.unique() instead.
      */
     public function unique(iterable $array, bool $filter = false): array
     {

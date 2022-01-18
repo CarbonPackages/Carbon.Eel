@@ -161,6 +161,8 @@ will be converted to:
 
 ### `Carbon.Array.unique(array, filter)`
 
+> **Deprecated** Will be removed in version 2. Use `Array.unique()` instead.
+
 Removes duplicate values from an array
 
 Example:
