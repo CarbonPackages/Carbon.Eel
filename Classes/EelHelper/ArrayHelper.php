@@ -57,7 +57,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * @param string $key The target key
      * @param mixed $value The value
      * @return array
-     * @deprecated Will be removed in 2. Use Array.key() instead.
+     * @deprecated Will be removed in version 2. Use Array.key() instead.
      */
     public function setKeyValue(iterable $array, string $key, $value): array
     {
@@ -192,7 +192,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      *
      * @param iterable $array The array to sort
      * @return array
-     * @deprecated Will be removed in 2. Use Array.ksort() instead.
+     * @deprecated Will be removed in version 2. Use Array.ksort() instead.
      */
     public function ksort(iterable $array): array
     {
@@ -208,7 +208,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      *
      * @param iterable $array The array to filter
      * @return array
-     * @deprecated Will be removed in 2. Use Array.filter() instead.
+     * @deprecated Will be removed in version 2. Use Array.filter() instead.
      */
     public function filter(iterable $array): array
     {
@@ -223,7 +223,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
      *
      * @param iterable $array The array
      * @return array Returns an indexed array of values
-     * @deprecated Will be removed in 2. Use Array.values() instead.
+     * @deprecated Will be removed in version 2. Use Array.values() instead.
      */
     public function values(iterable $array): array
     {
