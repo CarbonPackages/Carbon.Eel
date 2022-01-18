@@ -31,7 +31,7 @@ class BemHelper implements ProtectedContextAwareInterface
      * @param string       $class     defaults to null
      * @param string|array $modifiers defaults to []
      *
-     * @return array
+     * @return string
      */
     public function modifier($class = null, $modifiers = []): string
     {
