@@ -4,6 +4,7 @@ namespace Carbon\Eel\EelHelper;
 
 use Behat\Transliterator\Transliterator;
 use Carbon\Eel\Service\BEMService;
+use Neos\Eel\EvaluationException;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
 use Traversable;
@@ -19,12 +20,13 @@ use function is_array;
 use function is_string;
 use function iterator_to_array;
 use function lcfirst;
+use function preg_match_all;
+use function preg_last_error;
 use function preg_replace;
 use function str_replace;
 use function strtolower;
 use function trim;
 use function ucwords;
-
 
 /**
  * @Flow\Proxy(false)
@@ -227,6 +229,85 @@ class StringHelper implements ProtectedContextAwareInterface
                 )
             )
         );
+    }
+
+    /**
+     * Split a string into an array width integers and strings. Useful for animations
+     *
+     * @param integer|string $string
+     * @return array An array width integer and strings
+     * @throws EvaluationException
+     */
+    public function splitIntegerAndString($string): array
+    {
+
+        $number = preg_match_all("/(\d+)|(\D+)/", (string)$string, $matches);
+        if ($number === false) {
+            throw new EvaluationException(
+                'Error evaluating regular expression for splitIntegerAndString: ' . preg_last_error(),
+                1642686832
+            );
+        }
+        if ($number === 0) {
+            return [];
+        }
+        $array = [];
+        foreach ($matches[0] as $value) {
+            if (is_numeric($value)) {
+                $array[] = (int)$value;
+            } else {
+                $array[] = $value;
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * Helper to convert phone numbers to a compatible format for links
+     *
+     * @param string $phoneNumber
+     * @param string|null $defaultCountryCode
+     * @param string|null $prefix defaults to tel:
+     * @return string
+     */
+    public function phone(
+        string $phoneNumber,
+        ?string $defaultCountryCode = null,
+        ?string $prefix = 'tel:'
+    ): ?string {
+
+        // Remove Slashes
+        $phoneNumber = str_replace('/', '', (string)$phoneNumber);
+
+        // Remove all spaces
+        $phoneNumber = preg_replace('/\s/', '', $phoneNumber);
+
+        // Remove zeros in brackets
+        $phoneNumber = str_replace('(0)', '', $phoneNumber);
+
+        // If nothing is left, return null
+        if (!strlen($phoneNumber)) {
+            return null;
+        }
+
+        // Make local number international
+        if (isset($defaultCountryCode)) {
+            $phoneNumber = preg_replace(
+                '/^0([1-9])/',
+                $defaultCountryCode . '$1',
+                $phoneNumber
+            );
+        }
+
+        // Replace + width 00
+        $phoneNumber = str_replace('+', '00', (string)$phoneNumber);
+
+        // Add prefix
+        if (isset($prefix)) {
+            return $prefix . $phoneNumber;
+        }
+
+        return $phoneNumber;
     }
 
     /**

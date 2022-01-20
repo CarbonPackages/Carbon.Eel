@@ -92,7 +92,6 @@ will be converted to:
 
 **Return** The converted array
 
-
 ### `Carbon.Array.intersect(firstArray, secondArray)`
 
 Returns an array containing all the values of `firstArray` that are present in all the arguments.
@@ -377,6 +376,45 @@ Examples:
 | `Carbon.String.merge('one two three', ['one', 'four']`    | `'one two three four'` |
 
 **Return** The merged string
+
+### `Carbon.String.splitIntegerAndString(string)`
+
+Split a string into an array width integers and strings. Useful for animations.
+
+Examples:
+
+| Expression                                                 | Result                          |
+| ---------------------------------------------------------- | ------------------------------- |
+| `Carbon.String.splitIntegerAndString('1000+ customers')`   | `[1000, '+ customers']`         |
+| `Carbon.String.splitIntegerAndString('24/7 reachability')` | `[24, '/', 7, ' reachability']` |
+| `Carbon.String.splitIntegerAndString('0 issues')`          | `[0, ' issues']`                |
+| `Carbon.String.splitIntegerAndString('')`                  | `[]`                            |
+| `Carbon.String.splitIntegerAndString(null)`                | `[]`                            |
+| `Carbon.String.splitIntegerAndString(100)`                 | `[100]`                         |
+
+-   `string` (string) The string to split
+
+**Return** The string, splitted into an array of integers and strings
+
+### `Carbon.String.phone(phoneNumber, defaultCountryCode, prefix)`
+
+Helper to convert phone numbers to a compatible format for links
+
+Examples:
+
+| Expression                                         | Result                |
+| -------------------------------------------------- | --------------------- |
+| `Carbon.String.phone(' 079 123 45 67 ')`           | `'tel:0791234567'`    |
+| `Carbon.String.phone('+41 (0) 79 123/45/67')`      | `'tel:0041791234567'` |
+| `Carbon.String.phone('079 123 45 67', '+41')`      | `'tel:0041791234567'` |
+| `Carbon.String.phone('079 123 45 67', null, null)` | `'0791234567'`        |
+| `Carbon.String.phone(' / (0) ')`                   | `null`                |
+
+-   `phoneNumber` (string) The phone number to convert
+-   `defaultCountryCode` (string, optional) The default country code, for example `'+41'`
+-   `prefix` (string, optional) Prefix the phone number, defaults to `'tel:'`
+
+**Return** The phone number, optimized for links
 
 ## Number Helper
 
