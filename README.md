@@ -6,9 +6,9 @@
 
 Generates BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`), or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and a value is `true`, the key's name gets used for the modifier.
 
--   `block` (string, required) The name of the block
--   `element` (string) The name of the element, optional
--   `modifiers` (string|array) The name of the modifiers, optional
+- `block` (string, required) The name of the block
+- `element` (string) The name of the element, optional
+- `modifiers` (string|array) The name of the modifiers, optional
 
 ### `BEM.array(block, element, modifiers)`
 
@@ -22,8 +22,8 @@ Shortcut to `Carbon.String.BEM(block, element, modifiers)`
 
 Generates a string with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`), or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true`, the key's name gets used for the modifier.
 
--   `class` (string, required) The name of the class
--   `modifiers` (string|array) The name of the modifiers, optional
+- `class` (string, required) The name of the class
+- `modifiers` (string|array) The name of the modifiers, optional
 
 **Return** The string
 
@@ -33,9 +33,9 @@ Generates a string with BEM classes. The modifiers property can be a string (for
 
 Generates an array with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`), or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true`, the key's name gets used for the modifier.
 
--   `block` (string, required) The name of the block
--   `element` (string) The name of the element, optional
--   `modifiers` (string|array) The name of the modifiers, optional
+- `block` (string, required) The name of the block
+- `element` (string) The name of the element, optional
+- `modifiers` (string|array) The name of the modifiers, optional
 
 **Return** The array
 
@@ -43,9 +43,9 @@ Generates an array with BEM classes. The modifiers property can be a string (for
 
 Chunks an array into arrays with `length` elements. The last chunk may contain less than `length` elements.
 
--   `array` (array, required) The array to work on
--   `length` (integer, required) The size of each chunk
--   `preserveKeys` (bool) When set to `true`, keys will be preserved. Default is `false`, which will reindex the chunk numerically
+- `array` (array, required) The array to work on
+- `length` (integer, required) The size of each chunk
+- `preserveKeys` (bool) When set to `true`, keys will be preserved. Default is `false`, which will reindex the chunk numerically
 
 ### `Carbon.Array.join(array, separator)`
 
@@ -55,8 +55,8 @@ Join the given array recursively using the given separator.
 ${Carbon.Array.join(array, ',')}
 ```
 
--   `array` (array) The array that should be processed
--   `separator` (string, optional) The separator between the values defaults to `,`
+- `array` (array) The array that should be processed
+- `separator` (string, optional) The separator between the values defaults to `,`
 
 **Return** The converted array as a string
 
@@ -87,14 +87,18 @@ will be converted to:
 ]
 ```
 
--   `array` (array) The array that should be processed
--   `preserveKeys` (boolean, optional) Option if the key should be preserved, defaults to `false`
+- `array` (array) The array that should be processed
+- `preserveKeys` (boolean, optional) Option if the key should be preserved, defaults to `false`
 
 **Return** The converted array
 
-### `Carbon.Array.intersect(firstArray, secondArray)`
+### `Carbon.Array.intersect(array1, array2, array_)`
 
-Returns an array containing all the values of `firstArray` that are present in all the arguments.
+- `array1` (iterable|mixed) First array or value
+- `array2` (iterable|mixed) Second array or value
+- `array_` (iterable|mixed, optional) Optional variable list of additional arrays / values
+
+Returns an array containing all the values of `array1` that are present in all the arguments.
 
 ### `Carbon.Array.length(array)`
 
@@ -148,8 +152,8 @@ Check if a variable is iterable and has items
 
 Return seconds until the given offset. . Very useful for `maximumLifetime` on the `@cache` entry.
 
--   `string` (string) The offset in [`DateInterval` format] starting from midnight
--   `dateinerval` (boolean, optional) true if interval should be used or the $offset should be parsed, defaults to `true`
+- `string` (string) The offset in [`DateInterval` format] starting from midnight
+- `dateinerval` (boolean, optional) true if interval should be used or the $offset should be parsed, defaults to `true`
 
 In this example, we clear the cache at midnight by adding an offset of 0 hours.
 
@@ -188,7 +192,7 @@ Carbon.FileContent.path('resource://Foo.Bar/Private/Assets/Logo.svg')
 Carbon.FileContent.path('Foo.Bar/Private/Assets/Logo.svg')
 ```
 
--   `string` (string) The path to the file
+- `string` (string) The path to the file
 
 **Return** The content of the file
 
@@ -203,8 +207,8 @@ Carbon.FileContent.pathHash('resource://Foo.Bar/Private/Assets/Logo.svg') == 1d6
 Carbon.FileContent.pathHash('Foo.Bar/Private/Assets/Logo.svg', 20) == 1d62f5a55ad5e304d60d
 ```
 
--   `string` (string) The path to the file
--   `length` (integer, optional) The length of the hash value defaults to `8`. The maximal value is `40`
+- `string` (string) The path to the file
+- `length` (integer, optional) The length of the hash value defaults to `8`. The maximal value is `40`
 
 **Return** The hash value from the content of the file
 
@@ -218,7 +222,7 @@ Example:
 Carbon.FileContent.resource(q(node).property('file'))
 ```
 
--   `resource` (resource) The persisted resource to read
+- `resource` (resource) The persisted resource to read
 
 **Return** The content of the file
 
@@ -233,8 +237,8 @@ Carbon.FileContent.resourceHash(q(node).property('file')) == 1d62f5a5
 Carbon.FileContent.resourceHash(q(node).property('file'), 20) == 1d62f5a55ad5e304d60d
 ```
 
--   `resource` (resource) The persisted resource to read
--   `length` (integer, optional) The length of the hash value defaults to `8`. The maximal value is `40`
+- `resource` (resource) The persisted resource to read
+- `length` (integer, optional) The length of the hash value defaults to `8`. The maximal value is `40`
 
 **Return** The hash value from the content of the file
 
@@ -244,9 +248,9 @@ Carbon.FileContent.resourceHash(q(node).property('file'), 20) == 1d62f5a55ad5e30
 
 Generates a string with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`), or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true`, the key's name gets used for the modifier.
 
--   `block` (string, required) The name of the block
--   `element` (string) The name of the element, optional
--   `modifiers` (string|array) The name of the modifiers, optional
+- `block` (string, required) The name of the block
+- `element` (string) The name of the element, optional
+- `modifiers` (string|array) The name of the modifiers, optional
 
 **Return** The string
 
@@ -261,7 +265,7 @@ Carbon.String.urlize('Hello World') == 'hello-world'
 Carbon.String.urlize('Ä_ÖÜ äöü') == 'ae-oeue-aeoeue'
 ```
 
--   `string` (string) The string to convert
+- `string` (string) The string to convert
 
 **Return** The converted string
 
@@ -277,7 +281,7 @@ Carbon.String.toPascalCase('hello world') == 'HelloWorld'
 Carbon.String.toPascalCase('Hello World') == 'HelloWorld'
 ```
 
--   `string` (string) The string to convert
+- `string` (string) The string to convert
 
 **Return** The converted string
 
@@ -293,7 +297,7 @@ Carbon.String.toCamelCase('hello world') == 'helloWorld'
 Carbon.String.toCamelCase('Hello World') == 'helloWorld'
 ```
 
--   `string` (string) The string to convert
+- `string` (string) The string to convert
 
 **Return** The converted string
 
@@ -309,8 +313,8 @@ Carbon.String.convertCamelCase('HelloWorld', '_') == 'hello_world'
 Carbon.String.convertCamelCase('HelloWorld', '') == 'helloworld'
 ```
 
--   `string` (string) The string to convert
--   `separator` (string, optional) The separator between the words defaults to `-`
+- `string` (string) The string to convert
+- `separator` (string, optional) The separator between the words defaults to `-`
 
 **Return** The converted string
 
@@ -326,8 +330,8 @@ Carbon.String.convertToString([' hello', ' world']) == 'hello world'
 Carbon.String.convertToString(['hello', 'world'], '-') == 'hello-world'
 ```
 
--   `input` (string, array) A string or an array to convert
--   `separator` (string, optional) The separator between the words, defaults to whitespace
+- `input` (string, array) A string or an array to convert
+- `separator` (string, optional) The separator between the words, defaults to whitespace
 
 **Return** The converted string
 
@@ -342,8 +346,8 @@ Carbon.String.nl2br('hello\nworld') == 'hello<br>world'
 Carbon.String.nl2br('hello\nworld', ' | ') == 'hello | world'
 ```
 
--   `string` (string) A string to convert
--   `separator` (string, optional) The separator between the words, defaults to `<br>`
+- `string` (string) A string to convert
+- `separator` (string, optional) The separator between the words, defaults to `<br>`
 
 **Return** The converted string
 
@@ -358,7 +362,7 @@ Carbon.String.removeNbsp(' hello world') == 'hello world'
 Carbon.String.removeNbsp('hello   world') == 'hello world'
 ```
 
--   `string` (string) A string to convert
+- `string` (string) A string to convert
 
 **Return** The converted string
 
@@ -392,7 +396,7 @@ Examples:
 | `Carbon.String.splitIntegerAndString(null)`                | `[]`                            |
 | `Carbon.String.splitIntegerAndString(100)`                 | `[100]`                         |
 
--   `string` (string) The string to split
+- `string` (string) The string to split
 
 **Return** The string, splitted into an array of integers and strings
 
@@ -410,9 +414,9 @@ Examples:
 | `Carbon.String.phone('079 123 45 67', null, null)` | `'0791234567'`        |
 | `Carbon.String.phone(' / (0) ')`                   | `null`                |
 
--   `phoneNumber` (string) The phone number to convert
--   `defaultCountryCode` (string, optional) The default country code, for example `'+41'`
--   `prefix` (string, optional) Prefix the phone number, defaults to `'tel:'`
+- `phoneNumber` (string) The phone number to convert
+- `defaultCountryCode` (string, optional) The default country code, for example `'+41'`
+- `prefix` (string, optional) Prefix the phone number, defaults to `'tel:'`
 
 **Return** The phone number, optimized for links
 
@@ -422,24 +426,24 @@ Examples:
 
 Format a number with grouped thousands. If `decimals` is set to `null`, it returns as many as needed decimals.
 
--   `number` (float, required) The number being formatted
--   `decimals` (integer, optional) Sets the number of decimal points, defaults to `null`
--   `dec_point` (string, optional) The name of the modifier defaults to `.`
--   `thousands_sep` (string, optional) The name of the modifier defaults to `,`
+- `number` (float, required) The number being formatted
+- `decimals` (integer, optional) Sets the number of decimal points, defaults to `null`
+- `dec_point` (string, optional) The name of the modifier defaults to `.`
+- `thousands_sep` (string, optional) The name of the modifier defaults to `,`
 
 ### `Carbon.Number.formatLocale(number, decimals, locale)`
 
 Format a localized number with grouped thousands. If `decimals` is set to `null`, it returns as many as needed decimals.
 
--   `number` (float, required) The number being formatted
--   `decimals` (integer, optional) Sets the number of decimal points, defaults to `null`
--   `locale` (string, optional) String locale - example (de_DE|en|ru_RU)
+- `number` (float, required) The number being formatted
+- `decimals` (integer, optional) Sets the number of decimal points, defaults to `null`
+- `locale` (string, optional) String locale - example (de_DE|en|ru_RU)
 
 ### `Carbon.Number.decimalDigits(number)`
 
 Get number of decimal digits.
 
--   `number` (float, required) The number being formatted
+- `number` (float, required) The number being formatted
 
 ## Backend Helper
 
@@ -454,13 +458,13 @@ Get the translated value (in the language of the interface) for an id or origina
 In all other cases:  
 Replace all placeholders with corresponding values if they exist in the translated label.
 
--   `id` (string) Id to use for finding translation (trans-unit id in XLIFF)
--   `originalLabel` (string, optional) The original translation value (the untranslated source string)
--   `arguments` (array, optional) Array of numerically indexed or named values to be inserted into placeholders
--   `source` (string, optional) Name of file with translations
--   `package` (string, optional) Target package key
--   `quantity` (mixed, optional) A number to find a plural form for (float or int), `null` to not use plural forms
--   `locale` (string, optional) An identifier of the locale to use (NULL for use the interface language)
+- `id` (string) Id to use for finding translation (trans-unit id in XLIFF)
+- `originalLabel` (string, optional) The original translation value (the untranslated source string)
+- `arguments` (array, optional) Array of numerically indexed or named values to be inserted into placeholders
+- `source` (string, optional) Name of file with translations
+- `package` (string, optional) Target package key
+- `quantity` (mixed, optional) A number to find a plural form for (float or int), `null` to not use plural forms
+- `locale` (string, optional) An identifier of the locale to use (NULL for use the interface language)
 
 Returns the translated label or source label / ID key
 

@@ -115,21 +115,24 @@ class ArrayHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Returns an array containing all the values of the first array that are present in all the arguments.
+     * Returns an array containing all the values of the first array or value that are present in all the arguments.
      *
-     * @param iterable $a Array of elements to test
-     * @param iterable $b Array of elements to test
+     * @param iterable|mixed $a First array or value of elements to test
+     * @param iterable|mixed $b First array or value of elements to test
+     * @param iterable|mixed $array_ Optional variable list of additional arrays / values
      * @return array the elements that are present in both arrays
      */
-    public function intersect(iterable $a, iterable $b): array
+    public function intersect($array1, $array2, $array_ = null): array
     {
-        if ($a instanceof Traversable) {
-            $a = iterator_to_array($a);
+        $arguments = func_get_args();
+        foreach ($arguments as &$argument) {
+            if ($argument instanceof \Traversable) {
+                $argument = iterator_to_array($argument);
+            } elseif (!is_array($argument)) {
+                $argument = [$argument];
+            }
         }
-        if ($b instanceof Traversable) {
-            $b = iterator_to_array($b);
-        }
-        return call_user_func_array('array_intersect', func_get_args());
+        return array_intersect(...$arguments);
     }
 
     /**
