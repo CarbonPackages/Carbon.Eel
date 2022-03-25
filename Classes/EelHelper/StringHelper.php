@@ -12,6 +12,7 @@ use function array_filter;
 use function array_map;
 use function array_merge;
 use function array_unique;
+use function array_walk_recursive;
 use function count;
 use function explode;
 use function func_get_args;
@@ -154,6 +155,45 @@ class StringHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Flatten an argument from the merge function
+     *
+     * @param mixed $value
+     * @return array
+     */
+    private function flattenMergeArgument($value): array
+    {
+        if ($value === true) {
+            return ['true'];
+        }
+        if (is_scalar($value)) {
+            return array_map('trim', array_filter(explode(' ', (string)$value)));
+        }
+        $return = [];
+        if ($value instanceof Traversable) {
+            $value = iterator_to_array($value);
+        }
+        if (is_array($value)) {
+            array_walk_recursive($value, function ($a) use (&$return) {
+                if ($a === true) {
+                    $a = ['true'];
+                }
+                if (is_scalar($a)) {
+                    $a = explode(' ', (string)$a);
+                }
+                if ($a instanceof Traversable) {
+                    $a = iterator_to_array($a, false);
+                }
+                if (is_array($a)) {
+                    foreach ($a as $b) {
+                        $return[] = $b;
+                    }
+                }
+            });
+        }
+        return array_map('trim', array_filter($return));
+    }
+
+    /**
      * Merge strings and arrays to a string with unique values, separated by an empty space
      *
      * @param iterable|mixed $mixed_ Optional variable list of arrays / values
@@ -162,36 +202,10 @@ class StringHelper implements ProtectedContextAwareInterface
     public function merge($mixed_ = null): ?string
     {
         $arguments = func_get_args();
-        $explode = function ($value) {
-            return explode(' ', $value);
-        };
 
         // Create an array with trimmed values
         foreach ($arguments as &$argument) {
-            if ($argument instanceof Traversable) {
-                $argument = iterator_to_array($argument);
-            }
-            if (is_array($argument)) {
-                // Clean up array to remove later double entries
-                $argument = array_map($explode, $argument);
-                $resultArray = [];
-                foreach ($argument as $element) {
-                    if (is_array($element)) {
-                        foreach ($element as $subElement) {
-                            $resultArray[] = $subElement;
-                        }
-                    } else {
-                        $resultArray[] = $element;
-                    }
-                }
-                $argument = $resultArray;
-            }
-            if (is_string($argument)) {
-                $argument = explode(' ', $argument);
-            } elseif (!is_array($argument)) {
-                $argument = [null];
-            }
-            $argument = array_map('trim', array_filter($argument));
+            $argument = $this->flattenMergeArgument($argument);
         }
         $mergedArray = array_unique(array_merge(...$arguments));
 
