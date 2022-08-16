@@ -18,7 +18,6 @@ use function explode;
 use function func_get_args;
 use function implode;
 use function is_array;
-use function is_string;
 use function iterator_to_array;
 use function lcfirst;
 use function preg_match_all;
