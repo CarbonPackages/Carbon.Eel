@@ -4,7 +4,7 @@ namespace Carbon\Eel\EelHelper;
 
 /*
  *  (c) 2017 punkt.de GmbH - Karlsruhe, Germany - http://punkt.de
- *  (c) 2021 Jon Uhlmann
+ *  (c) 2022 Jon Uhlmann
  *  All rights reserved.
  */
 
@@ -165,6 +165,29 @@ class ArrayHelper implements ProtectedContextAwareInterface
     public function setValueByPath($subject, $path, $value)
     {
         return Arrays::setValueByPath($subject, $path, $value);
+    }
+
+    /**
+     * Sorts an array with arrays by the given key.
+     *
+     * @param iterable $array Array with array to sort
+     * @param string $key Key of array to sort
+     * @param string $direction Direction of sorting
+     * @return array
+     */
+    public function sortByItem(iterable $iterable, string $key, string $direction = 'ASC'): array
+    {
+        $array = array(...$iterable);
+        if ($direction === 'ASC') {
+            usort($array, function ($a, $b) use ($key) {
+                return $a[$key] <=> $b[$key];
+            });
+        } else {
+            usort($array, function ($a, $b) use ($key) {
+                return $b[$key] <=> $a[$key];
+            });
+        }
+        return $array;
     }
 
     /**

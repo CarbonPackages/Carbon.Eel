@@ -146,6 +146,14 @@ Check if a variable is iterable and has items
 
 **Return** The variable or `null` if it is empty or not an iterable
 
+### `Carbon.Array.sortByItem(array, key, direction)`
+
+- `array` (iterable|mixed) array with arrays to sort
+- `key` (string) Key of array to sort
+- `direction` (string, optional) `ASC` or `DESC`. Direction of sorting
+
+**Return** The sorted array
+
 ## Date Helper
 
 ### `Carbon.Date.secondsUntil(string)`
@@ -455,7 +463,7 @@ Returns the language from the interface
 
 Get the translated value (in the language of the interface) for an id or original label. If the only id is set and contains a translation shorthand string, translate according to that shorthand.
 
-In all other cases:  
+In all other cases:
 Replace all placeholders with corresponding values if they exist in the translated label.
 
 - `id` (string) Id to use for finding translation (trans-unit id in XLIFF)
