@@ -5,11 +5,11 @@ prototype(Carbon.Eel:BEM) < prototype(Neos.Fusion:Component) {
         modifier = ${PropTypes.anyOf( PropTypes.string, PropTypes.arrayOf( PropTypes.any ) )}
     }
 
-    block = null
-    element = null
+    block = ${null}
+    element = ${null}
 
     // Can be a string, an array or DataStructure
-    modifier = null
+    modifier = ${null}
 
 
     renderer = ${BEM.string(props.block, props.element, props.modifier)}
