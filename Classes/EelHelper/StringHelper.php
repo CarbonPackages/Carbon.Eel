@@ -288,15 +288,14 @@ class StringHelper implements ProtectedContextAwareInterface
         ?string $defaultCountryCode = null,
         ?string $prefix = 'tel:'
     ): ?string {
-
-        // Remove Slashes
-        $phoneNumber = str_replace('/', '', (string)$phoneNumber);
-
-        // Remove all spaces
-        $phoneNumber = preg_replace('/\s/', '', $phoneNumber);
-
         // Remove zeros in brackets
         $phoneNumber = str_replace('(0)', '', $phoneNumber);
+
+        // Replace + width 00
+        $phoneNumber = str_replace('+', '00', (string)$phoneNumber);
+
+        // Remove all non numeric characters
+        $phoneNumber = preg_replace('/\D/', '', $phoneNumber);
 
         // If nothing is left, return null
         if (!strlen($phoneNumber)) {
