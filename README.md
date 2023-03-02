@@ -146,6 +146,12 @@ Check if a variable is iterable and has items
 
 **Return** The variable or `null` if it is empty or not an iterable
 
+### `Carbon.Array.isCountable(variable)`
+
+Check if the given variable is countable
+
+**Return** The `true` or `false`
+
 ### `Carbon.Array.sortByItem(array, key, direction)`
 
 - `array` (iterable|mixed) array with arrays to sort

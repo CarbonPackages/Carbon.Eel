@@ -84,6 +84,25 @@ class ArrayHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * The method checks if the given object is countable
+     *
+     * @param mixed $countableObject
+     * @return boolean
+     */
+    public function isCountable($countableObject): bool
+    {
+        if ($countableObject instanceof Countable) {
+            return true;
+        }
+
+        if (is_array($countableObject)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Returns a boolean if the array has a specific key
      *
      * @param iterable $array
