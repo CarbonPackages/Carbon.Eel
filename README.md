@@ -150,7 +150,7 @@ Check if a variable is iterable and has items
 
 Check if the given variable is countable
 
-**Return** The `true` or `false`
+**Return** `true` or `false`
 
 ### `Carbon.Array.sortByItem(array, key, direction)`
 
