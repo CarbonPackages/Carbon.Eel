@@ -6,7 +6,7 @@
     "keywords": ["neos", "fusion", "helper", "eel", "carbon"],
     "require": {
         "php": "^7.4 || ^8.0",
-        "neos/flow": "^7.0 || ^8.0",
+        "neos/flow": "^7.0 || ^8.0 || ^9.0",
         "behat/transliterator": "^1.2"
     },
     "authors": [
