@@ -4,21 +4,14 @@ namespace Carbon\Eel\EelHelper;
 
 use Behat\Transliterator\Transliterator;
 use Carbon\Eel\Service\BEMService;
+use Carbon\Eel\Service\MergeClassesService;
 use Neos\Eel\EvaluationException;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
-use Traversable;
-use function array_filter;
-use function array_map;
-use function array_merge;
 use function array_unique;
-use function array_walk_recursive;
-use function count;
-use function explode;
 use function func_get_args;
 use function implode;
 use function is_array;
-use function iterator_to_array;
 use function lcfirst;
 use function preg_match_all;
 use function preg_last_error;
@@ -154,65 +147,14 @@ class StringHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Flatten an argument from the merge function
-     *
-     * @param mixed $value
-     * @return array
-     */
-    private function flattenMergeArgument($value): array
-    {
-        if ($value === true) {
-            return ['true'];
-        }
-        if (is_scalar($value)) {
-            return array_map('trim', array_filter(explode(' ', (string)$value)));
-        }
-        $return = [];
-        if ($value instanceof Traversable) {
-            $value = iterator_to_array($value);
-        }
-        if (is_array($value)) {
-            array_walk_recursive($value, function ($a) use (&$return) {
-                if ($a === true) {
-                    $a = ['true'];
-                }
-                if (is_scalar($a)) {
-                    $a = explode(' ', (string)$a);
-                }
-                if ($a instanceof Traversable) {
-                    $a = iterator_to_array($a, false);
-                }
-                if (is_array($a)) {
-                    foreach ($a as $b) {
-                        $return[] = $b;
-                    }
-                }
-            });
-        }
-        return array_map('trim', array_filter($return));
-    }
-
-    /**
      * Merge strings and arrays to a string with unique values, separated by an empty space
      *
-     * @param iterable|mixed $mixed_ Optional variable list of arrays / values
+     * @param iterable|mixed $arguments Optional variable list of arrays / values
      * @return string|null The merged string
      */
-    public function merge($mixed_ = null): ?string
+    public function merge(...$arguments): ?string
     {
-        $arguments = func_get_args();
-
-        // Create an array with trimmed values
-        foreach ($arguments as &$argument) {
-            $argument = $this->flattenMergeArgument($argument);
-        }
-        $mergedArray = array_unique(array_merge(...$arguments));
-
-        if (count($mergedArray)) {
-            return implode(' ', $mergedArray);
-        }
-
-        return null;
+        return MergeClassesService::merge(...$arguments);
     }
 
     /**
