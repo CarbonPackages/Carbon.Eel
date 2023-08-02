@@ -24,3 +24,4 @@ indent_size = 1
 
 [*.{note,md,edit,read}]
 trim_trailing_whitespace = false
+indent_size = 2
