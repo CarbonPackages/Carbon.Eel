@@ -256,6 +256,25 @@ Carbon.FileContent.resourceHash(q(node).property('file'), 20) == 1d62f5a55ad5e30
 
 **Return** The hash value from the content of the file
 
+## Tailwind Helper
+
+### `Carbon.Tailwind.merge(mixed1, mixed2, mixedN)`
+
+This helper allows you to merge multiple [Tailwind CSS] classes and automatically resolves conflicts between them without headaches.
+
+It is based on [tailwind-merge-php].
+
+Examples:
+
+| Expression                                                         | Result                 |
+| ------------------------------------------------------------------ | ---------------------- |
+| `Carbon.Tailwind.merge('w-8 h-8 rounded-full rounded-lg')`         | `'w-8 h-8 rounded-lg'` |
+| `Carbon.Tailwind.merge(['w-8 rounded-full'], 'rounded-lg', 'h-8')` | `'w-8 rounded-lg h-8'` |
+| `Carbon.Tailwind.merge(null, null)`                                | `null`                 |
+| `Carbon.Tailwind.merge('one two three', ['one', 'four']`           | `'one two three four'` |
+
+**Return** The merged string
+
 ## String Helper
 
 ### `Carbon.String.BEM(block, element, modifiers)`
@@ -509,3 +528,5 @@ Some of the Eel helpers were inspired and or copied from [punkt.de]
 [punkt.de]: https://github.com/punktde
 [`dateinterval` format]: https://www.php.net/manual/en/dateinterval.format.php
 [`dateinterval`]: https://www.php.net/manual/de/class.dateinterval.php
+[Tailwind CSS]: https://tailwindcss.com
+[tailwind-merge-php]: https://github.com/YieldStudio/tailwind-merge-php

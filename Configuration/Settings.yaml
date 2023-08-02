@@ -8,6 +8,7 @@ Neos:
       Carbon.FileContent: 'Carbon\Eel\EelHelper\FileContentHelper'
       Carbon.Number: 'Carbon\Eel\EelHelper\NumberHelper'
       Carbon.String: 'Carbon\Eel\EelHelper\StringHelper'
+      Carbon.Tailwind: 'Carbon\Eel\EelHelper\TailwindHelper'
   Neos:
     fusion:
       autoInclude:
