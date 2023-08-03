@@ -10,7 +10,6 @@ use function array_reverse;
 use function array_walk_recursive;
 use function count;
 use function explode;
-use function func_get_args;
 use function is_array;
 use function iterator_to_array;
 
