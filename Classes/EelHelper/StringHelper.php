@@ -8,8 +8,7 @@ use Carbon\Eel\Service\MergeClassesService;
 use Neos\Eel\EvaluationException;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
-use function array_unique;
-use function func_get_args;
+use Neos\Flow\Validation\Validator\EmailAddressValidator;
 use function implode;
 use function is_array;
 use function lcfirst;
@@ -49,6 +48,23 @@ class StringHelper implements ProtectedContextAwareInterface
     public function urlize(string $string): string
     {
         return Transliterator::urlize($string);
+    }
+
+    /**
+     * Checks if the string is a valid email address
+     *
+     * @param string|null $email
+     * @return boolean
+     */
+    public function isValidEmail(?string $email = null)
+    {
+        if (!is_string($email)) {
+            return false;
+        }
+
+        $validator = new EmailAddressValidator();
+        $result = $validator->validate($email);
+        return $validator->validate($email)->hasErrors() === false;
     }
 
     /**

@@ -453,6 +453,20 @@ Examples:
 
 **Return** The phone number, optimized for links
 
+### `Carbon.String.isValidEmail(emailAddress)`
+
+Checks if the string is a valid email address
+
+Examples:
+
+| Expression                                 | Result  |
+| ------------------------------------------ | ------- |
+| `Carbon.String.isValidEmail('')`           | `false` |
+| `Carbon.String.phone('Some text')`         | `false` |
+| `Carbon.String.phone('hello@uhlmann.pro')` | `true`  |
+
+- `emailAddress` (string) The string to check
+
 ## Number Helper
 
 ### `Carbon.Number.format(number, decimals, dec_point, thousands_sep)`
