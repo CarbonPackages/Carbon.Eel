@@ -23,7 +23,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
         $result = [];
         foreach ($arguments as $argument) {
             if (is_array($argument) || $argument instanceof Traversable) {
-                $result[] = $this->arrayToString($argument);
+                $result[] = $this->arrayToString($argument, false);
                 continue;
             }
 
@@ -31,6 +31,25 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
         }
 
         return sprintf('%s(%s)', $name, implode(',', $result));
+    }
+
+    /**
+     * Generate an object for AlpineJS x-data="{name: arg1, name2: arg2, ..nameN: argN}" https://alpinejs.dev/directives/data
+     *
+     * @param array|iterable $array
+     * @return string
+     */
+    public function object($array): ?string
+    {
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
+
+        if (!is_array($array)) {
+            return null;
+        }
+
+        return $this->keyedArrayToString($array, true);
     }
 
     /**
@@ -61,12 +80,13 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Generates a string from an array
+     * Generates a string from an array with keys
      *
-     * @param iterable|mixed $arguments
+     * @param iterable|array $array
+     * @param bool $outputNull
      * @return string
      */
-    private function arrayToString($array): string
+    private function keyedArrayToString($array, $returnNull = false): string
     {
         if ($array instanceof Traversable) {
             $array = iterator_to_array($array);
@@ -74,10 +94,52 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
 
         $result = [];
 
+        /**
+         * @var array $array
+         */
+        foreach ($array as $key => $value) {
+            if (is_array($value) || $value instanceof Traversable) {
+                $result[] = sprintf('%s:%s', $key, $this->arrayToString($value, $returnNull));
+                continue;
+            }
+
+            $value = $this->returnValue($value, $returnNull);
+
+            if (is_null($value)) {
+                if (!$returnNull) {
+                    continue;
+                }
+
+                $value = 'null';
+            }
+
+            $result[] = sprintf('%s:%s', $key, $value);
+        }
+        return sprintf('{%s}', implode(',', $result));
+    }
+
+    /**
+     * Generates a string from an array
+     *
+     * @param iterable|array $array
+     * @param bool $outputNull
+     * @return string
+     */
+    private function arrayToString($array, $returnNull = false): string
+    {
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        }
+
+        $result = [];
+
+        /**
+         * @var array $array
+         */
         if (array_is_list($array)) {
             foreach ($array as $value) {
                 if (is_array($value) || $value instanceof Traversable) {
-                    $result[] = $this->arrayToString($value);
+                    $result[] = $this->arrayToString($value, $returnNull);
                     continue;
                 }
 
@@ -87,22 +149,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
             return sprintf('[%s]', implode(',', $result));
         }
 
-        foreach ($array as $key => $value) {
-            if (is_array($value) || $value instanceof Traversable) {
-                $result[] = sprintf('%s:%s', $key, $this->arrayToString($value));
-                continue;
-            }
-
-            $value = $this->returnValue($value, false);
-
-            if (is_null($value)) {
-                continue;
-            }
-
-            $result[] = sprintf('%s:%s', $key, $value);
-        }
-
-        return sprintf('{%s}', implode(',', $result));
+        return $this->keyedArrayToString($array, $returnNull);
     }
 
     /**

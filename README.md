@@ -277,7 +277,24 @@ Examples:
 
 ## AlpineJS Helper
 
-### `Carbon.AlpineJS.xData(name, arg1, arg2, ..argN)`
+### `AlpineJS.object(arg1, arg2, ..argN)`
+
+Generate an object for AlpineJS directive [`x-data`](https://alpinejs.dev/directives/data).
+Supports neseted arrays. You could do the same with `Json.stringify()`, but this function is shorter, as AlpineJS
+acccepts objects and easier to write and read.
+
+Examples:
+
+```elm
+AlpineJS.object({effect: 'slide', spaceBetween: 12, loop: true, navigation: null}) == '{effect:'slide',spaceBetween:12,loop:true,navigation:null}'
+AlpineJS.object({nested: {value: true, nulled: null}}) == '{nested:{value:true,nulled:null}}'
+```
+
+- `...arguments` The array
+
+**Return** The JavaScript object as string
+
+### `AlpineJS.xData(name, arg1, arg2, ..argN)`
 
 Generate a function call for AlpineJS. [More info](https://alpinejs.dev/globals/alpine-data).
 Supports neseted arrays. You could do the same with `Json.stringify()`, but this function is shorter, as AlpineJS
@@ -287,15 +304,15 @@ list arrays (`[1,null]`) and in plain values the will stay.
 Examples:
 
 ```elm
-Carbon.String.alpineJS('slider', {effect: 'slide', spaceBetween: 12, loop: true, navigation: null}) == 'slider({effect:'slide',spaceBetween:12,loop:true})'
-Carbon.String.alpineJS('slider', 'one', 1, false, null, ['string', 2, null]) == 'slider('one',1,false,null,['string',2,null])'
-Carbon.String.alpineJS('nested', {nested: {value: true}}) == 'nested({nested:{value:true}})'
+AlpineJS.xData('slider', {effect: 'slide', spaceBetween: 12, loop: true, navigation: null}) == 'slider({effect:'slide',spaceBetween:12,loop:true})'
+AlpineJS.xData('slider', 'one', 1, false, null, ['string', 2, null]) == 'slider('one',1,false,null,['string',2,null])'
+AlpineJS.xData('nested', {nested: {value: true}}) == 'nested({nested:{value:true}})'
 ```
 
 - `name` (string) The name for `Alpine.data`
 - `...arguments` (mixed) The options for the function
 
-**Return** The string for the x-data attribute
+**Return** The string for the x-data function call
 
 ## String Helper
 
