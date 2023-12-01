@@ -68,6 +68,10 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
             return null;
         }
 
+        if (is_numeric($value)) {
+            return $value;
+        }
+
         if (is_string($value)) {
             return sprintf("'%s'", $value);
         }
