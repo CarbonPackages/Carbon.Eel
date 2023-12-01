@@ -280,7 +280,7 @@ Examples:
 ### `AlpineJS.object(arg1, arg2, ..argN)`
 
 Generate an object for AlpineJS directive [`x-data`](https://alpinejs.dev/directives/data).
-Supports neseted arrays. You could do the same with `Json.stringify()`, but this function is shorter, as AlpineJS
+Supports nested arrays. You could do the same with `Json.stringify()`, but this function is shorter, as AlpineJS
 acccepts objects and easier to write and read.
 
 Examples:
@@ -297,9 +297,8 @@ AlpineJS.object({nested: {value: true, nulled: null}}) == '{nested:{value:true,n
 ### `AlpineJS.xData(name, arg1, arg2, ..argN)`
 
 Generate a function call for AlpineJS. [More info](https://alpinejs.dev/globals/alpine-data).
-Supports neseted arrays. You could do the same with `Json.stringify()`, but this function is shorter, as AlpineJS
-acccepts objects and easier to write and read. In named arrays (`{first:1,second:null}`) `null` get filterd out, but in
-list arrays (`[1,null]`) and in plain values the will stay.
+Supports nested arrays. In named arrays (`{first:1,second:null}`) `null` get filterd out, but in list
+arrays (`[1,null]`) and in plain values the will stay.
 
 Examples:
 
