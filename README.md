@@ -281,7 +281,7 @@ Examples:
 
 Generate an object for AlpineJS directive [`x-data`](https://alpinejs.dev/directives/data).
 Supports nested arrays. You could do the same with `Json.stringify()`, but this function is shorter, as AlpineJS
-acccepts objects and easier to write and read.
+accepts objects and easier to write and read.
 
 Examples:
 
