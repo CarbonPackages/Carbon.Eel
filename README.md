@@ -258,7 +258,7 @@ Carbon.FileContent.resourceHash(q(node).property('file'), 20) == 1d62f5a55ad5e30
 
 ## Tailwind Helper
 
-### `Carbon.Tailwind.merge(mixed1, mixed2, mixedN)`
+### `Tailwind.merge(mixed1, mixed2, mixedN)`
 
 This helper allows you to merge multiple [Tailwind CSS] classes and automatically resolves conflicts between them without headaches.
 
@@ -268,10 +268,10 @@ Examples:
 
 | Expression                                                         | Result                 |
 | ------------------------------------------------------------------ | ---------------------- |
-| `Carbon.Tailwind.merge('w-8 h-8 rounded-full rounded-lg')`         | `'w-8 h-8 rounded-lg'` |
-| `Carbon.Tailwind.merge(['w-8 rounded-full'], 'rounded-lg', 'h-8')` | `'w-8 rounded-lg h-8'` |
-| `Carbon.Tailwind.merge(null, null)`                                | `null`                 |
-| `Carbon.Tailwind.merge('one two three', ['one', 'four']`           | `'one two three four'` |
+| `Tailwind.merge('w-8 h-8 rounded-full rounded-lg')`         | `'w-8 h-8 rounded-lg'` |
+| `Tailwind.merge(['w-8 rounded-full'], 'rounded-lg', 'h-8')` | `'w-8 rounded-lg h-8'` |
+| `Tailwind.merge(null, null)`                                | `null`                 |
+| `Tailwind.merge('one two three', ['one', 'four']`           | `'one two three four'` |
 
 **Return** The merged string
 
