@@ -275,6 +275,28 @@ Examples:
 
 **Return** The merged string
 
+## AlpineJS Helper
+
+### `Carbon.AlpineJS.xData(name, arg1, arg2, ..argN)`
+
+Generate a function call for AlpineJS. [More info](https://alpinejs.dev/globals/alpine-data).
+Supports neseted arrays. You could do the same with `Json.stringify()`, but this function is shorter, as AlpineJS
+acccepts objects and easier to write and read. In named arrays (`{first:1,second:null}`) `null` get filterd out, but in
+list arrays (`[1,null]`) and in plain values the will stay.
+
+Examples:
+
+```elm
+Carbon.String.alpineJS('slider', {effect: 'slide', spaceBetween: 12, loop: true, navigation: null}) == 'slider({effect:'slide',spaceBetween:12,loop:true})'
+Carbon.String.alpineJS('slider', 'one', 1, false, null, ['string', 2, null]) == 'slider('one',1,false,null,['string',2,null])'
+Carbon.String.alpineJS('nested', {nested: {value: true}}) == 'nested({nested:{value:true}})'
+```
+
+- `name` (string) The name for `Alpine.data`
+- `...arguments` (mixed) The options for the function
+
+**Return** The string for the x-data attribute
+
 ## String Helper
 
 ### `Carbon.String.BEM(block, element, modifiers)`
