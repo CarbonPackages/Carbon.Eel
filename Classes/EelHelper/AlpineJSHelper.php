@@ -49,7 +49,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
             return null;
         }
 
-        return $this->keyedArrayToString($array, true);
+        return $this->keyedArrayToString($array, false);
     }
 
     /**
