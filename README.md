@@ -132,7 +132,7 @@ Returns the value of a nested array by following the specified path.
 value = ${Carbon.Array.getValueByPath(array, path)}
 ```
 
-### `Carbon.Array.setValueByPath(array, path)`
+### `Carbon.Array.setValueByPath(array, path, value)`
 
 Sets the given value in a nested array or object by following the specified path.
 
