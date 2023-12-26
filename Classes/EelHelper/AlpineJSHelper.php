@@ -53,6 +53,17 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Use this to pass a javascript expression inside of the `AlpineJS.object` or `AlpineJS.xData` helper
+     *
+     * @param string $value
+     * @return string
+     */
+    public function expression($value): string
+    {
+        return sprintf('__EXPRESSION__%s', $value);
+    }
+
+    /**
      * Return values for the xData function
      *
      * @param mixed $value
@@ -61,6 +72,10 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
      */
     private function returnValue($value, $returnNull = false)
     {
+        if (is_string($value) && strpos($value, '__EXPRESSION__') === 0) {
+            return substr($value, 14);
+        }
+
         if (is_null($value)) {
             if ($returnNull) {
                 return 'null';

@@ -313,6 +313,24 @@ AlpineJS.xData('nested', {nested: {value: true}}) == 'nested({nested:{value:true
 
 **Return** The string for the x-data function call
 
+### `AlpineJS.expression(value)`
+
+Use this to pass a javascript expression inside of the `AlpineJS.object` or `AlpineJS.xData` helper
+
+Example:
+
+```elm
+AlpineJS.object({theme: AlpineJS.expression("localStorage.theme||'system'"), show: props.show})
+AlpineJS.xData('themeSwitcher', {theme: AlpineJS.expression("localStorage.theme||'system'"), show: props.show})
+```
+
+Result will be:
+
+```js
+{theme:localStorage.theme||'system',show:true}
+themeSwitcher({theme:localStorage.theme||'system',show:true})
+```
+
 ## String Helper
 
 ### `Carbon.String.BEM(block, element, modifiers)`
