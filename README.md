@@ -331,6 +331,15 @@ Result will be:
 themeSwitcher({theme:localStorage.theme||'system',show:true})
 ```
 
+### `AlpineJS.minify(javascript, flaggedComments)`
+
+Minifies JavaScript so that it can be delivered to the client quicker.
+
+- `javascript` (string, required) The JavaScriptto minify
+- `flaggedComments` (bool) Set to false to disable YUI style comment preservation. Defaults to `true`
+
+**Return** The minified JavaScript
+
 ## String Helper
 
 ### `Carbon.String.BEM(block, element, modifiers)`
