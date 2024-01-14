@@ -1,0 +1,32 @@
+changelog:
+  exclude:
+    labels:
+      - ignore-for-releasenotes
+  categories:
+    - title: 🚀 Maintenance
+      labels:
+        - maintenance
+    - title: 💥 Breaking changes
+      labels:
+        - breaking
+    - title: ✨ Exciting new features
+      labels:
+        - enhancement
+    - title: 🐛 Found and fixed bugs
+      labels:
+        - bug
+    - title: 📝 Added documentation
+      labels:
+        - documentation
+    - title: 📦 Upgrade dependencies
+      labels:
+        - dependencies
+    - title: 🧹 Refactoring
+      labels:
+        - refactor
+    - title: 🧪 Tests
+      labels:
+        - test
+    - title: 🩹 Other changes
+      labels:
+        - '*'
