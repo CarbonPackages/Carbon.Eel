@@ -2,7 +2,6 @@
 
 namespace Carbon\Eel\EelHelper;
 
-use JShrink\Minifier;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
 use Traversable;
@@ -62,18 +61,6 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
     public function expression($value): string
     {
         return sprintf('__EXPRESSION__%s', $value);
-    }
-
-    /**
-     * Minimze JavaScript
-     *
-     * @param string $javascript
-     * @param bool $flaggedComments Set to false to disable YUI style comment preservation.
-     * @return string
-     */
-    public function minify(string $javascript, bool $flaggedComments = true): string
-    {
-        return Minifier::minify($javascript, ['flaggedComments' => $flaggedComments]);
     }
 
     /**

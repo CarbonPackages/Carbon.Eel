@@ -5,6 +5,7 @@ namespace Carbon\Eel\EelHelper;
 use Behat\Transliterator\Transliterator;
 use Carbon\Eel\Service\BEMService;
 use Carbon\Eel\Service\MergeClassesService;
+use MatthiasMullie\Minify;
 use Neos\Eel\EvaluationException;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
@@ -37,6 +38,30 @@ class StringHelper implements ProtectedContextAwareInterface
     public function BEM($block = null, $element = null, $modifiers = []): ?string
     {
         return BEMService::getClassNamesString($block, $element, $modifiers);
+    }
+
+    /**
+     * Minify JavaScript
+     *
+     * @param string $javascript The JavaScript string
+     * @return string
+     */
+    public function minifyJS(string $javascript): string
+    {
+        $minifier = new Minify\JS($javascript);
+        return $minifier->minify();
+    }
+
+    /**
+     * Minify CSS
+     *
+     * @param string $css The CSS string
+     * @return string
+     */
+    public function minifyCSS(string $css): string
+    {
+        $minifier = new Minify\CSS($css);
+        return $minifier->minify();
     }
 
     /**
