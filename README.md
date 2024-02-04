@@ -531,11 +531,11 @@ Checks if the string is a valid email address
 
 Examples:
 
-| Expression                                 | Result  |
-| ------------------------------------------ | ------- |
-| `Carbon.String.isValidEmail('')`           | `false` |
-| `Carbon.String.phone('Some text')`         | `false` |
-| `Carbon.String.phone('hello@uhlmann.pro')` | `true`  |
+| Expression                                        | Result  |
+| ------------------------------------------------- | ------- |
+| `Carbon.String.isValidEmail('')`                  | `false` |
+| `Carbon.String.isValidEmail('Some text')`         | `false` |
+| `Carbon.String.isValidEmail('hello@uhlmann.pro')` | `true`  |
 
 - `emailAddress` (string) The string to check
 
