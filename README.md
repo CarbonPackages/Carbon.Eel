@@ -564,6 +564,26 @@ Get number of decimal digits.
 
 - `number` (float, required) The number being formatted
 
+### `Carbon.Number.pxToRem(value, fallback)`
+
+Convert a pixel value to rem
+
+- `value` (numeric | string, required) The value to converted
+- `fallback` (numeric | string, optional) Fallback value if `value` is `false` or `null`
+
+Examples:
+
+| Expression                            | Result   |
+| ------------------------------------- | -------- |
+| `Carbon.Number.pxToRem('')`           | `0`      |
+| `Carbon.Number.pxToRem('8px')`        | `0.5rem` |
+| `Carbon.Number.pxToRem(16)`           | `1rem`   |
+| `Carbon.Number.pxToRem(0)`            | `0`      |
+| `Carbon.Number.pxToRem(false, 32)`    | `2rem`   |
+| `Carbon.Number.pxToRem(null, '16px')` | `2rem`   |
+
+Returns a string with the converted value
+
 ## Backend Helper
 
 ### `Carbon.Backend.language()`

@@ -94,6 +94,26 @@ class NumberHelper implements ProtectedContextAwareInterface
         }
     }
 
+    /**
+     * Convert a pixel value to rem
+     *
+     * @param mixed $value The value to convert
+     * @param mixed $fallback Fallback value if $value is false or null
+     * @return string
+     */
+    public function pxToRem($value, $fallback = null): string
+    {
+        if ($fallback && ($value === false || $value === null)) {
+            $value = (int) $fallback;
+        }
+
+        $value = (int) $value;
+        if (!$value) {
+            return '0';
+        }
+
+        return ($value / 16) . 'rem';
+    }
 
     /**
      * All methods are considered safe
