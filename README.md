@@ -539,6 +539,23 @@ Examples:
 
 - `emailAddress` (string) The string to check
 
+### `Carbon.String.replaceOnce(string, search, replace)`
+
+Helper to replace the first occurrence of a string.
+
+Examples:
+
+| Expression                                             | Result        |
+| ------------------------------------------------------ | ------------- |
+| `Carbon.String.replaceOnce('Foo Bar Foo', 'Foo', 'X')` | `'X Bar Foo'` |
+| `Carbon.String.replaceOnce('Foo Bar Foo', 'Foo ')`     | `'Bar Foo'`   |
+
+- `string` (string) The string being searched and replaced on
+- `search` (string) The value being searched for
+- `prefix` (string, optional) The replacement value that replaces found search value
+
+Returns the string with one occurrence replaced
+
 ## Number Helper
 
 ### `Carbon.Number.format(number, decimals, dec_point, thousands_sep)`

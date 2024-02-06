@@ -145,6 +145,29 @@ class StringHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Helper to replace the first occurrence of a string
+     *
+     * @param string $string The string being searched and replaced on
+     * @param string $search he value being searched for
+     * @param string|null $replace The replacement value that replaces found search value
+     * @return string
+     */
+    public function replaceOnce(string $string, string $search, ?string $replace = null): string
+    {
+        $pos = strpos($string, $search);
+        if ($pos === false) {
+            return $string;
+        }
+
+        if (!isset($replace)) {
+            $replace = '';
+        }
+
+        return substr_replace($string, $replace, $pos, strlen($search));
+    }
+
+
+    /**
      * Helper to make sure we got a string back
      *
      * Examples:
