@@ -590,14 +590,14 @@ Convert a pixel value to rem
 
 Examples:
 
-| Expression                            | Result   |
-| ------------------------------------- | -------- |
-| `Carbon.Number.pxToRem('')`           | `0`      |
-| `Carbon.Number.pxToRem('8px')`        | `0.5rem` |
-| `Carbon.Number.pxToRem(16)`           | `1rem`   |
-| `Carbon.Number.pxToRem(0)`            | `0`      |
-| `Carbon.Number.pxToRem(false, 32)`    | `2rem`   |
-| `Carbon.Number.pxToRem(null, '16px')` | `2rem`   |
+| Expression                            | Result     |
+| ------------------------------------- | ---------- |
+| `Carbon.Number.pxToRem('')`           | `'0'`      |
+| `Carbon.Number.pxToRem('8px')`        | `'0.5rem'` |
+| `Carbon.Number.pxToRem(16)`           | `'1rem'`   |
+| `Carbon.Number.pxToRem(0)`            | `'0'`      |
+| `Carbon.Number.pxToRem(false, 32)`    | `'2rem'`   |
+| `Carbon.Number.pxToRem(null, '16px')` | `'1rem'`   |
 
 Returns a string with the converted value
 
