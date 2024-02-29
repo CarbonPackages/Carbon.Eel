@@ -18,7 +18,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
      * @param iterable|mixed $arguments
      * @return string
      */
-    public function xData(string $name, ...$arguments): string
+    public function xData(string $name, mixed ...$arguments): string
     {
         $result = [];
         foreach ($arguments as $argument) {
@@ -39,7 +39,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
      * @param array|iterable $array
      * @return string
      */
-    public function object($array): ?string
+    public function object(iterable $array): ?string
     {
         if ($array instanceof Traversable) {
             $array = iterator_to_array($array);
@@ -53,7 +53,23 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Use this to pass a javascript expression inside of the `AlpineJS.object` or `AlpineJS.xData` helper
+     * Generate a function call for AlpineJS magics
+     *
+     * @param string $name The name of the magic function
+     * @param iterable|mixed $arguments
+     * @return string
+     */
+    public function magic(string $name, mixed ...$arguments)
+    {
+        if (!str_starts_with($name, '$')) {
+            $name = '$' . $name;
+        }
+
+        return $this->xData($name, ...$arguments);
+    }
+
+    /**
+     * Use this to pass a javascript expression inside of the `AlpineJS.object`, `AlpineJS.xData` or `AlpineJS.magic` helper
      *
      * @param string $value
      * @return string

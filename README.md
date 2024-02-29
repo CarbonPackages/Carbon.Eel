@@ -313,9 +313,28 @@ AlpineJS.xData('nested', {nested: {value: true}}) == 'nested({nested:{value:true
 
 **Return** The string for the x-data function call
 
+### `AlpineJS.magic(name, arg1, arg2, ..argN)`
+
+Generate a call for a magic function for AlpineJS..
+Supports nested arrays. In named arrays (`{first:1,second:null}`) `null` get filtered out, but in list
+arrays (`[1,null]`) and in plain values the will stay.
+
+Examples:
+
+```elm
+AlpineJS.magic('dispatch', 'notify') == '$dispatch('notify')'
+AlpineJS.magic('$dispatch', 'notify', { message: 'Hello World!' }) == '$dispatch('notify',{message:'Hello World!'})'
+AlpineJS.xData('dispatch', 'notify', { message: true, nested: {value: true} }) == '$dispatch('notify',{message:true,nested:{value:true}})'
+```
+
+- `name` (string) The name for the magic. If not prefixed with an `$`, it will automatically prefixed.
+- `...arguments` (mixed) The options for the function
+
+**Return** The string for the magic function call
+
 ### `AlpineJS.expression(value)`
 
-Use this to pass a javascript expression inside of the `AlpineJS.object` or `AlpineJS.xData` helper
+Use this to pass a javascript expression inside of the `AlpineJS.object`, `AlpineJS.xData` or `AlpineJS.magic` helper
 
 Example:
 
