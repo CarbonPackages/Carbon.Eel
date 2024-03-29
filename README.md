@@ -491,9 +491,17 @@ Carbon.String.removeNbsp('hello   world') == 'hello world'
 
 **Return** The converted string
 
-### `Carbon.String.merge(mixed1, mixed2, mixedN)`
+### `Carbon.String.classNames(mixed1, mixed2, mixedN)`
 
+Render all arguments as classNames and apply conditions if needed.
 Merge strings and arrays to a string with unique values, separated by an empty space.
+
+All arguments of the eel helper are evaluated and the following rules are applied:
+
+- falsy values: (`null`, `''`, `[]`, `{}`) are not rendererd
+- array: all items that are scalar and truthy are rendered as classname
+- object: keys that have a truthy values are rendered as classname
+- scalar: is cast to string and rendered as class-name
 
 Examples:
 

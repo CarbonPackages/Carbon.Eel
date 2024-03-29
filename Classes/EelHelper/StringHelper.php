@@ -211,12 +211,23 @@ class StringHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Merge strings and arrays to a string with unique values, separated by an empty space
+     * @deprecated Please use Carbon.String.classNames instead
      *
      * @param iterable|mixed $arguments Optional variable list of arrays / values
      * @return string|null The merged string
      */
     public function merge(...$arguments): ?string
+    {
+        return MergeClassesService::merge(...$arguments);
+    }
+
+    /**
+     * Merge strings and arrays to a string with unique values, separated by an empty space
+     *
+     * @param iterable|mixed $arguments Optional variable list of arrays / values
+     * @return string|null The merged string
+     */
+    public function classNames(...$arguments): ?string
     {
         return MergeClassesService::merge(...$arguments);
     }
