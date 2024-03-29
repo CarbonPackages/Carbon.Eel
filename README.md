@@ -246,10 +246,10 @@ Returns the hash value from the file content of a persisted resource. Fails sile
 
 Example:
 
-```elm
-Carbon.FileContent.resourceHash(q(node).property('file')) == 1d62f5a5
-Carbon.FileContent.resourceHash(q(node).property('file'), 20) == 1d62f5a55ad5e304d60d
-```
+| Expression                                                       | Result                   |
+| ---------------------------------------------------------------- | ------------------------ |
+| `Carbon.FileContent.resourceHash(q(node).property('file'))`      | `'1d62f5a5'`             |
+| `Carbon.FileContent.resourceHash(q(node).property('file'), 20)`  | `'1d62f5a55ad5e304d60d'` |
 
 - `resource` (resource) The persisted resource to read
 - `length` (integer, optional) The length of the hash value defaults to `8`. The maximal value is `40`
@@ -261,17 +261,26 @@ Carbon.FileContent.resourceHash(q(node).property('file'), 20) == 1d62f5a55ad5e30
 ### `Tailwind.merge(mixed1, mixed2, mixedN)`
 
 This helper allows you to merge multiple [Tailwind CSS] classes and automatically resolves conflicts between them without headaches.
+Render all arguments as classNames and apply conditions if needed.
+Merge strings and arrays to a string with unique values, separated by an empty space.
+
+All arguments of the eel helper are evaluated and the following rules are applied:
+
+- falsy values: (`null`, `''`, `[]`, `{}`) are not rendererd
+- array: all items that are scalar and truthy are rendered as classname
+- object: keys that have a truthy values are rendered as classname
+- scalar: is cast to string and rendered as class-name
 
 It is based on [tailwind-merge-php].
 
 Examples:
 
-| Expression                                                         | Result                 |
-| ------------------------------------------------------------------ | ---------------------- |
-| `Tailwind.merge('w-8 h-8 rounded-full rounded-lg')`         | `'w-8 h-8 rounded-lg'` |
-| `Tailwind.merge(['w-8 rounded-full'], 'rounded-lg', 'h-8')` | `'w-8 rounded-lg h-8'` |
-| `Tailwind.merge(null, null)`                                | `null`                 |
-| `Tailwind.merge('one two three', ['one', 'four']`           | `'one two three four'` |
+| Expression                                                          | Result                 |
+| ------------------------------------------------------------------- | ---------------------- |
+| `Tailwind.merge('w-8 h-8 rounded-full rounded-lg')`                 | `'w-8 h-8 rounded-lg'` |
+| `Tailwind.merge(['w-8 rounded-full'], 'rounded-lg', 'h-8')`         | `'w-8 rounded-lg h-8'` |
+| `Tailwind.merge(null, null, {}, [])`                                | `null`                 |
+| `Tailwind.merge('one', ['one', 'two'], {three: true, four: false}`  | `'one two three'`      |
 
 **Return** The merged string
 
@@ -285,10 +294,10 @@ accepts objects and easier to write and read.
 
 Examples:
 
-```elm
-AlpineJS.object({effect: 'slide', spaceBetween: 12, loop: true, navigation: null}) == '{effect:'slide',spaceBetween:12,loop:true,navigation:null}'
-AlpineJS.object({nested: {value: true, nulled: null}}) == '{nested:{value:true,nulled:null}}'
-```
+| Expression                                                                            | Result                                                         |
+| ------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `AlpineJS.object({effect: 'slide', spaceBetween: 12, loop: true, navigation: null})`  | `'{effect:'slide',spaceBetween:12,loop:true,navigation:null}'` |
+| `AlpineJS.object({nested: {value: true, nulled: null}})`                              | `'{nested:{value:true,nulled:null}}'`                          |
 
 - `...arguments` The array
 
@@ -302,12 +311,11 @@ arrays (`[1,null]`) and in plain values the will stay.
 
 Examples:
 
-```elm
-AlpineJS.function('slider', {effect: 'slide', spaceBetween: 12, loop: true, navigation: null}) == 'slider({effect:'slide',spaceBetween:12,loop:true})'
-AlpineJS.function('slider', 'one', 1, false, null, ['string', 2, null]) == 'slider('one',1,false,null,['string',2,null])'
-AlpineJS.function('nested', {nested: {value: true}}) == 'nested({nested:{value:true}})'
-AlpineJS.function("vote", iterator.cycle)
-```
+| Expression                                                                                        | Result                                                 |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `AlpineJS.function('slider', {effect: 'slide', spaceBetween: 12, loop: true, navigation: null})`  | `'slider({effect:'slide',spaceBetween:12,loop:true})'` |
+| `AlpineJS.function('slider', 'one', 1, false, null, ['string', 2, null])`                         | `'slider('one',1,false,null,['string',2,null])'`       |
+| `AlpineJS.function("vote", 4)`                                                                    | `'vote(4)'`                                            |
 
 - `name` (string) The name for the function (e.g `x-data`, `x-on:click`, etc.)
 - `...arguments` (mixed) The options for the function
@@ -322,11 +330,11 @@ arrays (`[1,null]`) and in plain values the will stay.
 
 Examples:
 
-```elm
-AlpineJS.magic('dispatch', 'notify') == '$dispatch('notify')'
-AlpineJS.magic('$dispatch', 'notify', { message: 'Hello World!' }) == '$dispatch('notify',{message:'Hello World!'})'
-AlpineJS.xData('dispatch', 'notify', { message: true, nested: {value: true} }) == '$dispatch('notify',{message:true,nested:{value:true}})'
-```
+| Expression                                                                        | Result                                            |
+| --------------------------------------------------------------------------------- | ------------------------------------------------- |
+| `AlpineJS.magic('dispatch', 'notify')`                                            | `'$dispatch('notify')'`                           |
+| `AlpineJS.magic('$dispatch', 'notify', { message: 'Hello World!' })`              | `'$dispatch('notify',{message:'Hello World!'})'`  |
+| `AlpineJS.magic('dispatch', 'notify', { message: true, nested: {value: true} })`  | `'$dispatch('notify',{message:'Hello World!'})'`  |
 
 - `name` (string) The name for the magic. If not prefixed with an `$`, it will automatically prefixed.
 - `...arguments` (mixed) The options for the function
@@ -335,21 +343,14 @@ AlpineJS.xData('dispatch', 'notify', { message: true, nested: {value: true} }) =
 
 ### `AlpineJS.expression(value)`
 
-Use this to pass a javascript expression inside of the `AlpineJS.object`, `AlpineJS.xData` or `AlpineJS.magic` helper
+Use this to pass a javascript expression inside of the `AlpineJS.object`, `AlpineJS.function` or `AlpineJS.magic` helper
 
-Example:
+Examples:
 
-```elm
-AlpineJS.object({theme: AlpineJS.expression("localStorage.theme||'system'"), show: props.show})
-AlpineJS.xData('themeSwitcher', {theme: AlpineJS.expression("localStorage.theme||'system'"), show: props.show})
-```
-
-Result will be:
-
-```js
-{theme:localStorage.theme||'system',show:true}
-themeSwitcher({theme:localStorage.theme||'system',show:true})
-```
+| Expression                                                                                          | Result                                                             |
+| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `AlpineJS.object({theme: AlpineJS.expression("localStorage.theme\|\|'system'"), show: true})`       | `'{theme:localStorage.theme\|\|'system',show:true}'`                |
+| `AlpineJS.function('themeSwitcher', {theme: AlpineJS.expression("localStorage.theme\|\|'system'")`  | `'themeSwitcher({theme:localStorage.theme\|\|'system',show:true})'` |
 
 ## String Helper
 
@@ -369,10 +370,10 @@ Generates a slug of the given string
 
 Examples:
 
-```elm
-Carbon.String.urlize('Hello World') == 'hello-world'
-Carbon.String.urlize('Ä_ÖÜ äöü') == 'ae-oeue-aeoeue'
-```
+| Expression                             | Result              |
+| -------------------------------------- | ------------------- |
+| `Carbon.String.urlize('Hello World')`  | `'hello-world'`     |
+| `Carbon.String.urlize('Ä_ÖÜ äöü')`     | `'ae-oeue-aeoeue'`  |
 
 - `string` (string) The string to convert
 
@@ -400,11 +401,11 @@ Convert strings to `PascalCase`.
 
 Examples:
 
-```elm
-Carbon.String.toPascalCase('hello-world') == 'HelloWorld'
-Carbon.String.toPascalCase('hello world') == 'HelloWorld'
-Carbon.String.toPascalCase('Hello World') == 'HelloWorld'
-```
+| Expression                                   | Result          |
+| -------------------------------------------- | --------------- |
+| `Carbon.String.toPascalCase('hello-world')`  | `'HelloWorld'`  |
+| `Carbon.String.toPascalCase('hello world')`  | `'HelloWorld'`  |
+| `Carbon.String.toPascalCase('Hello World')`  | `'HelloWorld'`  |
 
 - `string` (string) The string to convert
 
@@ -416,11 +417,11 @@ Convert strings to `camelCase`.
 
 Examples:
 
-```elm
-Carbon.String.toCamelCase('hello-world') == 'helloWorld'
-Carbon.String.toCamelCase('hello world') == 'helloWorld'
-Carbon.String.toCamelCase('Hello World') == 'helloWorld'
-```
+| Expression                                  | Result          |
+| ------------------------------------------- | --------------- |
+| `Carbon.String.toCamelCase('hello-world')`  | `'helloWorld'`  |
+| `Carbon.String.toCamelCase('hello world')`  | `'helloWorld'`  |
+| `Carbon.String.toCamelCase('Hello World')`  | `'helloWorld'`  |
 
 - `string` (string) The string to convert
 
@@ -432,11 +433,11 @@ Convert `CamelCaseStrings` to `hyphen-case-strings`
 
 Examples:
 
-```elm
-Carbon.String.convertCamelCase('HelloWorld') == 'hello-world'
-Carbon.String.convertCamelCase('HelloWorld', '_') == 'hello_world'
-Carbon.String.convertCamelCase('HelloWorld', '') == 'helloworld'
-```
+| Expression                                           | Result           |
+| ---------------------------------------------------- | ---------------- |
+| `Carbon.String.convertCamelCase('HelloWorld')`       | `'hello-world'`  |
+| `Carbon.String.convertCamelCase('HelloWorld', '_')`  | `'hello_world'`  |
+| `Carbon.String.convertCamelCase('HelloWorld', '')`   | `'helloworld'`   |
 
 - `string` (string) The string to convert
 - `separator` (string, optional) The separator between the words defaults to `-`
@@ -449,11 +450,11 @@ Helper to make sure to get a string back.
 
 Examples:
 
-```elm
-Carbon.String.convertToString(' helloworld  ') == 'helloworld'
-Carbon.String.convertToString([' hello', ' world']) == 'hello world'
-Carbon.String.convertToString(['hello', 'world'], '-') == 'hello-world'
-```
+| Expression                                                   | Result           |
+| ------------------------------------------------------------ | ---------------- |
+| `Carbon.String.convertCamelCase(' helloworld  ')`            | `'helloworld'`   |
+| `Carbon.String.convertCamelCase([' hello', ' world'])`       | `'hello world'`  |
+| `Carbon.String.convertCamelCase([' hello', ' world'], '-')`  | `'hello-world'`  |
 
 - `input` (string, array) A string or an array to convert
 - `separator` (string, optional) The separator between the words, defaults to whitespace
@@ -466,10 +467,10 @@ Replace all newlines with an `<br>`.
 
 Examples:
 
-```elm
-Carbon.String.nl2br('hello\nworld') == 'hello<br>world'
-Carbon.String.nl2br('hello\nworld', ' | ') == 'hello | world'
-```
+| Expression                                    | Result              |
+| --------------------------------------------- | ------------------- |
+| `Carbon.String.nl2br('hello\nworld')`         | `'hello<br>world'`  |
+| `Carbon.String.nl2br('hello\nworld', ' - ')`  | `'hello - world'`   |
 
 - `string` (string) A string to convert
 - `separator` (string, optional) The separator between the words, defaults to `<br>`
@@ -482,10 +483,10 @@ Replace non-breaking spaces and double spaces with a normal space.
 
 Examples:
 
-```elm
-Carbon.String.removeNbsp(' hello world') == 'hello world'
-Carbon.String.removeNbsp('hello   world') == 'hello world'
-```
+| Expression                                   | Result           |
+| -------------------------------------------- | ---------------- |
+| `Carbon.String.removeNbsp(' hello world')`   | `'hello world'`  |
+| `Carbon.String.removeNbsp('hello   world')`  | `'hello world'`  |
 
 - `string` (string) A string to convert
 
@@ -505,12 +506,13 @@ All arguments of the eel helper are evaluated and the following rules are applie
 
 Examples:
 
-| Expression                                                | Result                 |
-| --------------------------------------------------------- | ---------------------- |
-| `Carbon.String.merge('', 'one')`                          | `'one'`                |
-| `Carbon.String.merge(['one two three'], ['one', 'four'])` | `'one two three four'` |
-| `Carbon.String.merge(null, null)`                         | `null`                 |
-| `Carbon.String.merge('one two three', ['one', 'four']`    | `'one two three four'` |
+| Expression                                                     | Result                 |
+| -------------------------------------------------------------- | ---------------------- |
+| `Carbon.String.classNames('', 'one')`                          | `'one'`                |
+| `Carbon.String.classNames(['one two three'], ['one', 'four'])` | `'one two three four'` |
+| `Carbon.String.classNames(null, false, [null], {one: false})`  | `null`                 |
+| `Carbon.String.classNames('one two three', ['one', 'four'])`   | `'one two three four'` |
+| `Carbon.String.classNames('one', {two: true, three: false })`  | `'one two'`            |
 
 **Return** The merged string
 
