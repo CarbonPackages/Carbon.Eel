@@ -12,13 +12,26 @@ use Traversable;
 class AlpineJSHelper implements ProtectedContextAwareInterface
 {
     /**
-     * Generate a function call for AlpineJS x-data="name(arg1, arg2, ..argN)" https://alpinejs.dev/globals/alpine-data
+     * @deprecated Please use AlpineJS.function instead
+     * Generate a function call for AlpineJS  Example: x-data="name(arg1, arg2, ..argN)" https://alpinejs.dev/globals/alpine-data
      *
-     * @param string $name
+     * @param string $name function name
      * @param iterable|mixed $arguments
      * @return string
      */
     public function xData(string $name, mixed ...$arguments): string
+    {
+        return $this->function($name, ...$arguments);
+    }
+
+    /**
+     * Generate a function call for AlpineJS. Example: x-data="name(arg1, arg2, ..argN)" https://alpinejs.dev/globals/alpine-data
+     *
+     * @param string $name function name
+     * @param iterable|mixed $arguments
+     * @return string
+     */
+    public function function(string $name, mixed ...$arguments): string
     {
         $result = [];
         foreach ($arguments as $argument) {
@@ -65,7 +78,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
             $name = '$' . $name;
         }
 
-        return $this->xData($name, ...$arguments);
+        return $this->function($name, ...$arguments);
     }
 
     /**
@@ -80,7 +93,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Return values for the xData function
+     * Return values for the function `function`
      *
      * @param mixed $value
      * @param bool $returnNull

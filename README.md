@@ -294,7 +294,7 @@ AlpineJS.object({nested: {value: true, nulled: null}}) == '{nested:{value:true,n
 
 **Return** The JavaScript object as string
 
-### `AlpineJS.xData(name, arg1, arg2, ..argN)`
+### `AlpineJS.function(name, arg1, arg2, ..argN)`
 
 Generate a function call for AlpineJS. [More info](https://alpinejs.dev/globals/alpine-data).
 Supports nested arrays. In named arrays (`{first:1,second:null}`) `null` get filtered out, but in list
@@ -303,12 +303,13 @@ arrays (`[1,null]`) and in plain values the will stay.
 Examples:
 
 ```elm
-AlpineJS.xData('slider', {effect: 'slide', spaceBetween: 12, loop: true, navigation: null}) == 'slider({effect:'slide',spaceBetween:12,loop:true})'
-AlpineJS.xData('slider', 'one', 1, false, null, ['string', 2, null]) == 'slider('one',1,false,null,['string',2,null])'
-AlpineJS.xData('nested', {nested: {value: true}}) == 'nested({nested:{value:true}})'
+AlpineJS.function('slider', {effect: 'slide', spaceBetween: 12, loop: true, navigation: null}) == 'slider({effect:'slide',spaceBetween:12,loop:true})'
+AlpineJS.function('slider', 'one', 1, false, null, ['string', 2, null]) == 'slider('one',1,false,null,['string',2,null])'
+AlpineJS.function('nested', {nested: {value: true}}) == 'nested({nested:{value:true}})'
+AlpineJS.function("vote", iterator.cycle)
 ```
 
-- `name` (string) The name for `Alpine.data`
+- `name` (string) The name for the function (e.g `x-data`, `x-on:click`, etc.)
 - `...arguments` (mixed) The options for the function
 
 **Return** The string for the x-data function call
