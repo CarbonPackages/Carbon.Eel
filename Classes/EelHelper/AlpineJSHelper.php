@@ -82,7 +82,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
     }
 
     /**
-     * Use this to pass a javascript expression inside of the `AlpineJS.object`, `AlpineJS.xData` or `AlpineJS.magic` helper
+     * Use this to pass a javascript expression inside of the `AlpineJS.object`, `AlpineJS.function` or `AlpineJS.magic` helper
      *
      * @param string $value
      * @return string
