@@ -284,6 +284,55 @@ Examples:
 
 **Return** The merged string
 
+#### Configuration
+
+If you are using Tailwind CSS without any extra config, you can use the Eel helper right away. And stop reading here.
+
+If you're using a custom Tailwind config, you may need to configure the Eel helper as well to merge classes properly.
+
+By default it is configured in a way that you can still use it if all the following apply to your Tailwind config:
+
+- Only using color names which don't clash with other Tailwind class names
+- Only deviating by number values from number-based Tailwind classes
+- Only using font-family classes which don't clash with default font-weight classes
+- Sticking to default Tailwind config for everything else
+
+If some of these points don't apply to you, you need to customize the configuration.
+
+This is an example to add a custom font size of `very-large`:
+
+```yaml
+Carbon:
+  Eel:
+    tailwindMergeConfig:
+      classGroups:
+        'font-size':
+          - text: ['very-large']
+```
+
+You can also enable different [validators], to make everything easier. For instance, if you use the
+[Tailwind OKLCH Plugin], you can set it like that:
+
+```yaml
+Carbon:
+  Eel:
+    tailwindMergeConfig:
+      classGroups:
+        'fill-lightness':
+          - 'fill-lightness-offset': ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'border-lightness':
+          - 'border-lightness-offset': ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'text-lightness':
+          - 'text-lightness-offset': ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        'bg-lightness':
+          - 'bg-lightness-offset': ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+```
+
+If you want to use a certain validator, just change it to constant case and add it as a string.
+So, for examle, if you want to use the `TshirtSizeValidator`, just add `TSHIRT_SIZE_VALIDATOR` to the list.
+
+> The merge service uses a its own cache `Carbon_Eel_Tailwind`. Make sure to clear the cache when you are making changes to the configuration.
+
 ## AlpineJS Helper
 
 ### `AlpineJS.object(arg1, arg2, ..argN)`
@@ -682,4 +731,6 @@ Some of the Eel helpers were inspired and or copied from [punkt.de]
 [`dateinterval` format]: https://www.php.net/manual/en/dateinterval.format.php
 [`dateinterval`]: https://www.php.net/manual/de/class.dateinterval.php
 [Tailwind CSS]: https://tailwindcss.com
-[tailwind-merge-php]: https://github.com/YieldStudio/tailwind-merge-php
+[tailwind-merge-php]: https://github.com/gehrisandro/tailwind-merge-php
+[validators]: https://github.com/gehrisandro/tailwind-merge-php/tree/main/src/Validators
+[tailwind oklch plugin]: https://github.com/MartijnCuppens/tailwindcss-oklch

@@ -3,15 +3,17 @@
 namespace Carbon\Eel\EelHelper;
 
 use Carbon\Eel\Service\MergeClassesService;
+use Carbon\Eel\Service\TailwindMergeService;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
-use YieldStudio\TailwindMerge\TailwindMerge;
 
-/**
- * @Flow\Proxy(false)
- */
 class TailwindHelper implements ProtectedContextAwareInterface
 {
+    /**
+     * @var TailwindMergeService
+     * @Flow\Inject
+     */
+    protected $mergeService;
 
     /**
      * Merge multiple Tailwind CSS classes and automatically resolves conflicts between them without headaches.
@@ -22,13 +24,7 @@ class TailwindHelper implements ProtectedContextAwareInterface
     public function merge(...$arguments): ?string
     {
         $mergedString = MergeClassesService::merge(...$arguments);
-
-        if ($mergedString) {
-            $twMerge = TailwindMerge::instance();
-            return $twMerge->merge($mergedString);
-        }
-
-        return null;
+        return $mergedString ? $this->mergeService->merge($mergedString) : null;
     }
 
 
