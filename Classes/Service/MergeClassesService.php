@@ -71,9 +71,9 @@ class MergeClassesService
             $value = iterator_to_array($value);
         }
         if (is_array($value)) {
-            array_walk_recursive($value, function ($a) use (&$return) {
+            array_walk_recursive($value, function ($a, $key) use (&$return) {
                 if ($a === true) {
-                    $a = ['true'];
+                    $a = [$key];
                 }
                 if (is_scalar($a)) {
                     $a = explode(' ', (string)$a);
