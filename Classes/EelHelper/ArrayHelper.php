@@ -121,15 +121,15 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * Returns a boolean if the array has a specific value
      *
      * @param iterable $array
-     * @param string $key
+     * @param mixed $value
      * @return bool
      */
-    public function hasValue(iterable $array, string $key): bool
+    public function hasValue(iterable $array, $value): bool
     {
         if ($array instanceof Traversable) {
             $array = iterator_to_array($array);
         }
-        return in_array($key, $array);
+        return in_array($value, $array);
     }
 
     /**
