@@ -413,6 +413,25 @@ Generates a string with BEM classes. The modifiers property can be a string (for
 
 **Return** The string
 
+### `Carbon.String.getPropertyFromNodeLink(node, value, propertyName, fallback)
+
+Get a property from a node link. Can be used to get the title from a page who is linked via the link editor.
+
+Example:
+
+| Expression                                                                                   | Result                         |
+| -------------------------------------------------------------------------------------------- | ------------------------------ |
+| `Carbon.String.getPropertyFromNodeLink(site, 'node://aaaa-bbbb-ccc')`                        | `'Title from the linked page'` |
+| `Carbon.String.getPropertyFromNodeLink(site, 'node://aaaa-bbbb-ccc', null)`                  | `null`                         |
+| `Carbon.String.getPropertyFromNodeLink(null, 'node://aaaa-bbbb-ccc')`                        | `null`                         |
+| `Carbon.String.getPropertyFromNodeLink(site, 'some other value')`                            | `null`                         |
+| `Carbon.String.getPropertyFromNodeLink(site, 'some other value', 'title', 'fallback value')` | `'fallback value'`             |
+
+- `node` (NodeInterface) The node, usally `site`
+- `value` (string) The value to process
+- `propertyName` (string) The name of the property to get
+- `fallback` (mixed) The fallback value if nothing is found
+
 ### `Carbon.String.urlize(string)`
 
 Generates a slug of the given string

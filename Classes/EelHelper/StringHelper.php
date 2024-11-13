@@ -6,7 +6,9 @@ use Behat\Transliterator\Transliterator;
 use Carbon\Eel\Service\BEMService;
 use Carbon\Eel\Service\MergeClassesService;
 use MatthiasMullie\Minify;
+use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Eel\EvaluationException;
+use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Validation\Validator\EmailAddressValidator;
@@ -65,6 +67,29 @@ class StringHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Get a property from a node link
+     *
+     * @param NodeInterface|null $node
+     * @param string|null        $value
+     * @param string             $propertyName
+     * @param mixed              $fallback
+     * @return mixed
+     */
+    public function getPropertyFromNodeLink(?NodeInterface $node, ?string $value, string $propertyName = 'title', $fallback = null)
+    {
+        if (!$node || !$value || !$propertyName || !str_starts_with($value, 'node://')) {
+            return $fallback;
+        }
+        $nodeId = str_replace('node://', '#', $value);
+        $fQ = new FlowQuery([$node]);
+        $targetNode = $fQ->find($nodeId)->get(0);
+        if (!$targetNode) {
+            return $fallback;
+        }
+        return $targetNode->getProperty($propertyName) ?? $fallback;
+    }
+
+    /**
      * Generates a slug of the given string
      *
      * @param string $string The string
@@ -88,7 +113,6 @@ class StringHelper implements ProtectedContextAwareInterface
         }
 
         $validator = new EmailAddressValidator();
-        $result = $validator->validate($email);
         return $validator->validate($email)->hasErrors() === false;
     }
 
