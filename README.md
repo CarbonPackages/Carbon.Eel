@@ -413,7 +413,7 @@ Generates a string with BEM classes. The modifiers property can be a string (for
 
 **Return** The string
 
-### `Carbon.String.getPropertyFromNodeLink(node, value, propertyName, fallback)
+### `Carbon.String.getPropertyFromNodeLink(node, value, propertyName, fallback)`
 
 Get a property from a node link. Can be used to get the title from a page who is linked via the link editor.
 
