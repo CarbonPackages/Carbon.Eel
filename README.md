@@ -339,14 +339,32 @@ So, for examle, if you want to use the `TshirtSizeValidator`, just add `TSHIRT_S
 
 Generate an object for AlpineJS directive [`x-data`](https://alpinejs.dev/directives/data).
 Supports nested arrays. You could do the same with `Json.stringify()`, but this function is shorter, as AlpineJS
-accepts objects and easier to write and read.
+accepts objects and easier to write and read. The default magics from Alpine.js will not be converted to string. The
+same goes with methods (see example below).
 
 Examples:
 
 | Expression                                                                           | Result                                                         |
 | ------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
-| `AlpineJS.object({effect: 'slide', spaceBetween: 12, loop: true, navigation: null})` | `'{effect:'slide',spaceBetween:12,loop:true,navigation:null}'` |
-| `AlpineJS.object({nested: {value: true, nulled: null}})`                             | `'{nested:{value:true,nulled:null}}'`                          |
+| `AlpineJS.object({effect: 'slide', spaceBetween: 12, loop: true, navigation: null})` | `"{effect:'slide',spaceBetween:12,loop:true,navigation:null}"` |
+| `AlpineJS.object({nested: {value: true, nulled: null'}})`                            | `"{nested:{value:true,nulled:null}}"`                          |
+| `AlpineJS.object({persistedNumber: '$persist(5)'})`                                  | `"{persistedNumber:$persist(5)}"`                                       |
+| `AlpineJS.object({value: 'someValue', log(value): '{console.log(value)}'})`          | `"{value:'someValue',log(value){console.log(value)}}"`         |
+
+Of course you can also pass `DataStructures` to the helper:
+
+```elm
+prototype(Foo.Bar:Example) < prototype(Neos.Fusion:Component) {
+  data = Neos.Fusion:DataStructure {
+    effect = 'slide'
+    spaceBetween = 12
+    persistedNumber = '$persist(5)'
+    'log(value)' = '{console.log(value)}'
+  }
+
+  renderer = ${AlpineJS.object(props.data)}
+}
+```
 
 - `...arguments` The array
 
@@ -356,15 +374,16 @@ Examples:
 
 Generate a function call for AlpineJS. [More info](https://alpinejs.dev/globals/alpine-data).
 Supports nested arrays. In named arrays (`{first:1,second:null}`) `null` get filtered out, but in list
-arrays (`[1,null]`) and in plain values the will stay.
+arrays (`[1,null]`) and in plain values the will stay. Basically it is the same as `AlpineJS.object`, just wrapped in a
+function call.
 
 Examples:
 
 | Expression                                                                                       | Result                                                 |
 | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------ |
-| `AlpineJS.function('slider', {effect: 'slide', spaceBetween: 12, loop: true, navigation: null})` | `'slider({effect:'slide',spaceBetween:12,loop:true})'` |
-| `AlpineJS.function('slider', 'one', 1, false, null, ['string', 2, null])`                        | `'slider('one',1,false,null,['string',2,null])'`       |
-| `AlpineJS.function("vote", 4)`                                                                   | `'vote(4)'`                                            |
+| `AlpineJS.function('slider', {effect: 'slide', spaceBetween: 12, loop: true, navigation: null})` | `"slider({effect:'slide',spaceBetween:12,loop:true})"` |
+| `AlpineJS.function('slider', 'one', 1, false, null, ['string', 2, null])`                        | `"slider('one',1,false,null,['string',2,null])"`       |
+| `AlpineJS.function("vote", 4)`                                                                   | `"vote(4)"`                                            |
 
 - `name` (string) The name for the function (e.g `x-data`, `x-on:click`, etc.)
 - `...arguments` (mixed) The options for the function
@@ -379,11 +398,11 @@ arrays (`[1,null]`) and in plain values the will stay.
 
 Examples:
 
-| Expression                                                                       | Result                                           |
-| -------------------------------------------------------------------------------- | ------------------------------------------------ |
-| `AlpineJS.magic('dispatch', 'notify')`                                           | `'$dispatch('notify')'`                          |
-| `AlpineJS.magic('$dispatch', 'notify', { message: 'Hello World!' })`             | `'$dispatch('notify',{message:'Hello World!'})'` |
-| `AlpineJS.magic('dispatch', 'notify', { message: true, nested: {value: true} })` | `'$dispatch('notify',{message:'Hello World!'})'` |
+| Expression                                                                       | Result                                                     |
+| -------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `AlpineJS.magic('dispatch', 'notify')`                                           | `"$dispatch('notify')"`                                    |
+| `AlpineJS.magic('$dispatch', 'notify', { message: 'Hello World!' })`             | `"$dispatch('notify',{message:'Hello World!'})"`           |
+| `AlpineJS.magic('dispatch', 'notify', { message: true, nested: {value: true} })` | `"$dispatch('notify',{message:true,nested:{value:true}})"` |
 
 - `name` (string) The name for the magic. If not prefixed with an `$`, it will automatically prefixed.
 - `...arguments` (mixed) The options for the function
@@ -398,8 +417,8 @@ Examples:
 
 | Expression                                                                                         | Result                                                              |
 | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `AlpineJS.object({theme: AlpineJS.expression("localStorage.theme\|\|'system'"), show: true})`      | `'{theme:localStorage.theme\|\|'system',show:true}'`                |
-| `AlpineJS.function('themeSwitcher', {theme: AlpineJS.expression("localStorage.theme\|\|'system'")` | `'themeSwitcher({theme:localStorage.theme\|\|'system',show:true})'` |
+| `AlpineJS.object({theme: AlpineJS.expression("localStorage.theme\|\|'system'"), show: true})`      | `"{theme:localStorage.theme\|\|'system',show:true}"`                |
+| `AlpineJS.function('themeSwitcher', {theme: AlpineJS.expression("localStorage.theme\|\|'system'")` | `"themeSwitcher({theme:localStorage.theme\|\|'system',show:true})"` |
 
 ## String Helper
 
@@ -707,7 +726,8 @@ Returns the language from the interface
 
 ### `Carbon.Backend.translate(id, originalLabel, arguments, source, package, quantity, locale)`
 
-Get the translated value (in the language of the interface) for an id or original label. If the only id is set and contains a translation shorthand string, translate according to that shorthand.
+Get the translated value (in the language of the interface) for an id or original label. If the only id is set and
+contains a translation shorthand string, translate according to that shorthand.
 
 In all other cases:
 Replace all placeholders with corresponding values if they exist in the translated label.
