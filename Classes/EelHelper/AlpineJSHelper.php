@@ -166,7 +166,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
          */
         foreach ($array as $key => $value) {
             if (is_array($value) || $value instanceof Traversable) {
-                $result[] = sprintf('%s:%s', $key, $this->arrayToString($value, $returnNull));
+                $result[] =  $this->getKeyAndValue($key, $this->arrayToString($value, $returnNull));
                 continue;
             }
 
@@ -180,9 +180,28 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
                 $value = 'null';
             }
 
-            $result[] = sprintf('%s:%s', $key, $value);
+            $result[] = $this->getKeyAndValue($key, $value);
         }
         return sprintf('{%s}', implode(',', $result));
+    }
+
+    /**
+     * Get the key for the array
+     *
+     * @param string $key
+     * @param string $value
+     * @return string
+     */
+    private function getKeyAndValue(string $key, string $value): string
+    {
+        $isMethod = preg_match('/^[a-zA-Z0-9]+\(.*\)$/', $key, $matches);
+        $valueIsFunctionBody = str_starts_with($value, "'{") && str_ends_with($value, "}'");
+        if ($isMethod && $valueIsFunctionBody) {
+            $value = substr($value, 1, -1);
+            return $key . $value;
+        }
+
+        return $key . ':' . $value;
     }
 
     /**
