@@ -4,5 +4,6 @@ node_modules
 *.example
 .thumbs
 .idea
+.vscode
 .DS_Store
 .sass-cache
