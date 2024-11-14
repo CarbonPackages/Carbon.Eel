@@ -101,8 +101,27 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
      */
     private function returnValue($value, $returnNull = false)
     {
-        if (is_string($value) && strpos($value, '__EXPRESSION__') === 0) {
+        if (is_string($value) && str_starts_with($value, '__EXPRESSION__')) {
             return substr($value, 14);
+        }
+
+        // Handle some Alpine.js magics automatically
+        if (
+            is_string($value) && str_ends_with($value, ')') &&
+            (
+                str_starts_with($value, '$data(') ||
+                str_starts_with($value, '$dispatch(') ||
+                str_starts_with($value, '$el(') ||
+                str_starts_with($value, '$id(') ||
+                str_starts_with($value, '$nextTick(') ||
+                str_starts_with($value, '$persist(') ||
+                str_starts_with($value, '$refs(') ||
+                str_starts_with($value, '$root(') ||
+                str_starts_with($value, '$store(') ||
+                str_starts_with($value, '$watch(')
+            )
+        ) {
+            return $value;
         }
 
         if (is_null($value)) {
