@@ -11,6 +11,7 @@ use Neos\Eel\EvaluationException;
 use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Security\Cryptography\HashService;
 use Neos\Flow\Validation\Validator\EmailAddressValidator;
 use function implode;
 use function is_array;
@@ -23,11 +24,13 @@ use function strtolower;
 use function trim;
 use function ucwords;
 
-/**
- * @Flow\Proxy(false)
- */
 class StringHelper implements ProtectedContextAwareInterface
 {
+    /**
+     * @Flow\Inject
+     * @var HashService
+     */
+    protected $hashService;
 
     /**
      * Generates a BEM string
@@ -40,6 +43,30 @@ class StringHelper implements ProtectedContextAwareInterface
     public function BEM($block = null, $element = null, $modifiers = []): ?string
     {
         return BEMService::getClassNamesString($block, $element, $modifiers);
+    }
+
+    /**
+     * Generate a hash (HMAC) for a given string
+     *
+     * @param string $string The string for which a hash should be generated
+     * @return string The hash of the string
+     * @throws InvalidArgumentForHashGenerationException if something else than a string was given as parameter
+     */
+    public function generateHmac($string): string
+    {
+        return $this->hashService->generateHmac((string) $string);
+    }
+
+    /**
+     * Tests if a string $string matches the HMAC given by $hash.
+     *
+     * @param string $string The string which should be validated
+     * @param string $hmac The hash of the string
+     * @return boolean true if string and hash fit together, false otherwise.
+     */
+    public function validateHmac($string, $hmac)
+    {
+        return ($this->generateHmac($string) === $hmac);
     }
 
     /**

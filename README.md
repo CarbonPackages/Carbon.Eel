@@ -673,6 +673,23 @@ Examples:
 
 Returns the string with one occurrence replaced
 
+### `Carbon.String.generateHmac(string)`
+
+Generate a hash (HMAC) for a given string
+
+- `string` (string, required) The string for which a hash should be generated
+
+**Return** The hash of the string
+
+### `Carbon.String.validateHmac(string, hmac)`
+
+Tests if a string $string matches the HMAC given by $hash.
+
+- `string` (string, required) The string which should be validated
+- `hmac` (string, required) The hash of the string
+
+**Return** true if string and hash fit together, false otherwise.
+
 ## Number Helper
 
 ### `Carbon.Number.format(number, decimals, dec_point, thousands_sep)`
