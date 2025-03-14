@@ -533,7 +533,7 @@ Examples:
 
 ### `Carbon.String.titleCaseWords(input)`
 
-Make every word title case. Splits by uppercase letters, - and _
+Make every word title case. Splits by uppercase letters, ., - and _
 
 For example, `Carbon.String.titleCaseWords('  createWebsite_user for-neos  ')` results in `'Create Website User For Neos'`
 

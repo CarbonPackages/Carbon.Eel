@@ -272,8 +272,8 @@ class StringHelper implements ProtectedContextAwareInterface
         if (!$string) {
             return '';
         }
-        // Replace - and _ with a space
-        $string = str_replace(['-', '_'], ' ', $string);
+        // Replace -/_/. with a space
+        $string = str_replace(['-', '_', '.'], ' ', $string);
         // Place before each uppercase letter a space
         $string = implode(' ', preg_split('/(?=[A-Z])/', $string));
         // Remove double space and trim the string
