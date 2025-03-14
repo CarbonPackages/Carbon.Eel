@@ -262,6 +262,27 @@ class StringHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Make every word title case. Splits by uppercase letters, - and _
+     *
+     * @param string|null $string
+     * @return string
+     */
+    public function titleCaseWords(?string $string = null): string
+    {
+        if (!$string) {
+            return '';
+        }
+        // Replace - and _ with a space
+        $string = str_replace(['-', '_'], ' ', $string);
+        // Place before each uppercase letter a space
+        $string = implode(' ', preg_split('/(?=[A-Z])/', $string));
+        // Remove double space and trim the string
+        $string = trim(preg_replace('/(\s)+/', ' ', $string));
+        // Every word should be title case
+        return ucwords($string);
+    }
+
+    /**
      * @deprecated Please use Carbon.String.classNames instead
      *
      * @param iterable|mixed $arguments Optional variable list of arrays / values

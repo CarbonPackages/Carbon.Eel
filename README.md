@@ -531,6 +531,16 @@ Examples:
 
 **Return** The converted string
 
+### `Carbon.String.titleCaseWords(input)`
+
+Make every word title case. Splits by uppercase letters, - and _
+
+For example, `Carbon.String.titleCaseWords('  createWebsite_user for-neos  ')` results in `'Create Website User For Neos'`
+
+- `input` (string) A string to convert
+
+**Return** The converted string
+
 ### `Carbon.String.convertToString(input, separator)`
 
 Helper to make sure to get a string back.
@@ -539,9 +549,9 @@ Examples:
 
 | Expression                                                  | Result          |
 | ----------------------------------------------------------- | --------------- |
-| `Carbon.String.convertCamelCase(' helloworld  ')`           | `'helloworld'`  |
-| `Carbon.String.convertCamelCase([' hello', ' world'])`      | `'hello world'` |
-| `Carbon.String.convertCamelCase([' hello', ' world'], '-')` | `'hello-world'` |
+| `Carbon.String.convertToString(' helloworld  ')`           | `'helloworld'`  |
+| `Carbon.String.convertToString([' hello', ' world'])`      | `'hello world'` |
+| `Carbon.String.convertToString([' hello', ' world'], '-')` | `'hello-world'` |
 
 - `input` (string, array) A string or an array to convert
 - `separator` (string, optional) The separator between the words, defaults to whitespace
