@@ -162,12 +162,12 @@ Check if the given variable is countable
 
 ## Date Helper
 
-### `Carbon.Date.secondsUntil(string)`
+### `Carbon.Date.secondsUntil(string|DateTime, dateinerval)`
 
-Return seconds until the given offset. . Very useful for `maximumLifetime` on the `@cache` entry.
+Return seconds until the given offset or datetime. Very useful for `maximumLifetime` on the `@cache` entry.
 
-- `string` (string) The offset in [`DateInterval` format] starting from midnight
-- `dateinerval` (boolean, optional) true if interval should be used or the $offset should be parsed, defaults to `true`
+- `string` (string|DateTime) DateTime (string or object) or an offset in [`DateInterval` format] starting from midnight
+- `dateinerval` (boolean, optional) true if interval should be used or first argument should be used for the date, defaults to `true`
 
 In this example, we clear the cache at midnight by adding an offset of 0 hours.
 
@@ -183,6 +183,12 @@ To get the seconds until next year, you can do it like this:
 
 ```elm
 secondUntilNextYear = ${Carbon.Date.secondsUntil('first day of January next year', false)}
+```
+
+You can also compare date with this: (In this case, you don't need to set `dateinerval` to `false`)
+
+```elm
+secondUntilNextYear = ${Carbon.Date.secondsUntil(DateTimeObject)}
 ```
 
 **Return** The timespan in seconds (integer)

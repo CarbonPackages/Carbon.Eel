@@ -16,22 +16,24 @@ use function explode;
 class DateHelper implements ProtectedContextAwareInterface
 {
     /**
-     * Return seconds until the given offset.
+     * Return seconds until the given offset or datetime.
      *
-     * @param string offset in dateinerval format starting from midnight
+     * @param string|DateTime $input datetime (string or object) or an offset in dateinerval format starting from midnight
      * @see: https://www.php.net/manual/en/dateinterval.format.php
-     * @param boolean $dateinerval true if interval should be used or the $offset should be parsed
+     * @param boolean $dateinerval true if interval should be used or the $input should be parsed
      * @throws EelException
      * @return int
      *
      */
-    public function secondsUntil(string $offset, $dateinerval = true): int
+    public function secondsUntil(string|DateTime $input, $dateinerval = true): int
     {
         $now = new DateTime();
-        if ($dateinerval) {
+        if ($input instanceof DateTime) {
+            $then = $input;
+        } elseif ($dateinerval) {
             $then = new DateTime();
             try {
-                $interval = new DateInterval($offset);
+                $interval = new DateInterval($input);
                 $then
                     ->setTime(0, 0, 0)
                     ->add($interval);
@@ -47,7 +49,7 @@ class DateHelper implements ProtectedContextAwareInterface
                 $then->add(new DateInterval('P1D'));
             }
         } else {
-            $then = new DateTime($offset);
+            $then = new DateTime($input);
         }
 
         return $then->getTimestamp() - $now->getTimestamp();
