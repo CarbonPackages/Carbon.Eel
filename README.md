@@ -188,7 +188,7 @@ secondUntilNextYear = ${Carbon.Date.secondsUntil('first day of January next year
 You can also compare date with this: (In this case, you don't need to set `dateinerval` to `false`)
 
 ```elm
-secondUntilNextYear = ${Carbon.Date.secondsUntil(DateTimeObject)}
+compareDateToNow = ${Carbon.Date.secondsUntil(DateTimeObject)}
 ```
 
 **Return** The timespan in seconds (integer)
