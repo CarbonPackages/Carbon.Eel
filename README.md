@@ -775,6 +775,25 @@ Replace all placeholders with corresponding values if they exist in the translat
 
 Returns the translated label or source label / ID key
 
+## Version Helper
+
+Helper for comparing
+
+### `Carbon.Version.lowerThanNine()`
+
+Returns `true` if the Flow version is lower than 9.
+
+### `Carbon.Version.compare(versionString, optionalOperator)`
+
+Compares the Flow version with the given versionString.
+
+- `versionString` (string) PHP-standardized version number string
+- `optionalOperator` (string, optional) An optional operator. The possible operators are: `<`, `lt`, `<=`, `le`, `>`, `gt`, `>=`, `ge`, `==`, `=`, `eq`, `!=`, `<>`, `ne` respectively.
+
+Returns by default `-1` if the Flow version is lower than the `versionString`, `0` if they are equal, and 1 if the `versionString` is lower than Flow.
+
+When using the optional operator argument, the function will return `true` if the relationship is the one specified by the operator, `false` otherwise.
+
 ## Installation
 
 Carbon.Eel is available via packagist. Just run

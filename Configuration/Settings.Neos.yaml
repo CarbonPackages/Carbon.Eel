@@ -9,6 +9,7 @@ Neos:
       Carbon.Number: 'Carbon\Eel\EelHelper\NumberHelper'
       Carbon.String: 'Carbon\Eel\EelHelper\StringHelper'
       Carbon.Tailwind: 'Carbon\Eel\EelHelper\TailwindHelper'
+      Carbon.Version: 'Carbon\Eel\EelHelper\VersionHelper'
       Tailwind: 'Carbon\Eel\EelHelper\TailwindHelper'
       AlpineJS: 'Carbon\Eel\EelHelper\AlpineJSHelper'
   Neos:
