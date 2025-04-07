@@ -312,8 +312,8 @@ Carbon:
   Eel:
     tailwindMergeConfig:
       classGroups:
-        'font-size':
-          - text: ['very-large']
+        "font-size":
+          - text: ["very-large"]
 ```
 
 You can also enable different [validators], to make everything easier. For instance, if you use the
@@ -324,14 +324,18 @@ Carbon:
   Eel:
     tailwindMergeConfig:
       classGroups:
-        'fill-lightness':
-          - 'fill-lightness-offset': ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
-        'border-lightness':
-          - 'border-lightness-offset': ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
-        'text-lightness':
-          - 'text-lightness-offset': ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
-        'bg-lightness':
-          - 'bg-lightness-offset': ['INTEGER_VALIDATOR', 'ARBITRARY_NUMBER_VALIDATOR']
+        "fill-lightness":
+          - "fill-lightness-offset":
+              ["INTEGER_VALIDATOR", "ARBITRARY_NUMBER_VALIDATOR"]
+        "border-lightness":
+          - "border-lightness-offset":
+              ["INTEGER_VALIDATOR", "ARBITRARY_NUMBER_VALIDATOR"]
+        "text-lightness":
+          - "text-lightness-offset":
+              ["INTEGER_VALIDATOR", "ARBITRARY_NUMBER_VALIDATOR"]
+        "bg-lightness":
+          - "bg-lightness-offset":
+              ["INTEGER_VALIDATOR", "ARBITRARY_NUMBER_VALIDATOR"]
 ```
 
 If you want to use a certain validator, just change it to constant case and add it as a string.
@@ -354,7 +358,7 @@ Examples:
 | ------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
 | `AlpineJS.object({effect: 'slide', spaceBetween: 12, loop: true, navigation: null})` | `"{effect:'slide',spaceBetween:12,loop:true,navigation:null}"` |
 | `AlpineJS.object({nested: {value: true, nulled: null'}})`                            | `"{nested:{value:true,nulled:null}}"`                          |
-| `AlpineJS.object({persistedNumber: '$persist(5)'})`                                  | `"{persistedNumber:$persist(5)}"`                                       |
+| `AlpineJS.object({persistedNumber: '$persist(5)'})`                                  | `"{persistedNumber:$persist(5)}"`                              |
 | `AlpineJS.object({value: 'someValue', log(value): '{console.log(value)}'})`          | `"{value:'someValue',log(value){console.log(value)}}"`         |
 
 Of course you can also pass `DataStructures` to the helper:
@@ -539,7 +543,7 @@ Examples:
 
 ### `Carbon.String.titleCaseWords(input)`
 
-Make every word title case. Splits by uppercase letters, ., - and _
+Make every word title case. Splits by uppercase letters, ., - and \_
 
 For example, `Carbon.String.titleCaseWords('  createWebsite_user for-neos  ')` results in `'Create Website User For Neos'`
 
@@ -553,8 +557,8 @@ Helper to make sure to get a string back.
 
 Examples:
 
-| Expression                                                  | Result          |
-| ----------------------------------------------------------- | --------------- |
+| Expression                                                 | Result          |
+| ---------------------------------------------------------- | --------------- |
 | `Carbon.String.convertToString(' helloworld  ')`           | `'helloworld'`  |
 | `Carbon.String.convertToString([' hello', ' world'])`      | `'hello world'` |
 | `Carbon.String.convertToString([' hello', ' world'], '-')` | `'hello-world'` |
@@ -705,6 +709,26 @@ Tests if a string $string matches the HMAC given by $hash.
 - `hmac` (string, required) The hash of the string
 
 **Return** true if string and hash fit together, false otherwise.
+
+### `Carbon.String.heading(tagName, modifier)`
+
+Generate a heading tag name name based on the given tag name and modifier.
+
+The possible input & output tags are: `h1`, `h2`, `h3`, `h4`, `h5`, `h6` and `p`.
+If the input tag is not one of theese, the same tag gets returned.
+
+Examples:
+
+| Expression                        | Result |
+| --------------------------------- | ------ |
+| `Carbon.String.heading('h1')`     | `'h2'` |
+| `Carbon.String.heading('p', -5)`  | `'h2'` |
+| `Carbon.String.heading('h1', 2)`  | `'h3'` |
+| `Carbon.String.heading('h2', -1)` | `'h1'` |
+| `Carbon.String.heading('h2', -2)` | `'h1'` |
+| `Carbon.String.heading('h1', 5)`  | `'h6'` |
+| `Carbon.String.heading('h1', 6)`  | `'p'`  |
+| `Carbon.String.heading('ul')`     | `'ul'` |
 
 ## Number Helper
 

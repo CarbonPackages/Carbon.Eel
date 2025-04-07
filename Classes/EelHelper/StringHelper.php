@@ -82,6 +82,45 @@ class StringHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Generate a heading tag name name based on the given tag name and modifier
+     *
+     * @param string $tagName The tag name
+     * @param int    $modifier The modifier
+     * @return string
+     */
+    public function heading(string $tagName, int $modifier = 1): string
+    {
+        if ($modifier === 0) {
+            return $tagName;
+        }
+        $tagName = strtolower($tagName);
+        $maxHeadings = 6;
+
+        if ($tagName === 'p') {
+            if ($modifier > 0) {
+                return 'p';
+            }
+            $type = $maxHeadings - abs($modifier) + 1;
+            if ($type > $maxHeadings) {
+                $type = $maxHeadings;
+            }
+            return 'h' . max($type, 1);
+        }
+
+        if (!preg_match('/^h[1-6]$/', $tagName)) {
+            return $tagName;
+        }
+
+        // Get the number of the heading
+        $number = (int)substr($tagName, 1);
+        $type = $number + $modifier;
+        if ($type > $maxHeadings) {
+            return 'p';
+        }
+        return 'h' . max($type, 1);
+    }
+
+    /**
      * Minify CSS
      *
      * @param string $css The CSS string
