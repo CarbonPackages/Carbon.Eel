@@ -344,6 +344,37 @@ class StringHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Generate styles from the given arguments
+     *
+     * @param iterable|mixed $arguments
+     * @return string|null The merged string
+     */
+    public function styles(...$arguments): ?string
+    {
+        $keyedResult = [];
+        foreach ($arguments as $argument) {
+            if (is_array($argument)) {
+                foreach ($argument as $key => $value) {
+                    if ((is_numeric($value) || is_string($value)) && is_string($key)) {
+                        $keyedResult[$key] = $value;
+                    }
+                }
+            }
+        }
+
+        $result = [];
+        foreach ($keyedResult as $key => $value) {
+            $result[] = sprintf('%s:%s;', $key, $value);
+        }
+
+        if (count($result)) {
+            return implode('', $result);
+        }
+
+        return null;
+    }
+
+    /**
      * Replace non-breaking spaces and double spaces with a normal space
      *
      * Examples:
