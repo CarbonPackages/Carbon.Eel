@@ -13,6 +13,7 @@ use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Security\Cryptography\HashService;
 use Neos\Flow\Validation\Validator\EmailAddressValidator;
+use Traversable;
 use function implode;
 use function is_array;
 use function lcfirst;
@@ -353,9 +354,12 @@ class StringHelper implements ProtectedContextAwareInterface
     {
         $keyedResult = [];
         foreach ($arguments as $argument) {
+            if ($argument instanceof Traversable) {
+                $argument = iterator_to_array($argument);
+            }
             if (is_array($argument)) {
                 foreach ($argument as $key => $value) {
-                    if ((is_numeric($value) || is_string($value)) && is_string($key)) {
+                    if ((is_numeric($value) || ($value && is_string($value))) && is_string($key)) {
                         $keyedResult[$key] = $value;
                     }
                 }
@@ -364,6 +368,7 @@ class StringHelper implements ProtectedContextAwareInterface
 
         $result = [];
         foreach ($keyedResult as $key => $value) {
+            $key = $this->convertCamelCase($key, '-');
             $result[] = sprintf('%s:%s;', $key, $value);
         }
 
