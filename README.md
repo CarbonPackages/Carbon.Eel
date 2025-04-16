@@ -801,8 +801,6 @@ Returns the translated label or source label / ID key
 
 ## Version Helper
 
-Helper for comparing
-
 ### `Carbon.Version.lowerThanNine()`
 
 Returns `true` if the Flow version is lower than 9.
