@@ -5,6 +5,8 @@ namespace Carbon\Eel\EelHelper;
 use Behat\Transliterator\Transliterator;
 use Carbon\Eel\Service\BEMService;
 use Carbon\Eel\Service\MergeClassesService;
+use Carbon\Eel\Service\StringConversionService;
+use Carbon\Eel\Service\StylesService;
 use MatthiasMullie\Minify;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Eel\EvaluationException;
@@ -13,25 +15,17 @@ use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Security\Cryptography\HashService;
 use Neos\Flow\Validation\Validator\EmailAddressValidator;
-use Traversable;
-use function implode;
-use function is_array;
-use function lcfirst;
 use function preg_match_all;
 use function preg_last_error;
 use function preg_replace;
 use function str_replace;
 use function strtolower;
 use function trim;
-use function ucwords;
 
 class StringHelper implements ProtectedContextAwareInterface
 {
-    /**
-     * @Flow\Inject
-     * @var HashService
-     */
-    protected $hashService;
+    #[Flow\Inject]
+    protected HashService $hashService;
 
     /**
      * Generates a BEM string
@@ -191,10 +185,7 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function toPascalCase(string $string): string
     {
-        $string = Transliterator::urlize((string) $string);
-        $string = str_replace('-', '', ucwords($string, '-'));
-
-        return $string;
+        return StringConversionService::toPascalCase($string);
     }
 
     /**
@@ -205,7 +196,7 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function toCamelCase(string $string): string
     {
-        return lcfirst($this->toPascalCase($string));
+        return StringConversionService::toCamelCase($string);
     }
 
     /**
@@ -223,16 +214,18 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function convertCamelCase($string, $separator = '-'): string
     {
-        $string = (string) $string;
-        $separator = (string) $separator;
+        return StringConversionService::convertCamelCase($string, $separator);
+    }
 
-        return strtolower(
-            preg_replace(
-                '/([a-zA-Z])(?=[A-Z])/',
-                '$1' . $separator,
-                $string
-            )
-        );
+    /**
+     * Make every word title case. Splits by uppercase letters, - and _
+     *
+     * @param string|null $string
+     * @return string
+     */
+    public function titleCaseWords(?string $string = null): string
+    {
+        return StringConversionService::titleCaseWords($string);
     }
 
     /**
@@ -257,7 +250,6 @@ class StringHelper implements ProtectedContextAwareInterface
         return substr_replace($string, $replace, $pos, strlen($search));
     }
 
-
     /**
      * Helper to make sure we got a string back
      *
@@ -273,11 +265,7 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function convertToString($input, $separator = ' '): string
     {
-        $separator = (string) $separator;
-        $string = is_array($input) ? implode($separator, $input) : (string) $input;
-
-        // Remove double space and trim the string
-        return trim(preg_replace('/(\s)+/', ' ', $string));
+        return StringConversionService::convertToString($input, $separator);
     }
 
     /**
@@ -299,27 +287,6 @@ class StringHelper implements ProtectedContextAwareInterface
 
         // Remove double space and trim the string
         return preg_replace('/\n/', $separator, trim($string));
-    }
-
-    /**
-     * Make every word title case. Splits by uppercase letters, - and _
-     *
-     * @param string|null $string
-     * @return string
-     */
-    public function titleCaseWords(?string $string = null): string
-    {
-        if (!$string) {
-            return '';
-        }
-        // Replace -/_/. with a space
-        $string = str_replace(['-', '_', '.'], ' ', $string);
-        // Place before each uppercase letter a space
-        $string = implode(' ', preg_split('/(?=[A-Z])/', $string));
-        // Remove double space and trim the string
-        $string = trim(preg_replace('/(\s)+/', ' ', $string));
-        // Every word should be title case
-        return ucwords($string);
     }
 
     /**
@@ -352,31 +319,7 @@ class StringHelper implements ProtectedContextAwareInterface
      */
     public function styles(...$arguments): ?string
     {
-        $keyedResult = [];
-        foreach ($arguments as $argument) {
-            if ($argument instanceof Traversable) {
-                $argument = iterator_to_array($argument);
-            }
-            if (is_array($argument)) {
-                foreach ($argument as $key => $value) {
-                    if ((is_numeric($value) || ($value && is_string($value))) && is_string($key)) {
-                        $keyedResult[$key] = $value;
-                    }
-                }
-            }
-        }
-
-        $result = [];
-        foreach ($keyedResult as $key => $value) {
-            $key = $this->convertCamelCase($key, '-');
-            $result[] = sprintf('%s:%s;', $key, $value);
-        }
-
-        if (count($result)) {
-            return implode('', $result);
-        }
-
-        return null;
+        return StylesService::styles(...$arguments);
     }
 
     /**
