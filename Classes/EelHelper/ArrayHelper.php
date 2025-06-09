@@ -46,6 +46,23 @@ class ArrayHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Converts an iterable to an array
+     *
+     * @param iterable $array The array to convert
+     * @return array
+     */
+    public function toArray(iterable $array): array
+    {
+        if ($array instanceof Traversable) {
+            return iterator_to_array($array);
+        }
+        if (is_array($array)) {
+            return $array;
+        }
+        return [];
+    }
+
+    /**
      * Split an array into chunks
      *
      * Chunks an array into arrays with length elements.
