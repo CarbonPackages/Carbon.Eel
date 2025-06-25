@@ -215,11 +215,11 @@ class ArrayHelper implements ProtectedContextAwareInterface
     {
         $array = array(...$iterable);
         if ($direction === 'ASC') {
-            usort($array, function ($a, $b) use ($key) {
+            uasort($array, function ($a, $b) use ($key) {
                 return $a[$key] <=> $b[$key];
             });
         } else {
-            usort($array, function ($a, $b) use ($key) {
+            uasort($array, function ($a, $b) use ($key) {
                 return $b[$key] <=> $a[$key];
             });
         }
