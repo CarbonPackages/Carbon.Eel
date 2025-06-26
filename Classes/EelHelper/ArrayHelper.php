@@ -11,6 +11,7 @@ namespace Carbon\Eel\EelHelper;
 use Carbon\Eel\Service\BEMService;
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
+use Neos\Flow\I18n\EelHelper\TranslationHelper;
 use Neos\Utility\Arrays;
 use Countable;
 use InvalidArgumentException;
@@ -25,11 +26,13 @@ use function iterator_to_array;
 use function strlen;
 use function substr;
 
-/**
- * @Flow\Proxy(false)
- */
 class ArrayHelper implements ProtectedContextAwareInterface
 {
+    /**
+     * @Flow\Inject
+     * @var TranslationHelper
+     */
+    protected $translationHelper;
 
     /**
      * Generates a BEM array
@@ -209,20 +212,20 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * @param iterable $array Array with array to sort
      * @param string $key Key of array to sort
      * @param string $direction Direction of sorting
+     * @param bool $translate If true, the key will be translated using the translation service
      * @return array
      */
-    public function sortByItem(iterable $iterable, string $key, string $direction = 'ASC'): array
+    public function sortByItem(iterable $iterable, string $key, string $direction = 'ASC', bool $translate = false): array
     {
         $array = array(...$iterable);
-        if ($direction === 'ASC') {
-            uasort($array, function ($a, $b) use ($key) {
-                return $a[$key] <=> $b[$key];
-            });
-        } else {
-            uasort($array, function ($a, $b) use ($key) {
-                return $b[$key] <=> $a[$key];
-            });
-        }
+        uasort($array, function ($a, $b) use ($key, $translate, $direction) {
+            $itemA = $translate ? $this->translationHelper->translate($a[$key]) : $a[$key];
+            $itemB = $translate ? $this->translationHelper->translate($b[$key]) : $b[$key];
+            if ($direction === 'ASC') {
+                return $itemA <=> $itemB;
+            }
+            return $itemB <=> $itemA;
+        });
         return $array;
     }
 

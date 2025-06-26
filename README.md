@@ -157,6 +157,7 @@ Check if the given variable is countable
 - `array` (iterable|mixed) array with arrays to sort
 - `key` (string) Key of array to sort
 - `direction` (string, optional) `ASC` or `DESC`. Direction of sorting
+- `translate` (boolean, optional) If true, the key will be translated using the translation service
 
 **Return** The sorted array
 
