@@ -164,7 +164,7 @@ class ArrayHelper implements ProtectedContextAwareInterface
     {
         $arguments = func_get_args();
         foreach ($arguments as &$argument) {
-            if ($argument instanceof \Traversable) {
+            if ($argument instanceof Traversable) {
                 $argument = iterator_to_array($argument);
             } elseif (!is_array($argument)) {
                 $argument = [$argument];
