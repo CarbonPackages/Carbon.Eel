@@ -28,6 +28,31 @@ class StringHelper implements ProtectedContextAwareInterface
     protected HashService $hashService;
 
     /**
+     * Convert a menu filter to a FlowQuery filter
+     *
+     * Example:
+     *   Neos.Neos:Document,!Foo.Bar:Mixin.NotInMenu => [instanceof Neos.Neos:Document][!instanceof Foo.Bar:Mixin.NotInMenu]
+     *
+     * @param string $menuFilter
+     * @return string
+     */
+    public function menuFilterToFlowQueryFilter(string $menuFilter): string
+    {
+        $parts = explode(',', $menuFilter);
+        $filters = [];
+        foreach ($parts as $part) {
+            $part = trim($part);
+            if (!str_starts_with($part, '!')) {
+                $filters[] = '[instanceof ' . $part . ']';
+                continue;
+            }
+            $nodeType = substr($part, 1);
+            $filters[] = '[!instanceof ' . $nodeType . ']';
+        }
+        return implode('', $filters);
+    }
+
+    /**
      * Generates a BEM string
      *
      * @param string       $block     defaults to null

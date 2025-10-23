@@ -776,6 +776,20 @@ Examples:
 
 Returns a string with the converted value
 
+### `Carbon.String.menuFilterToFlowQueryFilter(menuFilter)`
+
+Convert a menu filter to a FlowQuery filter.
+
+Example:
+
+| Expression                                                                                 | Result                                                                   |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `Carbon.String.menuFilterToFlowQueryFilter('Neos.Neos:Document,!Foo.Bar:Mixin.NotInMenu')` | `'[instanceof Neos.Neos:Document][!instanceof Foo.Bar:Mixin.NotInMenu]'` |
+| `Carbon.String.menuFilterToFlowQueryFilter('Neos.Neos:Document')`                          | `'[instanceof Neos.Neos:Document]'`                                      |
+| `Carbon.String.menuFilterToFlowQueryFilter('!Foo.Bar:Mixin.NotInMenu')`                    | `'[!instanceof Foo.Bar:Mixin.NotInMenu]'`                                |
+
+- `menuFilter` (string) The value to process
+
 ## Backend Helper
 
 ### `Carbon.Backend.language()`
