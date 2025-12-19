@@ -731,7 +731,7 @@ Examples:
 | `Carbon.String.heading('h1', 6)`  | `'p'`  |
 | `Carbon.String.heading('ul')`     | `'ul'` |
 
-### `Carbon.String.nanoID(size, dynamic)``
+### `Carbon.String.nanoID(size, dynamic)`
 
 Generate a NanoID
 
