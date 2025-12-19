@@ -731,6 +731,13 @@ Examples:
 | `Carbon.String.heading('h1', 6)`  | `'p'`  |
 | `Carbon.String.heading('ul')`     | `'ul'` |
 
+### `Carbon.String.nanoID(size, dynamic)``
+
+Generate a NanoID
+
+- `size` (integer, optional) The size of the NanoID, defaults to `21`
+- `dynamic` (boolean, optional) Whether to use dynamic random or not, defaults to `false`
+
 ## Number Helper
 
 ### `Carbon.Number.format(number, decimals, dec_point, thousands_sep)`

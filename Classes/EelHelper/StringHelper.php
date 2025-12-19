@@ -7,6 +7,7 @@ use Carbon\Eel\Service\BEMService;
 use Carbon\Eel\Service\MergeClassesService;
 use Carbon\Eel\Service\StringConversionService;
 use Carbon\Eel\Service\StylesService;
+use Hidehalo\Nanoid\Client as NanoidClient;
 use MatthiasMullie\Minify;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Eel\EvaluationException;
@@ -50,6 +51,20 @@ class StringHelper implements ProtectedContextAwareInterface
             $filters[] = '[!instanceof ' . $nodeType . ']';
         }
         return implode('', $filters);
+    }
+
+    /**
+     * Generate a NanoID
+     *
+     * @param int  $size The size of the NanoID
+     * @param bool $dynamic Whether to use dynamic random or not
+     * @return string The generated NanoID
+     */
+    public function nanoID(int $size = 21, bool $dynamic = false): string
+    {
+        $client = new NanoidClient();
+        $mode = $dynamic ? NanoidClient::MODE_DYNAMIC : NanoidClient::MODE_NORMAL;
+        return $client->generateId($size, $mode);
     }
 
     /**
