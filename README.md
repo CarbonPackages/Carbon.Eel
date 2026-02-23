@@ -39,7 +39,7 @@ Generates an array with BEM classes. The modifiers property can be a string (for
 
 **Return** The array
 
-### `Carbon.Array.chunck(array, length, preserveKeys)`
+### `Carbon.Array.chunk(array, length, preserveKeys)`
 
 Chunks an array into arrays with `length` elements. The last chunk may contain less than `length` elements.
 
