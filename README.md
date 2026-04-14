@@ -443,6 +443,37 @@ Generates a string with BEM classes. The modifiers property can be a string (for
 
 **Return** The string
 
+### `Carbon.String.base64UrlEncode(data, padding)`
+
+Encodes a string as URL-safe Base64.
+
+Examples:
+
+| Expression                                           | Result               |
+| ---------------------------------------------------- | -------------------- |
+| `Carbon.String.base64UrlEncode('Hello World')`       | `'SGVsbG8gV29ybGQ'`  |
+| `Carbon.String.base64UrlEncode('Hello World', true)` | `'SGVsbG8gV29ybGQ='` |
+
+- `data` (string, required) The string to encode
+- `padding` (boolean, optional) If `true`, the `=` padding is preserved. Defaults to `false`
+
+**Return** The encoded string
+
+### `Carbon.String.base64UrlDecode(data)`
+
+Decodes a URL-safe Base64 string.
+
+Examples:
+
+| Expression                                          | Result          |
+| --------------------------------------------------- | --------------- |
+| `Carbon.String.base64UrlDecode('SGVsbG8gV29ybGQ')`  | `'Hello World'` |
+| `Carbon.String.base64UrlDecode('SGVsbG8gV29ybGQ=')` | `'Hello World'` |
+
+- `data` (string, required) The URL-safe Base64 string to decode
+
+**Return** The decoded string
+
 ### `Carbon.String.getPropertyFromNodeLink(node, value, propertyName, fallback)`
 
 Get a property from a node link. Can be used to get the title from a page who is linked via the link editor.

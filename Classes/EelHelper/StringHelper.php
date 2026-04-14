@@ -3,6 +3,7 @@
 namespace Carbon\Eel\EelHelper;
 
 use Behat\Transliterator\Transliterator;
+use Carbon\Eel\Service\Base64UrlService;
 use Carbon\Eel\Service\BEMService;
 use Carbon\Eel\Service\MergeClassesService;
 use Carbon\Eel\Service\StringConversionService;
@@ -16,6 +17,7 @@ use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Security\Cryptography\HashService;
 use Neos\Flow\Validation\Validator\EmailAddressValidator;
+use InvalidArgumentException;
 use function preg_match_all;
 use function preg_last_error;
 use function preg_replace;
@@ -27,6 +29,30 @@ class StringHelper implements ProtectedContextAwareInterface
 {
     #[Flow\Inject]
     protected HashService $hashService;
+
+    /**
+     * Encode data to Base64 URL format
+     *
+     * @param string $data The data to encode
+     * @param bool $padding If true, the "=" padding at end of the encoded value are kept, else it is removed
+     * @return string The encoded data
+     */
+    public function base64UrlEncode(string $data, bool $padding = false): string
+    {
+        return Base64UrlService::encode($data, $padding);
+    }
+
+    /**
+     * Decode data from Base64 URL format
+     *
+     * @param string $data The data to decode
+     * @throws InvalidArgumentException
+     * @return string The decoded data
+     */
+    public function base64UrlDecode(string $data): string
+    {
+        return Base64UrlService::decode($data);
+    }
 
     /**
      * Convert a menu filter to a FlowQuery filter
