@@ -29,6 +29,8 @@ Generates a string with BEM classes. The modifiers property can be a string (for
 
 ## Array Helper
 
+Most helpers in this section accept iterables in addition to plain arrays.
+
 ### `Carbon.Array.BEM(block, element, modifiers)`
 
 Generates an array with BEM classes. The modifiers property can be a string (for one modifier), an array (e.g. `['one', 'two']`), or an array with keys and values. If you have an array with keys and values (like a Fusion DataStructure) and the value is `true`, the key's name gets used for the modifier.
@@ -39,11 +41,19 @@ Generates an array with BEM classes. The modifiers property can be a string (for
 
 **Return** The array
 
+### `Carbon.Array.toArray(iterable)`
+
+Converts an iterable to an array. Arrays are returned as-is, `Traversable` values are converted using `iterator_to_array()`, and non-array values result in an empty array.
+
+- `iterable` (iterable, required) The iterable to convert
+
+**Return** The converted array
+
 ### `Carbon.Array.chunk(array, length, preserveKeys)`
 
 Chunks an array into arrays with `length` elements. The last chunk may contain less than `length` elements.
 
-- `array` (array, required) The array to work on
+- `array` (iterable, required) The iterable to work on
 - `length` (integer, required) The size of each chunk
 - `preserveKeys` (bool) When set to `true`, keys will be preserved. Default is `false`, which will reindex the chunk numerically
 
@@ -140,11 +150,14 @@ Sets the given value in a nested array or object by following the specified path
 array = ${Carbon.Array.setValueByPath(subject, path, value)}
 ```
 
-### `Carbon.Array.check(variable)`
+### `Carbon.Array.check(variable, returnEmptyArray)`
 
-Check if a variable is iterable and has items
+Check if a variable is iterable and has items.
 
-**Return** The variable or `null` if it is empty or not an iterable
+- `variable` (mixed) The variable to check
+- `returnEmptyArray` (boolean, optional) If set to `true`, an empty array is returned instead of `null` when the variable is empty or not iterable
+
+**Return** The variable or `null`/`[]` if it is empty or not an iterable
 
 ### `Carbon.Array.isCountable(variable)`
 

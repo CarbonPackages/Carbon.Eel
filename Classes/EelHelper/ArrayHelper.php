@@ -312,15 +312,19 @@ class ArrayHelper implements ProtectedContextAwareInterface
      * Check if a variable is iterable and has items
      *
      * @param mixed $variable The iterable / array
+     * @param bool $returnEmptyArray If true, an empty array will be returned instead of null if the variable is not iterable or has no items
      * @return mixed
      */
-    public function check($variable)
+    public function check($variable, bool $returnEmptyArray = false)
     {
         if ($variable instanceof Traversable && iterator_count($variable)) {
             return $variable;
         }
         if (is_array($variable) && count($variable)) {
             return $variable;
+        }
+        if ($returnEmptyArray) {
+            return [];
         }
         return null;
     }
