@@ -707,6 +707,38 @@ Examples:
 
 **Return** The phone number, optimized for links
 
+### `Carbon.String.ltrim(string, characterMask)`
+
+Strip newlines, tabs, null bytes, or other specified characters from the beginning of a string.
+
+Examples:
+
+| Expression                                   | Result          |
+| -------------------------------------------- | --------------- |
+| `Carbon.String.ltrim('\n\tHello World')`     | `'Hello World'` |
+| `Carbon.String.ltrim('...Hello World', '.')` | `'Hello World'` |
+
+- `string` (string) The string to process
+- `characterMask` (string, optional) The characters to strip; ranges can be specified with `..`. Defaults to `\n\r\t\v\0`, preserving regular spaces
+
+**Return** The string with matching leading characters removed
+
+### `Carbon.String.rtrim(string, characterMask)`
+
+Strip newlines, tabs, null bytes, or other specified characters from the end of a string.
+
+Examples:
+
+| Expression                                   | Result          |
+| -------------------------------------------- | --------------- |
+| `Carbon.String.rtrim('Hello World\n\t')`     | `'Hello World'` |
+| `Carbon.String.rtrim('Hello World...', '.')` | `'Hello World'` |
+
+- `string` (string) The string to process
+- `characterMask` (string, optional) The characters to strip; ranges can be specified with `..`. Defaults to `\n\r\t\v\0`, preserving regular spaces
+
+**Return** The string with matching trailing characters removed
+
 ### `Carbon.String.isValidEmail(emailAddress)`
 
 Checks if the string is a valid email address

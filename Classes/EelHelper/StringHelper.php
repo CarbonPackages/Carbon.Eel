@@ -24,6 +24,8 @@ use function preg_replace;
 use function str_replace;
 use function strtolower;
 use function trim;
+use function ltrim;
+use function rtrim;
 
 class StringHelper implements ProtectedContextAwareInterface
 {
@@ -493,6 +495,30 @@ class StringHelper implements ProtectedContextAwareInterface
         }
 
         return $phoneNumber;
+    }
+
+    /**
+     * Strip whitespace (or other characters) from the beginning of a string
+     *
+     * @param string $string The input string.
+     * @param string $characterMask Optionally, the stripped characters can also be specified using the characters parameter. Simply list all characters that need to be stripped. With .. it is possible to specify an incrementing range of characters.
+     * @return string
+     */
+    public function ltrim(string $string, string $characterMask = "\n\r\t\v\x00"): string
+    {
+        return ltrim($string, $characterMask);
+    }
+
+    /**
+     * Strip whitespace (or other characters) from the end of a string
+     *
+     * @param string $string The input string.
+     * @param string $characterMask Optionally, the stripped characters can also be specified using the characters parameter. Simply list all characters that need to be stripped. With .. it is possible to specify an incrementing range of characters.
+     * @return string
+     */
+    public function rtrim(string $string, string $characterMask = "\n\r\t\v\x00"): string
+    {
+        return rtrim($string, $characterMask);
     }
 
     /**
