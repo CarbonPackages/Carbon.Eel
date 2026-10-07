@@ -136,7 +136,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
         }
 
         if (is_string($value)) {
-            return sprintf("'%s'", $value);
+            return sprintf('`%s`', $value);
         }
 
         if (is_bool($value)) {
@@ -150,7 +150,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
      * Generates a string from an array with keys
      *
      * @param iterable|array $array
-     * @param bool $outputNull
+     * @param bool $returnNull
      * @return string
      */
     private function keyedArrayToString($array, $returnNull = false): string
