@@ -49,6 +49,15 @@ Converts an iterable to an array. Arrays are returned as-is, `Traversable` value
 
 **Return** The converted array
 
+### `Carbon.Array.unsetKeys(array, keys)`
+
+Removes the specified keys from an iterable and returns the remaining entries as an array.
+
+- `array` (iterable, required) The iterable to remove keys from
+- `keys` (string[], required) The keys to remove
+
+**Return** The array with the specified keys removed
+
 ### `Carbon.Array.chunk(array, length, preserveKeys)`
 
 Chunks an array into arrays with `length` elements. The last chunk may contain less than `length` elements.

@@ -49,6 +49,22 @@ class ArrayHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Removes the specified keys from the array
+     *
+     * @param iterable $array
+     * @param string[] $keys
+     * @return array
+     */
+    public function unsetKeys(iterable $array, array $keys): array
+    {
+        $array = $this->toArray($array);
+        foreach ($keys as $key) {
+            unset($array[$key]);
+        }
+        return $array;
+    }
+
+    /**
      * Converts an iterable to an array
      *
      * @param iterable $array The array to convert
