@@ -195,7 +195,9 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
     private function getKeyAndValue(string $key, string $value): string
     {
         $isMethod = preg_match('/^[a-zA-Z0-9]+\(.*\)$/', $key, $matches);
-        $valueIsFunctionBody = str_starts_with($value, "'{") && str_ends_with($value, "}'");
+        $valueIsFunctionBody =
+            (str_starts_with($value, "`{") && str_ends_with($value, "}`"))
+            || (str_starts_with($value, "'{") && str_ends_with($value, "}'"));
         if ($isMethod && $valueIsFunctionBody) {
             $value = substr($value, 1, -1);
             return $key . $value;
