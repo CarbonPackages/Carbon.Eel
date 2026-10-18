@@ -368,6 +368,18 @@ So, for examle, if you want to use the `TshirtSizeValidator`, just add `TSHIRT_S
 
 ## AlpineJS Helper
 
+### `useTemplateLiteralsForAlpineJS`
+
+By default, strings passed to `AlpineJS.object`, `AlpineJS.function` and `AlpineJS.magic` are emitted as single-quoted JavaScript strings, with embedded single quotes escaped. Set this option to `true` to emit them as backtick-quoted template literals instead:
+
+```yaml
+Carbon:
+  Eel:
+    useTemplateLiteralsForAlpineJS: true
+```
+
+For example, the string `Hello` is emitted as `'Hello'` by default and as `` `Hello` `` when enabled. This also changes how method bodies are specified in `AlpineJS.object`: use backticks around the body, such as `` `console.log(value)` ``. Note that backticks and `${...}` in string values have JavaScript template-literal meaning and are not escaped by the helper.
+
 ### `AlpineJS.object(arg1, arg2, ..argN)`
 
 Generate an object for AlpineJS directive [`x-data`](https://alpinejs.dev/directives/data).
