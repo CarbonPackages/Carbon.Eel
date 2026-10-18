@@ -1,3 +1,4 @@
 Carbon:
   Eel:
+    useTemplateLiteralsForAlpineJS: false
     tailwindMergeConfig: null

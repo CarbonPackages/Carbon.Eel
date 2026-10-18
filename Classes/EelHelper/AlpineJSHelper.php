@@ -6,11 +6,15 @@ use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Flow\Annotations as Flow;
 use Traversable;
 
-/**
- * @Flow\Proxy(false)
- */
 class AlpineJSHelper implements ProtectedContextAwareInterface
 {
+
+    /**
+     * @var bool
+     * @Flow\InjectConfiguration(path="useTemplateLiteralsForAlpineJS")
+     */
+    protected $useTemplateLiteralsForAlpineJS;
+
     /**
      * @deprecated Please use AlpineJS.function instead
      * Generate a function call for AlpineJS  Example: x-data="name(arg1, arg2, ..argN)" https://alpinejs.dev/globals/alpine-data
@@ -136,7 +140,12 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
         }
 
         if (is_string($value)) {
-            return sprintf('`%s`', $value);
+            if ($this->useTemplateLiteralsForAlpineJS) {
+                return sprintf("`%s`", $value);
+            }
+            // escape single quotes in the string
+            $value = str_replace("'", "\\'", $value);
+            return sprintf("'%s'", $value);
         }
 
         if (is_bool($value)) {
@@ -195,9 +204,8 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
     private function getKeyAndValue(string $key, string $value): string
     {
         $isMethod = preg_match('/^[a-zA-Z0-9]+\(.*\)$/', $key, $matches);
-        $valueIsFunctionBody =
-            (str_starts_with($value, "`{") && str_ends_with($value, "}`"))
-            || (str_starts_with($value, "'{") && str_ends_with($value, "}'"));
+        $valueIsFunctionBody = $this->useTemplateLiteralsForAlpineJS ? (str_starts_with($value, "`{") && str_ends_with($value, "}`")) : (str_starts_with($value, "'{") && str_ends_with($value, "}'"));
+
         if ($isMethod && $valueIsFunctionBody) {
             $value = substr($value, 1, -1);
             return $key . $value;
@@ -210,7 +218,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
      * Generates a string from an array
      *
      * @param iterable|array $array
-     * @param bool $outputNull
+     * @param bool $returnNull
      * @return string
      */
     private function arrayToString($array, $returnNull = false): string
