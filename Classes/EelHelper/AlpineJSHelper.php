@@ -17,6 +17,12 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
     protected $useTemplateLiteralsForAlpineJS;
 
     /**
+     * @var array
+     * @Flow\InjectConfiguration(path="magicFunctionsNames")
+     */
+    protected $magicFunctionsNames;
+
+    /**
      * @deprecated Please use AlpineJS.function instead
      * Generate a function call for AlpineJS  Example: x-data="name(arg1, arg2, ..argN)" https://alpinejs.dev/globals/alpine-data
      *
@@ -107,27 +113,19 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
      */
     private function returnValue($value, $returnNull = false, ?string $key = null)
     {
-        if (is_string($value) && str_starts_with($value, self::EXPRESSION_PREFIX)) {
+        $valueIsString = is_string($value);
+
+        if ($valueIsString && str_starts_with($value, self::EXPRESSION_PREFIX)) {
             return substr($value, strlen(self::EXPRESSION_PREFIX));
         }
 
-        // Handle some Alpine.js magics automatically
-        if (
-            is_string($value) && str_ends_with($value, ')') &&
-            (
-                str_starts_with($value, '$data(') ||
-                str_starts_with($value, '$dispatch(') ||
-                str_starts_with($value, '$el(') ||
-                str_starts_with($value, '$id(') ||
-                str_starts_with($value, '$nextTick(') ||
-                str_starts_with($value, '$persist(') ||
-                str_starts_with($value, '$refs(') ||
-                str_starts_with($value, '$root(') ||
-                str_starts_with($value, '$store(') ||
-                str_starts_with($value, '$watch(')
-            )
-        ) {
-            return $value;
+        // Handle magic functions based on the configuration
+        if ($valueIsString && str_ends_with($value, ')')) {
+            foreach ($this->magicFunctionsNames as $magicFunction => $enabled) {
+                if ($enabled && str_starts_with($value, '$' . $magicFunction . '(')) {
+                    return $value;
+                }
+            }
         }
 
         if (is_null($value)) {
@@ -141,7 +139,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
             return $value;
         }
 
-        if (is_string($value)) {
+        if ($valueIsString) {
             if ($this->isJavascriptFunction($key, $value)) {
                 return $value;
             }

@@ -2,3 +2,14 @@ Carbon:
   Eel:
     useTemplateLiteralsForAlpineJS: false
     tailwindMergeConfig: null
+    magicFunctionsNames:
+      data: true
+      dispatch: true
+      el: true
+      id: true
+      nextTick: true
+      persist: true
+      refs: true
+      root: true
+      store: true
+      watch: true
