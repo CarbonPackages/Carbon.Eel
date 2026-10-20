@@ -8,6 +8,7 @@ use Traversable;
 
 class AlpineJSHelper implements ProtectedContextAwareInterface
 {
+    const EXPRESSION_PREFIX = '__EXPRESSION__';
 
     /**
      * @var bool
@@ -93,7 +94,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
      */
     public function expression($value): string
     {
-        return sprintf('__EXPRESSION__%s', $value);
+        return sprintf('%s%s', self::EXPRESSION_PREFIX, $value);
     }
 
     /**
@@ -105,8 +106,8 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
      */
     private function returnValue($value, $returnNull = false)
     {
-        if (is_string($value) && str_starts_with($value, '__EXPRESSION__')) {
-            return substr($value, 14);
+        if (is_string($value) && str_starts_with($value, self::EXPRESSION_PREFIX)) {
+            return substr($value, strlen(self::EXPRESSION_PREFIX));
         }
 
         // Handle some Alpine.js magics automatically
