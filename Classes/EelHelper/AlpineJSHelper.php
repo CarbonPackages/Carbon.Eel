@@ -102,9 +102,10 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
      *
      * @param mixed $value
      * @param bool $returnNull
+     * @param string|null $key The key associated with the value, if applicable
      * @return mixed
      */
-    private function returnValue($value, $returnNull = false)
+    private function returnValue($value, $returnNull = false, ?string $key = null)
     {
         if (is_string($value) && str_starts_with($value, self::EXPRESSION_PREFIX)) {
             return substr($value, strlen(self::EXPRESSION_PREFIX));
@@ -141,6 +142,9 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
         }
 
         if (is_string($value)) {
+            if ($this->isJavascriptFunction($key, $value)) {
+                return $value;
+            }
             if ($this->useTemplateLiteralsForAlpineJS) {
                 return sprintf("`%s`", $value);
             }
@@ -180,7 +184,7 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
                 continue;
             }
 
-            $value = $this->returnValue($value, $returnNull);
+            $value = $this->returnValue($value, $returnNull, $key);
 
             if (is_null($value)) {
                 if (!$returnNull) {
@@ -196,6 +200,25 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Check if the key and value are a javascript function
+     *
+     * @param string|null $key
+     * @param mixed $value
+     * @return boolean
+     */
+    private function isJavascriptFunction(?string $key = null, mixed $value = null): bool
+    {
+        if (empty($key) || empty($value) || !is_string($value)) {
+            return false;
+        }
+        $isMethod = preg_match('/^[a-zA-Z0-9]+\(.*\)$/', $key, $matches);
+        if (!$isMethod) {
+            return false;
+        }
+        return str_starts_with($value, '{') && str_ends_with($value, '}');
+    }
+
+    /**
      * Get the key for the array
      *
      * @param string $key
@@ -204,12 +227,12 @@ class AlpineJSHelper implements ProtectedContextAwareInterface
      */
     private function getKeyAndValue(string $key, string $value): string
     {
-        $isMethod = preg_match('/^[a-zA-Z0-9]+\(.*\)$/', $key, $matches);
-        $valueIsFunctionBody = $this->useTemplateLiteralsForAlpineJS ? (str_starts_with($value, "`{") && str_ends_with($value, "}`")) : (str_starts_with($value, "'{") && str_ends_with($value, "}'"));
-
-        if ($isMethod && $valueIsFunctionBody) {
-            $value = substr($value, 1, -1);
+        if ($this->isJavascriptFunction($key, $value)) {
             return $key . $value;
+        }
+
+        if (str_contains($key, '-')) {
+            $key = sprintf("'%s'", $key);
         }
 
         return $key . ':' . $value;
